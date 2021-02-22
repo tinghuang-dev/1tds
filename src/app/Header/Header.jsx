@@ -1,39 +1,23 @@
 import React from 'react';
-import Link from 'next/link';
+import styled from 'styled-components';
+import MenuLeft from './components/MenuLeft/MenuLeft';
+import LogoName from './components/LogoName';
+import Logo from './components/Logo';
+import MenuRight from './components/MenuRight/MenuRight';
+
+const Nav = styled.header`
+  display :flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 
 const Header = () => (
-  <ul>
-    <li>
-      <Link href="/">
-        <a>主页</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/become-a-captain">
-        <a>成为团长</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/faq">
-        <a>FAQ</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/map">
-        <a>Map</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/products/95908813">
-        <a>Product</a>
-      </Link>
-    </li>
-    <li>
-      <Link href="/user/profile">
-        <a>User Profile</a>
-      </Link>
-    </li>
-  </ul>
+  <Nav>
+    <MenuLeft />
+    <LogoName />
+    <Logo />
+    <MenuRight />
+  </Nav>
 );
 
 export default Header;
