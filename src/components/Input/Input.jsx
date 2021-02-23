@@ -7,11 +7,14 @@ const Input = styled.input`
   border: 1px solid #C97A40;
   box-sizing: border-box;
   border-radius: 8px;
-  padding: 4.5px 16px;
-  font-family: 'Microsoft YaHei';
+  padding: 4px 16px;
   font-size: 18px;
 
-  border-color: ${(props) => props.error && 'blue'};
+  &:focus {
+    border-color: #6097E5;
+  }
+
+  border-color: ${(props) => props.error && '#E83D32;'};
 `;
 
 export default Input;
