@@ -72,19 +72,17 @@ const Introduction = styled.div`
 
 export default function BecomeACaptainPage() {
   const {
-    validateInput,
-    handleInputChange,
-    getValues,
+    validate,
+    handleChange,
+    values,
     touched,
     toggleTouched,
   } = useForm(config);
 
-  const formValues = getValues();
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!validateInput()) {
+    if (!validate()) {
       toggleTouched();
     }
   };
@@ -102,29 +100,33 @@ export default function BecomeACaptainPage() {
         </Introduction>
 
         <Form onSubmit={handleSubmit}>
-          {Object.keys(config).map((key) => (
-            <Fragment key={key}>
-              <InputWrapper>
-                <label htmlFor={key}>
-                  {config[key].label}
-                </label>
-                <FormInput
-                  type={config[key].inputType || 'text'}
-                  name={key}
-                  onChange={handleInputChange(key)}
-                  value={formValues[key]}
-                  error={touched && (
-                    !!config[key].isInValid?.(formValues[key], formValues))}
-                />
-              </InputWrapper>
+          {Object.keys(config).map((key) => {
+            const errorMessage = config[key].getErrorMessage?.(values[key], values);
+            const error = touched && !!errorMessage;
 
-              {touched && (
-                <ErrorMessage>
-                  {config[key].isInValid?.(formValues[key], formValues)}
-                </ErrorMessage>
-              )}
-            </Fragment>
-          ))}
+            return (
+              <Fragment key={key}>
+                <InputWrapper>
+                  <label htmlFor={key}>
+                    {config[key].label}
+                  </label>
+                  <FormInput
+                    type={config[key].inputType || 'text'}
+                    name={key}
+                    onChange={handleChange(key)}
+                    value={values[key]}
+                    error={error}
+                  />
+                </InputWrapper>
+
+                {error && (
+                  <ErrorMessage>
+                    {errorMessage}
+                  </ErrorMessage>
+                )}
+              </Fragment>
+            );
+          })}
 
           <SubmitButton type="submit">
             成为团长
