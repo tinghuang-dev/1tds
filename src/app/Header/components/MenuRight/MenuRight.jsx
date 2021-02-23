@@ -1,25 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import Button from '../../../../components/Button';
 
 const Right = styled.ul`
   list-style: none;
   display: flex;
 `;
 
-const SignIn = styled.button`
-    display: flex;
-    padding: 10px 16px;
-    background: #EB9050;
-    border-radius: 8px;
-    border: none;
-    color: #ffffff;
-    font-family: ZCOOL KuaiLe;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 2px;
+const SignIn = styled(Button)`
     margin-right: 10px;
 `;
 

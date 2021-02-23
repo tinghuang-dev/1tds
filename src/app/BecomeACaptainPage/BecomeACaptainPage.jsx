@@ -2,27 +2,31 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
 
-const FormWrapper = styled.div`
+const FormArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  position: absolute;
+  width: 612px;
+  right: 50%;
+  background: #FCEAC6;
+  padding: 40px 0;
 `;
 
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0;
+  width: 100%;
+  margin: 20px 0 24px;
 `;
 
-const Input = styled.input`
+const FormInput = styled(Input)`
   margin-left: 10px;
-  outline: none;
-
-  border-color: ${(props) => props.error && 'red'};
 `;
 
 const ErrorMessage = styled.div`
@@ -31,12 +35,39 @@ const ErrorMessage = styled.div`
   justify-content: flex-end;
 `;
 
-const SubmitButton = styled.button`
-  width: 100%;
+const SubmitButton = styled(Button)`
+  padding: 16px 24px;
+  margin-top: 64px;
+  font-size: 24px;
+  width: 149px;
+  height: 52px;
+`;
 
-  &:hover {
-    cursor: pointer;
-  }
+const FormRow = styled.div`
+  height: auto;
+  background-color: lightblue;
+  height: 915px;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 83.5px;
+`;
+
+const Title = styled.h1`
+  font-family: 'ZCOOL KuaiLe';
+  font-size: 72px;
+  margin: 30px 0;
+  font-weight: 400;
+`;
+
+const Introduction = styled.div`
+  padding: 0 50px;
+  margin: 20px 0;
 `;
 
 export default function BecomeACaptainPage() {
@@ -59,40 +90,47 @@ export default function BecomeACaptainPage() {
   };
 
   return (
-    <FormWrapper>
-      <h1>
-        成为团长
-      </h1>
+    <FormRow>
+      <FormArea>
+        <Title>
+          团购主理人
+        </Title>
 
-      <form onSubmit={handleSubmit}>
-        {Object.keys(config).map((key) => (
-          <Fragment key={key}>
-            <InputWrapper>
-              <label htmlFor={key}>
-                {config[key].label}
-              </label>
-              <Input
-                type={config[key].inputType || 'text'}
-                name={key}
-                onChange={handleInputChange(key)}
-                value={formValues[key]}
-                error={touched && (
-                  !!config[key].isInValid?.(formValues[key], formValues))}
-              />
-            </InputWrapper>
+        <Introduction>
+          罗列一些介绍。。。。Lorem ipsum dolor sit amet, consec adip g elit.
+          Amet mattis id rpis vel auctor diam. Amet orci
+        </Introduction>
 
-            {touched && (
-              <ErrorMessage>
-                {config[key].isInValid?.(formValues[key], formValues)}
-              </ErrorMessage>
-            )}
-          </Fragment>
-        ))}
+        <Form onSubmit={handleSubmit}>
+          {Object.keys(config).map((key) => (
+            <Fragment key={key}>
+              <InputWrapper>
+                <label htmlFor={key}>
+                  {config[key].label}
+                </label>
+                <FormInput
+                  type={config[key].inputType || 'text'}
+                  name={key}
+                  onChange={handleInputChange(key)}
+                  value={formValues[key]}
+                  error={touched && (
+                    !!config[key].isInValid?.(formValues[key], formValues))}
+                />
+              </InputWrapper>
 
-        <SubmitButton type="submit">
-          注册
-        </SubmitButton>
-      </form>
-    </FormWrapper>
+              {touched && (
+                <ErrorMessage>
+                  {config[key].isInValid?.(formValues[key], formValues)}
+                </ErrorMessage>
+              )}
+            </Fragment>
+          ))}
+
+          <SubmitButton type="submit">
+            成为团长
+          </SubmitButton>
+        </Form>
+      </FormArea>
+    </FormRow>
   );
 }
