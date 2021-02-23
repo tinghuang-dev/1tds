@@ -4,10 +4,11 @@ import styled from 'styled-components';
 
 const Left = styled.ul`
   list-style: none;
+  padding-left: 0px;
 `;
 const List = styled.li`
   display: inline-block;
-  padding: 0px 30px 0px 40px;
+  padding: 0px 32px 0px 0px;
 `;
 const StyledLink = styled.a`
   color: #C97A40;
@@ -20,6 +21,11 @@ const StyledLink = styled.a`
 `;
 const MenuLeft = () => (
   <Left>
+    <List>
+      <Link href="/" passHref>
+        <StyledLink>一团袋鼠</StyledLink>
+      </Link>
+    </List>
     <List>
       <Link href="/become-a-captain" passHref>
         <StyledLink>成为团长</StyledLink>
