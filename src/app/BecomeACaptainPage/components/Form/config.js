@@ -44,7 +44,7 @@ const config = {
     inputType: 'password',
     getErrorMessage: (confirmPassword, formValues) => (
       (!confirmPassword && alertEmpty(config.confirmPassword.label))
-      || (confirmPassword !== formValues.password && '邮箱格式不正确')
+      || (confirmPassword !== formValues.password && '输入密码不符')
     ),
   },
 };
