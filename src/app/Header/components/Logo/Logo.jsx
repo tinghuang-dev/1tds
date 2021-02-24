@@ -6,7 +6,6 @@ import Image from 'next/image';
 const LogoPosition = styled.div`
   width: 110px;
   position: absolute;
-  z-index: 100;
 `;
 
 const SemiCircle = styled.div`
@@ -18,7 +17,7 @@ const SemiCircle = styled.div`
   height: 60px;
   width: 110px;
   background: white;
-  z-index: 50;
+  z-index: 1;
   border-bottom: 1px solid rgba(88, 73, 62, 0.2);
 `;
 const LogoContainer = styled.a`

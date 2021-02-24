@@ -1,6 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useState, React } from 'react';
+import Login from './Login';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 
@@ -26,25 +27,36 @@ const SearchIcon = styled.div`
   left: -30px;
   top: 9px;
 `;
-const MenuRight = () => (
-  <Right>
-    <li>
-      <SearchBar>
-        <SearchInput type="text" />
-        <SearchIcon>
-          <Image
-            alt="SearchIcon"
-            src="/images/icons/searchIcon.svg"
-            layout="fill"
-            objectFit="contain"
-          />
-        </SearchIcon>
-      </SearchBar>
-    </li>
-    <li>
-      <SignIn size="lg">登陆</SignIn>
-    </li>
-  </Right>
-);
+
+const MenuRight = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleLoginModalShow = (event) => {
+    event.preventDefault();
+    setShowLoginModal((preState) => !preState);
+  };
+
+  return (
+    <Right>
+      <li>
+        <SearchBar>
+          <SearchInput type="text" />
+          <SearchIcon>
+            <Image
+              alt="SearchIcon"
+              src="/images/icons/searchIcon.svg"
+              layout="fill"
+              objectFit="contain"
+            />
+          </SearchIcon>
+        </SearchBar>
+      </li>
+      <li>
+        <SignIn size="lg" onClick={handleLoginModalShow}>登陆</SignIn>
+        {showLoginModal && <Login onClose={handleLoginModalShow} />}
+      </li>
+    </Right>
+  );
+};
 
 export default MenuRight;
