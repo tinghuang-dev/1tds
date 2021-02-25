@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../../components/Container';
 import Form from './components/Form';
+import Benefits from './components/Benefits';
+import BusinessProcess from './components/BusinessProcess';
+import CaptainLinkBlock from './components/CaptainLinkBlock';
 
 const StyledBecomeACaptainPage = styled.div`
   background-color: lightblue;
@@ -46,27 +49,32 @@ const InfoLink = styled.a`
 
 export default function BecomeACaptainPage() {
   return (
-    <StyledBecomeACaptainPage>
-      <Container>
-        <BecomeACaptain>
-          <Title>
-            团购主理人
-          </Title>
+    <>
+      <StyledBecomeACaptainPage>
+        <Container>
+          <BecomeACaptain>
+            <Title>
+              团购主理人
+            </Title>
 
-          <Introduction>
-            实现自身价值，工作顾家两不误。
-            帮你打造社区邻里间的超值社区电商。
-            你只需要维护社群，建群拼团，分享好物。
-            我们提供一站式帮扶指导，并提供优质社区客户，让你居家就能做生意！
-          </Introduction>
+            <Introduction>
+              实现自身价值，工作顾家两不误。
+              帮你打造社区邻里间的超值社区电商。
+              你只需要维护社群，建群拼团，分享好物。
+              我们提供一站式帮扶指导，并提供优质社区客户，让你居家就能做生意！
+            </Introduction>
 
-          <InfoLinkContainer>
-            <InfoLink>了解更多</InfoLink>
-          </InfoLinkContainer>
+            <InfoLinkContainer>
+              <InfoLink>了解更多</InfoLink>
+            </InfoLinkContainer>
 
-          <Form />
-        </BecomeACaptain>
-      </Container>
-    </StyledBecomeACaptainPage>
+            <Form />
+          </BecomeACaptain>
+        </Container>
+      </StyledBecomeACaptainPage>
+      <Benefits />
+      <BusinessProcess />
+      <CaptainLinkBlock />
+    </>
   );
 }
