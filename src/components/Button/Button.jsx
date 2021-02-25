@@ -31,6 +31,10 @@ const Button = styled.button`
       padding: 16px 20px;
       font-size: 18px;
     `,
+    xl: css`
+      padding: 20px 24px;
+      font-size: 20px;
+    `,
   }[props.size || 'default'])}
 `;
 
