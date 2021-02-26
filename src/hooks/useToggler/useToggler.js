@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export default function useToggler() {
-  const [state, setState] = useState(false);
+export default function useToggler(initialState = false) {
+  const [state, setState] = useState(initialState);
 
   const toggleState = (targetState) => {
     if (targetState) {

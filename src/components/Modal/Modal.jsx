@@ -51,7 +51,7 @@ const Title = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 60px 0px;
+  padding: 60px 50px;
 `;
 
 export default function Modal({
