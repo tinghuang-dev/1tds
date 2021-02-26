@@ -23,12 +23,10 @@ const Overlay = styled.div`
 
 const StyledModal = styled.div`
   background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 8px;
   position: relative;
   height: auto;
+  width: 550px;
 `;
 
 const CloseButton = styled.button`
@@ -45,7 +43,7 @@ const CloseButton = styled.button`
 const Title = styled.div`
   font-family: 'ZCOOL KuaiLe';
   font-size: 36px;
-  margin: 0px 200px 50px;
+  margin-bottom: 36px;
   font-weight: 400;
   text-align: center;
 `;

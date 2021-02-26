@@ -5,6 +5,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
+  word-break: keep-all;
 
   ${(props) => ({
     sm: css`
