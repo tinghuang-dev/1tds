@@ -7,7 +7,6 @@ import useForm from '../../../../../hooks/useForm';
 import config from './formConfig';
 
 const Form = styled.form`
-  width: 325px;
   margin: 0 auto;
 `;
 
