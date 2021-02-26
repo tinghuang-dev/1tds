@@ -18,7 +18,7 @@ const ErrorMessage = styled.div`
   margin-top: 4px;
 `;
 
-const InputWrapper = styled.div`
+const Layout = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -32,6 +32,11 @@ const SubmitButton = styled(Button)`
 const Label = styled.label`
   margin-top: 8px;
   font-size: 18px;
+  width: 100px;
+`;
+
+const InputWrapper = styled.div`
+  flex: 1;
 `;
 
 export default function Form({ onSubmit }) {
@@ -54,35 +59,37 @@ export default function Form({ onSubmit }) {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      {Object.keys(config).map((key) => {
-        const errorMessage = config[key].getErrorMessage?.(values[key], values);
-        const error = touched && !!errorMessage;
+    <>
+      <StyledForm onSubmit={handleSubmit}>
+        {Object.keys(config).map((key) => {
+          const errorMessage = config[key].getErrorMessage?.(values[key], values);
+          const error = touched && !!errorMessage;
 
-        return (
-          <Fragment key={key}>
-            <InputWrapper>
-              <Label htmlFor={key}>
-                {config[key].label}
-              </Label>
+          return (
+            <Fragment key={key}>
+              <Layout>
+                <Label htmlFor={key}>
+                  {config[key].label}
+                </Label>
 
-              <div>
-                <Input
-                  type={config[key].inputType || 'text'}
-                  name={key}
-                  onChange={handleChange(key)}
-                  value={values[key]}
-                  error={error}
-                />
+                <InputWrapper>
+                  <Input
+                    type={config[key].inputType || 'text'}
+                    name={key}
+                    onChange={handleChange(key)}
+                    value={values[key]}
+                    error={error}
+                  />
 
-                {error && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
-              </div>
-            </InputWrapper>
-          </Fragment>
-        );
-      })}
+                  {error && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
+                </InputWrapper>
+              </Layout>
+            </Fragment>
+          );
+        })}
 
-      <SubmitButton type="submit">成为团长</SubmitButton>
-    </StyledForm>
+        <SubmitButton type="submit">成为团长</SubmitButton>
+      </StyledForm>
+    </>
   );
 }

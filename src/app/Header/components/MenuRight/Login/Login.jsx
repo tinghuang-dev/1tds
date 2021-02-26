@@ -26,7 +26,6 @@ const LabelWrapper = styled.div`
 
 const Label = styled.label`
   font-size: 18px;
-  width: 330px;
 `;
 
 const LoginButton = styled(Button)`
