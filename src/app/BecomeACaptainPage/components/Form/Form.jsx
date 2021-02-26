@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
+import useToggler from '../../../../hooks/useToggler';
+import InviteMemberModal from './components/InviteMemberModal';
 import config from './config';
 
 const StyledForm = styled.form`
@@ -40,6 +42,8 @@ const InputWrapper = styled.div`
 `;
 
 export default function Form({ onSubmit }) {
+  const [showInviteMemberModal, toggleShowInviteMemberModal] = useToggler(true);
+
   const {
     validate,
     handleChange,
@@ -90,6 +94,11 @@ export default function Form({ onSubmit }) {
 
         <SubmitButton type="submit">成为团长</SubmitButton>
       </StyledForm>
+      {showInviteMemberModal && (
+        <InviteMemberModal
+          onClose={() => toggleShowInviteMemberModal()}
+        />
+      )}
     </>
   );
 }
