@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useToggler from '../useToggler/useToggler';
 
 export default function useForm(config) {
   const keys = Object.keys(config);
@@ -10,7 +11,7 @@ export default function useForm(config) {
 
   const [state, setState] = useState(initialState);
 
-  const [touched, setTouched] = useState(false);
+  const [touched, toggleTouched] = useToggler();
 
   const values = keys.reduce((acc, key) => ({
     ...acc,
@@ -34,10 +35,6 @@ export default function useForm(config) {
       ...prevState,
       [key]: event.target.value,
     }));
-  };
-
-  const toggleTouched = () => {
-    setTouched((prevState) => !prevState);
   };
 
   const form = {

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from '../../../../components/Link';
 
-const LogoPosition = styled.div`
+const Wrapper = styled.div`
   width: 110px;
   position: absolute;
 `;
@@ -20,25 +20,27 @@ const SemiCircle = styled.div`
   z-index: 1;
   border-bottom: 1px solid rgba(88, 73, 62, 0.2);
 `;
-const LogoContainer = styled.a`
+
+const PositionContainer = styled.div`
   position: absolute;
   top: -60px;
 `;
+
 const Logo = () => (
-  <LogoPosition>
+  <Wrapper>
     <SemiCircle>
-      <Link href="/" passHref>
-        <LogoContainer>
+      <PositionContainer>
+        <Link href="/">
           <Image
             alt="Logo"
             src="/images/logo/logo.svg"
             width={75}
             height={110}
           />
-        </LogoContainer>
-      </Link>
+        </Link>
+      </PositionContainer>
     </SemiCircle>
-  </LogoPosition>
+  </Wrapper>
 );
 
 export default Logo;

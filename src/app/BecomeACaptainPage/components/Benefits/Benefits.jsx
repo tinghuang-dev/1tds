@@ -84,7 +84,7 @@ const data = [
 ];
 
 const Benefits = () => (
-  <>
+  <div id="info">
     <BenefitContainer>
       <BenefitTitle>利弊分析</BenefitTitle>
       <BenefitCardRow>
@@ -103,7 +103,7 @@ const Benefits = () => (
         ))}
       </BenefitCardRow>
     </BenefitContainer>
-  </>
+  </div>
 );
 
 export default Benefits;

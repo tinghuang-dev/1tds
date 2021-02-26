@@ -9,17 +9,17 @@ const Right = styled.ul`
   list-style: none;
   display: flex;
 `;
+
 const SearchBar = styled.div`
   display: flex;
 `;
-const SignIn = styled(Button)`
-  height: 35px;
-`;
+
 const SearchInput = styled(Input)`
   height: 35px;
   width: 230px;
   background: #F2F2F2;
 `;
+
 const SearchIcon = styled.div`
   position: relative;
   height: 20px;
@@ -52,7 +52,7 @@ const MenuRight = () => {
         </SearchBar>
       </li>
       <li>
-        <SignIn size="lg" onClick={handleLoginModalShow}>登陆</SignIn>
+        <Button size="md" onClick={handleLoginModalShow}>登陆</Button>
         {showLoginModal && <Login onClose={handleLoginModalShow} />}
       </li>
     </Right>

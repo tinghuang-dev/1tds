@@ -1,40 +1,37 @@
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
+import Link from '../../../../components/Link';
 
 const Left = styled.ul`
   list-style: none;
   padding-left: 0px;
 `;
+
 const List = styled.li`
   display: inline-block;
   padding: 0px 32px 0px 0px;
 `;
-const StyledLink = styled.a`
+
+const NavigationLink = styled(Link)`
   color: #C97A40;
-  font-family: ZCOOL KuaiLe;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 20px;
-  letter-spacing: 2px;
 `;
+
 const MenuLeft = () => (
   <Left>
     <List>
-      <Link href="/" passHref>
-        <StyledLink>一团袋鼠</StyledLink>
-      </Link>
+      <NavigationLink href="/">
+        一团袋鼠
+      </NavigationLink>
     </List>
     <List>
-      <Link href="/become-a-captain" passHref>
-        <StyledLink>成为团长</StyledLink>
-      </Link>
+      <NavigationLink href="/become-a-captain">
+        成为团长
+      </NavigationLink>
     </List>
     <List>
-      <Link href="/faq" passHref>
-        <StyledLink>常见问题</StyledLink>
-      </Link>
+      <NavigationLink href="/faq">
+        常见问题
+      </NavigationLink>
     </List>
   </Left>
 );

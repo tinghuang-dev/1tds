@@ -13,6 +13,11 @@ const StyledForm = styled.form`
   padding: 0 48px;
 `;
 
+const ErrorMessage = styled.div`
+  color: #E83D32;
+  margin-top: 4px;
+`;
+
 const InputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,15 +25,8 @@ const InputWrapper = styled.div`
   margin: 12px 0;
 `;
 
-const ErrorMessage = styled.div`
-  color: #E83D32;
-  margin-top: 4px;
-  font-size: 16px;
-`;
-
 const SubmitButton = styled(Button)`
   margin-top: 24px;
-  width: 150px;
 `;
 
 const Label = styled.label`
@@ -36,7 +34,7 @@ const Label = styled.label`
   font-size: 18px;
 `;
 
-export default function Form() {
+export default function Form({ onSubmit }) {
   const {
     validate,
     handleChange,
@@ -50,6 +48,8 @@ export default function Form() {
 
     if (!validate()) {
       toggleTouched();
+    } else {
+      onSubmit();
     }
   };
 
@@ -82,7 +82,7 @@ export default function Form() {
         );
       })}
 
-      <SubmitButton type="submit" size="lg">成为团长</SubmitButton>
+      <SubmitButton type="submit">成为团长</SubmitButton>
     </StyledForm>
   );
 }

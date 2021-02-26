@@ -1,8 +1,5 @@
 import validator from 'validator';
-
-function alertEmpty(label) {
-  return `请填写${label}`;
-}
+import alertEmpty from '../../../../utils/alertEmpty';
 
 const config = {
   name: {

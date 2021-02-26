@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Container from '../../components/Container';
-import Form from './components/Form';
+import Link from '../../components/Link';
 import Benefits from './components/Benefits';
 import BusinessProcess from './components/BusinessProcess';
 import CaptainLinkBlock from './components/CaptainLinkBlock';
+import Form from './components/Form';
 
-const StyledBecomeACaptainPage = styled.div`
+const FormWrapper = styled.div`
   background-color: lightblue;
 `;
 
@@ -37,20 +38,10 @@ const InfoLinkContainer = styled.div`
   margin-bottom: 52px;
 `;
 
-const InfoLink = styled.a`
-  font-family: ZCOOL KuaiLe;
-  font-size: 18px;
-  color: #6097E6;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export default function BecomeACaptainPage() {
   return (
     <>
-      <StyledBecomeACaptainPage>
+      <FormWrapper>
         <Container>
           <BecomeACaptain>
             <Title>
@@ -65,13 +56,14 @@ export default function BecomeACaptainPage() {
             </Introduction>
 
             <InfoLinkContainer>
-              <InfoLink>了解更多</InfoLink>
+              <Link href="#info">了解更多</Link>
             </InfoLinkContainer>
 
             <Form />
           </BecomeACaptain>
         </Container>
-      </StyledBecomeACaptainPage>
+      </FormWrapper>
+
       <Benefits />
       <BusinessProcess />
       <CaptainLinkBlock />
