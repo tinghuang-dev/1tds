@@ -9,7 +9,7 @@ const BenefitContainer = styled(Container)`
 `;
 
 const BenefitTitle = styled.div`
-  font-family: ZCOOL KuaiLe;
+  font-family: 'ZCOOL KuaiLe';
   font-size: 48px;
   letter-spacing: 8px;
 `;
@@ -22,11 +22,11 @@ const BenefitCardRow = styled.div`
 
 const BenefitCard = styled.div`
   display: flex;
-  flex-direction: row;
+  flex: 1 0 50%;
   padding: 4px 8px;
   margin: 20px 0;
-  width: 490px;
   border-radius: 8px;
+  align-items: center;
 `;
 
 const CardIcon = styled.div`
@@ -38,8 +38,7 @@ const CardIcon = styled.div`
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  width: 400px;
+  flex: 1;
 `;
 
 const ContentTitle = styled.div`
@@ -56,27 +55,27 @@ const ContentDescription = styled.div`
 const data = [
   {
     key: '运营支持',
-    icon: '/images/icons/supportBusiness.png',
+    icon: '/images/icons/supportBusiness.svg',
     title: '运营支持',
     content: '专业运营团队手把手教学，让你无经验上手无压力。',
   },
   {
     key: '管理生意',
-    icon: '/images/icons/manageBusiness.png',
+    icon: '/images/icons/manageBusiness.svg',
     title: '轻松管理你的生意',
     content:
       '简单快速处理订单，高效会员管理系统。可视化数据分析让你的生意如虎添翼。',
   },
   {
     key: '海量客户',
-    icon: '/images/icons/moreCustomer.png',
+    icon: '/images/icons/moreCustomer.svg',
     title: '海量优质客户',
     content:
       '平台采用邀请制，聚集了大量有经验的优质团购客户，让你轻松扩展社交圈，好东西不愁没销路。',
   },
   {
     key: '实现价值',
-    icon: '/images/icons/reachGoal.png',
+    icon: '/images/icons/reachGoal.svg',
     title: '实现人生价值',
     content:
       '如果你有一颗服务邻里的心，又或者追求精品美食且喜欢分享。在这里你不仅可以收获一份可观的收入，同时也会获得一份来自邻里的尊敬与情谊。',
@@ -86,7 +85,7 @@ const data = [
 const Benefits = () => (
   <div id="info">
     <BenefitContainer>
-      <BenefitTitle>利弊分析</BenefitTitle>
+      <BenefitTitle>平台优势</BenefitTitle>
       <BenefitCardRow>
         {data.map(({
           key, icon, title, content,

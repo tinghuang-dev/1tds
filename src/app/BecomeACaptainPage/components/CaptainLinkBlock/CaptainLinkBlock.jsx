@@ -14,8 +14,8 @@ const CaptainLinkContainer = styled(Container)`
 `;
 
 const ProcessTitle = styled.div`
-  padding:0 200px;
-  font-family: ZCOOL KuaiLe;
+  padding:0 100px;
+  font-family: 'ZCOOL KuaiLe';
   font-size: 48px;
   line-height: 1.3;
   text-align: center;
@@ -25,7 +25,7 @@ const ProcessTitle = styled.div`
 
 const BecomeCaptainButton = styled(Button)`
   background: #97a73f;
-  font-family: ZCOOL KuaiLe;
+  font-family: 'ZCOOL KuaiLe';
   font-size: 22px;
   letter-spacing: 4px;
   color: #ffffff;

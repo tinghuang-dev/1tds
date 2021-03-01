@@ -10,7 +10,7 @@ const ProcessContainer = styled(Container)`
 
 const ProcessTitle = styled.div`
   text-align: center;
-  font-family: ZCOOL KuaiLe;
+  font-family: 'ZCOOL KuaiLe';
   font-size: 48px;
   letter-spacing: 8px;
   margin: 32px auto;
@@ -45,7 +45,7 @@ const CardContent = styled.div`
 `;
 
 const ContentTitle = styled.div`
-  font-family: ZCOOL KuaiLe;
+  font-family: 'ZCOOL KuaiLe';
   font-size: 26px;
   text-align: center;
   margin: 0 auto;
@@ -61,25 +61,25 @@ const ContentDescription = styled.div`
 const data = [
   {
     key: '邀请团员',
-    icon: '/images/icons/inviteMember.png',
+    icon: '/images/icons/inviteMember.svg',
     title: '邀请团员',
     content: '通过发送指定链接',
   },
   {
     key: '添加商品',
-    icon: '/images/icons/addProduct.png',
+    icon: '/images/icons/addProduct.svg',
     title: '添加商品',
     content: '将商品加入列表',
   },
   {
     key: '发起团购',
-    icon: '/images/icons/createGroupBuy.png',
+    icon: '/images/icons/createGroupBuy.svg',
     title: '发起团购',
     content: '进行销售',
   },
   {
     key: '管理订单',
-    icon: '/images/icons/manageOrder.png',
+    icon: '/images/icons/manageOrder.svg',
     title: '管理订单',
     content: '管理库存与订单',
   },

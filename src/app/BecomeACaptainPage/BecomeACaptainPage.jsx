@@ -20,7 +20,7 @@ const BecomeACaptain = styled.div`
 const Title = styled.h1`
   font-family: 'ZCOOL KuaiLe';
   font-size: 56px;
-  margin: 20px 0;
+  margin: 0 0 20px;
   font-weight: 400;
   text-align: center;
 `;
@@ -34,7 +34,7 @@ const InfoLinkContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   margin-top: 4px;
-  margin-bottom: 52px;
+  margin-bottom: 24px;
 `;
 
 export default function BecomeACaptainPage() {
@@ -44,7 +44,7 @@ export default function BecomeACaptainPage() {
         <Container>
           <BecomeACaptain>
             <Title>
-              团购主理人
+              成为团长
             </Title>
 
             <Introduction>
