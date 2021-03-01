@@ -11,7 +11,6 @@ const StyledBar = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
-  max-width: 100%;
 `;
 
 const ContactWrapper = styled.div`

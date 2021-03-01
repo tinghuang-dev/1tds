@@ -1,44 +1,20 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Button from '../../../../components/Button';
-import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
 import useToggler from '../../../../hooks/useToggler';
 import InviteMemberModal from './components/InviteMemberModal';
 import config from './config';
+import Input from '../../../../components/Input';
+import FormItem from '../../../../components/FormItem';
 
 const StyledForm = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 0 48px;
 `;
 
-const ErrorMessage = styled.div`
-  color: #E83D32;
-  margin-top: 4px;
-`;
-
-const Layout = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 12px 0;
-`;
-
-const SubmitButton = styled(Button)`
+const CallToAction = styled.div`
   margin-top: 24px;
-`;
-
-const Label = styled.label`
-  margin-top: 8px;
-  font-size: 18px;
-  width: 100px;
-`;
-
-const InputWrapper = styled.div`
-  flex: 1;
+  text-align: center;
 `;
 
 export default function Form({ onSubmit }) {
@@ -70,29 +46,25 @@ export default function Form({ onSubmit }) {
           const error = touched && !!errorMessage;
 
           return (
-            <Fragment key={key}>
-              <Layout>
-                <Label htmlFor={key}>
-                  {config[key].label}
-                </Label>
-
-                <InputWrapper>
-                  <Input
-                    type={config[key].inputType || 'text'}
-                    name={key}
-                    onChange={handleChange(key)}
-                    value={values[key]}
-                    error={error}
-                  />
-
-                  {error && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
-                </InputWrapper>
-              </Layout>
-            </Fragment>
+            <FormItem
+              key={key}
+              layout="inline"
+              label={config[key].label}
+              errorMessage={error && errorMessage}
+            >
+              <Input
+                type={config[key].inputType || 'text'}
+                name={key}
+                onChange={handleChange(key)}
+                value={values[key]}
+                error={error}
+              />
+            </FormItem>
           );
         })}
-
-        <SubmitButton type="submit">成为团长</SubmitButton>
+        <CallToAction>
+          <Button size="lg" type="submit">成为团长</Button>
+        </CallToAction>
       </StyledForm>
       {showInviteMemberModal && (
         <InviteMemberModal

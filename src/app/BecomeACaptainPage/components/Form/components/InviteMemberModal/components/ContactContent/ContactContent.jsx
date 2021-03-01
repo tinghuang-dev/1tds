@@ -12,7 +12,7 @@ const Notice = styled.div`
 `;
 
 const BlockTitle = styled.div`
-  margin: 32px 0 16px;
+  margin: 32px 0px 16px;
   padding-bottom: 12px;
   border-bottom: 1px solid #202020;
   font-size: 20px;

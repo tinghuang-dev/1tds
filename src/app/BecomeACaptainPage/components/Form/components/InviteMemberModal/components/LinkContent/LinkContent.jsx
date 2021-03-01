@@ -6,7 +6,6 @@ import Input from '../../../../../../../../components/Input';
 
 const StyledLinkContent = styled.div`
   margin-top: 60px;
-  width: 100%;
 `;
 
 const QRCodeContainer = styled.div`

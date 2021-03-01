@@ -31,7 +31,6 @@ const Introduction = styled.div`
 `;
 
 const InfoLinkContainer = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row-reverse;
   margin-top: 4px;
