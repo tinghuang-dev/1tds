@@ -1,19 +1,28 @@
 import validator from 'validator';
-
-function alertEmpty(label) {
-  return `请填写${label}`;
-}
+import alertEmpty from '../../../../../utils/alertEmpty';
+import getMessage from '../../../../../utils/getMessage';
 
 const config = {
   email: {
     label: '邮箱',
-    getErrorMessage: (email) => (!email && alertEmpty(config.email.label))
-      || (!validator.isEmail(email) && '邮箱格式不正确'),
+    getErrorMessage: (email) => getMessage([
+      {
+        error: !email,
+        message: alertEmpty(config.email.label),
+      },
+      {
+        error: !validator.isEmail(email),
+        message: '邮箱格式不正确',
+      },
+    ]),
   },
   password: {
     label: '密码',
     inputType: 'password',
-    getErrorMessage: (password) => !password && alertEmpty(config.password.label),
+    getErrorMessage: (password) => getMessage([{
+      error: !password,
+      message: alertEmpty(config.password.label),
+    }]),
   },
 };
 

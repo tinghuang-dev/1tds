@@ -17,8 +17,8 @@ const CallToAction = styled.div`
   text-align: center;
 `;
 
-export default function Form({ onSubmit }) {
-  const [showInviteMemberModal, toggleShowInviteMemberModal] = useToggler(true);
+export default function Form() {
+  const [showInviteMemberModal, toggleShowInviteMemberModal] = useToggler(false);
 
   const {
     validate,
@@ -31,10 +31,10 @@ export default function Form({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!validate()) {
-      toggleTouched();
-    } else {
-      onSubmit();
+    if (!touched) toggleTouched();
+
+    if (validate()) {
+      toggleShowInviteMemberModal();
     }
   };
 
