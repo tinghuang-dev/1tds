@@ -1,0 +1,14 @@
+{
+  "development": {
+    "username": "root",
+    "password": "123456",
+    "database": "ytds",
+    "host": "localhost",
+    "dialect": "mysql",
+    "timezone": "Australia/Melbourne",
+    "dialectOptions": {
+      "timezone": "local"
+    }
+  }
+}
+
