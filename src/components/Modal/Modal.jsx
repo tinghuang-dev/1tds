@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import Heading from '../Heading';
 
 const HideBodyOverflow = createGlobalStyle`
   body {
@@ -40,11 +41,8 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Title = styled.div`
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 36px;
+const Title = styled(Heading)`
   margin-bottom: 36px;
-  font-weight: 400;
   text-align: center;
 `;
 
@@ -71,7 +69,7 @@ export default function Modal({
             />
           </CloseButton>
           <Content>
-            {title && <Title>{title}</Title>}
+            {title && <Title size="md">{title}</Title>}
             {children}
           </Content>
         </StyledModal>

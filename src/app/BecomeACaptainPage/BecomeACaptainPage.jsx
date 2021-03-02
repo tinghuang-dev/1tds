@@ -6,6 +6,7 @@ import Benefits from './components/Benefits';
 import BusinessProcess from './components/BusinessProcess';
 import CaptainLinkBlock from './components/CaptainLinkBlock';
 import Form from './components/Form';
+import Heading from '../../components/Heading';
 
 const FormWrapper = styled.div`
   background-color: lightblue;
@@ -17,11 +18,8 @@ const BecomeACaptain = styled.div`
   padding: 40px 48px;
 `;
 
-const Title = styled.h1`
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 56px;
+const Title = styled(Heading)`
   margin: 0 0 20px;
-  font-weight: 400;
   text-align: center;
 `;
 
@@ -43,7 +41,7 @@ export default function BecomeACaptainPage() {
       <FormWrapper>
         <Container>
           <BecomeACaptain>
-            <Title>
+            <Title size="xl">
               成为团长
             </Title>
 

@@ -2,16 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Container from '../../../../components/Container';
+import Heading from '../../../../components/Heading';
 
 const BenefitContainer = styled(Container)`
   padding: 80px 140px;
   box-sizing: border-box;
-`;
-
-const BenefitTitle = styled.div`
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 48px;
-  letter-spacing: 8px;
 `;
 
 const BenefitCardRow = styled.div`
@@ -41,9 +36,8 @@ const CardContent = styled.div`
   flex: 1;
 `;
 
-const ContentTitle = styled.div`
-  font-family: ZCOOL KuaiLe;
-  font-size: 24px;
+const ContentTitle = styled(Heading)`
+  letter-spacing: 0px;
 `;
 
 const ContentDescription = styled.div`
@@ -85,7 +79,7 @@ const data = [
 const Benefits = () => (
   <div id="info">
     <BenefitContainer>
-      <BenefitTitle>平台优势</BenefitTitle>
+      <Heading>平台优势</Heading>
       <BenefitCardRow>
         {data.map(({
           key, icon, title, content,
@@ -95,7 +89,7 @@ const Benefits = () => (
               <Image src={icon} width={100} height={100} />
             </CardIcon>
             <CardContent>
-              <ContentTitle>{title}</ContentTitle>
+              <ContentTitle size="sm">{title}</ContentTitle>
               <ContentDescription>{content}</ContentDescription>
             </CardContent>
           </BenefitCard>

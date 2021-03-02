@@ -2,17 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Container from '../../../../components/Container';
+import Heading from '../../../../components/Heading';
 
 const ProcessContainer = styled(Container)`
   padding-bottom: 80px;
   box-sizing: border-box;
 `;
 
-const ProcessTitle = styled.div`
+const ProcessTitle = styled(Heading)`
   text-align: center;
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 48px;
-  letter-spacing: 8px;
   margin: 32px auto;
 `;
 
@@ -44,12 +42,9 @@ const CardContent = styled.div`
   margin-top: 20px;
 `;
 
-const ContentTitle = styled.div`
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 26px;
+const ContentTitle = styled(Heading)`
   text-align: center;
   margin: 0 auto;
-  letter-spacing: 8px;
 `;
 
 const ContentDescription = styled.div`
@@ -98,7 +93,7 @@ const BusinessProcess = () => (
               <Image src={icon} width={150} height={150} />
             </CardImage>
             <CardContent>
-              <ContentTitle>{title}</ContentTitle>
+              <ContentTitle size="sm">{title}</ContentTitle>
               <ContentDescription>{content}</ContentDescription>
             </CardContent>
           </ProcessCard>

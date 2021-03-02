@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import Button from '../../../../components/Button';
 import Container from '../../../../components/Container';
+import Heading from '../../../../components/Heading';
 
 const CaptainLinkContainer = styled(Container)`
   background-color: #fceac6;
@@ -13,13 +14,10 @@ const CaptainLinkContainer = styled(Container)`
   align-items: center;
 `;
 
-const ProcessTitle = styled.div`
+const ProcessTitle = styled(Heading)`
   padding:0 100px;
-  font-family: 'ZCOOL KuaiLe';
-  font-size: 48px;
   line-height: 1.3;
   text-align: center;
-  letter-spacing: 8px;
   color: #c97a40;
 `;
 

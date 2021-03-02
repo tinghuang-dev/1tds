@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const Button = styled.button`
-  font-family: ZCOOL KuaiLe;
+  font-family: 'ZCOOL KuaiLe';
   outline: none;
   border: none;
   cursor: pointer;
