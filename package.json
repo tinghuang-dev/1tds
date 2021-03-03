@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "sequelize-cli db:migrate",
+    "postbuild": "npm run db:migrate",
+    "db:migrate": "sequelize-cli db:migrate",
     "start": "next start",
     "postinstall": "husky install",
     "lint": "eslint . --ext .jsx,.js",
