@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "sequelize-cli db:migrate",
     "start": "next start",
     "postinstall": "husky install",
     "lint": "eslint . --ext .jsx,.js",
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "mysql2": "^2.2.5",
     "next": "10.0.7",
     "react": "17.0.1",

@@ -1,8 +1,8 @@
 const { DataTypes, Model } = require('sequelize');
 const { sequelize } = require('./index');
 
-class Users extends Model {
-}
+class Users extends Model {}
+
 Users.init({
   mobile: {
     type: DataTypes.INTEGER,
@@ -29,4 +29,5 @@ Users.init({
   modelName: 'Users',
   freezeTableName: true,
 });
+
 module.exports = Users;
