@@ -5,6 +5,12 @@ import Modal from '../../../../../../components/Modal';
 import ContactContent from './components/ContactContent';
 import LinkContent from './components/LinkContent';
 
+const Notice = styled.div`
+  font-size: 18px;
+  margin: 0 auto;
+  text-align: center;
+`;
+
 const CallToAction = styled.div`
   display:flex;
   justify-content: center;
@@ -20,6 +26,7 @@ const LinkWrapper = styled.div`
 const VIEW_SHARE_BY = {
   LINK: 'LINK',
   CONTACT: 'CONTACT',
+  SendEmail: 'SendEmail',
 };
 
 export default function InviteMemberModal({ onClose }) {
@@ -45,6 +52,12 @@ export default function InviteMemberModal({ onClose }) {
 
   return (
     <Modal title="邀请团员" onClose={onClose}>
+      <Notice>
+        可在任一时间/页面邀请，
+        <Button variant="naked" onClick={onClose}>点击跳过</Button>
+        该步骤
+      </Notice>
+
       {currentView === VIEW_SHARE_BY.CONTACT && (
         <>
           <ContactContent
@@ -80,7 +93,7 @@ export default function InviteMemberModal({ onClose }) {
       )}
 
       <CallToAction>
-        <Button>
+        <Button onClick={onClose}>
           完成注册
         </Button>
       </CallToAction>

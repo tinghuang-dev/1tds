@@ -7,7 +7,7 @@ import Button from '../../../../../../../../../../components/Button';
 import FormItem from '../../../../../../../../../../components/FormItem';
 
 const StyledForm = styled.form`
-  margin: 60px 0 0;
+  margin: 36px 0 0;
 `;
 
 const InputWrapper = styled.div`

@@ -3,13 +3,6 @@ import alertEmpty from '../../../../utils/alertEmpty';
 import getMessage from '../../../../utils/getMessage';
 
 const config = {
-  name: {
-    label: '姓名',
-    getErrorMessage: (name) => getMessage([{
-      error: !name,
-      message: alertEmpty(config.name.label),
-    }]),
-  },
   mobile: {
     label: '手机',
     inputType: 'number',

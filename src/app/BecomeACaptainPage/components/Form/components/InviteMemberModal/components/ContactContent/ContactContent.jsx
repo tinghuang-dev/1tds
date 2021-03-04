@@ -1,15 +1,8 @@
 import React, { Fragment, useMemo } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidV4 } from 'uuid';
-import Button from '../../../../../../../../components/Button';
 import ContactBar from './components/ContactBar';
 import Form from './components/Form';
-
-const Notice = styled.div`
-  font-size: 18px;
-  margin: 0 auto;
-  text-align: center;
-`;
 
 const BlockTitle = styled.div`
   margin: 32px 0px 16px;
@@ -34,12 +27,6 @@ export default function ContactContent({
 
   return (
     <>
-      <Notice>
-        可在任一时间/页面邀请，
-        <Button variant="naked">点击跳过</Button>
-        该步骤
-      </Notice>
-
       {inputs.map(({ key, value }) => (
         <Fragment key={key}>
           {!value ? (

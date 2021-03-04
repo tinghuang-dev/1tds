@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
-import Button from '../../../../components/Button';
-import useForm from '../../../../hooks/useForm';
-import useToggler from '../../../../hooks/useToggler';
-import InviteMemberModal from './components/InviteMemberModal';
-import config from './config';
-import Input from '../../../../components/Input';
-import FormItem from '../../../../components/FormItem';
 import signUp from '../../../../apis/auth/signUp';
+import Button from '../../../../components/Button';
+import FormItem from '../../../../components/FormItem';
+import Input from '../../../../components/Input';
+import useForm from '../../../../hooks/useForm';
+import InviteMemberModal from './components/InviteMemberModal';
+import PendingEmailConfirmationModal from './components/PendingEmailConfirmationModal';
+import config from './config';
 
 const StyledForm = styled.form`
   padding: 0 48px;
@@ -28,8 +29,14 @@ const MessageBox = styled.div`
   margin-bottom: 24px;
 `;
 
+const MODAL = {
+  INVITE_MEMBER: 'INVITE_MEMBER',
+  PENDING_EMAIL_CONFIRMATION: 'PENDING_EMAIL_CONFIRMATION',
+};
+
 export default function Form() {
-  const [showInviteMemberModal, toggleShowInviteMemberModal] = useToggler(false);
+  const [modal, setModal] = useState();
+
   const [serverError, setServerError] = useState();
 
   const {
@@ -52,7 +59,7 @@ export default function Form() {
 
     try {
       await signUp(values);
-      toggleShowInviteMemberModal();
+      setModal(MODAL.INVITE_MEMBER);
     } catch (error) {
       setServerError(error);
     }
@@ -93,9 +100,18 @@ export default function Form() {
           <Button size="lg" type="submit">成为团长</Button>
         </CallToAction>
       </StyledForm>
-      {showInviteMemberModal && (
+      {modal === MODAL.INVITE_MEMBER && (
         <InviteMemberModal
-          onClose={() => toggleShowInviteMemberModal()}
+          onClose={() => setModal(MODAL.PENDING_EMAIL_CONFIRMATION)}
+        />
+      )}
+      {modal === MODAL.PENDING_EMAIL_CONFIRMATION && (
+        <PendingEmailConfirmationModal
+          email={values.email}
+          onClose={() => {
+            setModal();
+            Router.push('/');
+          }}
         />
       )}
     </>

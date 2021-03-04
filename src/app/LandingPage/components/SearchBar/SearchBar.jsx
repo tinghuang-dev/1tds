@@ -14,6 +14,8 @@ const SearchBarWrapper = styled.div`
 const InputWrapper = styled.div`
   width: 600px;
   margin-left: 4px;
+  background-color: #F2F2F2;
+  border-radius: 8px;
 `;
 
 const CallToAction = styled.div`

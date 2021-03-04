@@ -44,13 +44,15 @@ const Container = styled.div`
       border-color: #c97a40;
       background-color: #ffffff;
     `,
-    naked: css`
-      background-color: #e0e0e0;
-s    `,
+    naked: css``,
   }[props.variant || 'default'])}
 
   ${(props) => props.error && css`
     border-color: #e83d32;
+  `}
+
+  ${(props) => props.readOnly && css`
+    background-color: #dadada;
   `}
 `;
 
@@ -97,18 +99,21 @@ const Input = ({
   error,
   prefix,
   suffix,
+  readOnly,
   ...props
 }) => (
   <Container
     size={size}
     variant={variant}
     error={error}
+    readOnly={readOnly}
   >
     {prefix && (<Item size={size}>{prefix}</Item>)}
     <InputContainer size={size}>
       <CustomInput
         /* eslint-disable-next-line react/jsx-props-no-spreading */
         {...props}
+        readOnly={readOnly}
         size={size}
       />
     </InputContainer>
