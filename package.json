@@ -13,8 +13,10 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
     "next": "10.0.7",
     "react": "17.0.1",
