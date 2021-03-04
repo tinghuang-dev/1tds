@@ -11,13 +11,12 @@ const Anchor = styled.a`
 function Link({
   className,
   children,
-  variant,
   ...props
 }) {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <NextLink {...props} passHref>
-      <Anchor className={className} variant={variant}>
+      <Anchor className={className}>
         {children}
       </Anchor>
     </NextLink>

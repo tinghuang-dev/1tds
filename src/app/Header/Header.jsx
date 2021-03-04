@@ -11,7 +11,7 @@ const Nav = styled.header`
 `;
 
 const Layout = styled.div`
-display: flex;
+  display: flex;
   justify-content: space-between;
 `;
 
