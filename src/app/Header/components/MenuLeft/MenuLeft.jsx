@@ -4,11 +4,13 @@ import Link from '../../../../components/Link';
 
 const Left = styled.ul`
   list-style: none;
-  padding-left: 0px;
+  padding: 16px 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
 `;
 
-const List = styled.li`
-  display: inline-block;
+const Item = styled.li`
   padding: 0px 32px 0px 0px;
 `;
 
@@ -18,21 +20,21 @@ const NavigationLink = styled(Link)`
 
 const MenuLeft = () => (
   <Left>
-    <List>
+    <Item>
       <NavigationLink href="/">
         一团袋鼠
       </NavigationLink>
-    </List>
-    <List>
+    </Item>
+    <Item>
       <NavigationLink href="/become-a-captain">
         成为团长
       </NavigationLink>
-    </List>
-    <List>
+    </Item>
+    <Item>
       <NavigationLink href="/faq">
         常见问题
       </NavigationLink>
-    </List>
+    </Item>
   </Left>
 );
 

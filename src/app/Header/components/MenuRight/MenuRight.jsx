@@ -8,6 +8,9 @@ import Input from '../../../../components/Input';
 const Right = styled.ul`
   list-style: none;
   display: flex;
+  padding: 16px 0;
+  margin: 0;
+  align-items: center;
 `;
 
 const SearchBar = styled.div`

@@ -1,22 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import MenuLeft from './components/MenuLeft/MenuLeft';
+import MenuLeft from './components/MenuLeft';
 import Logo from './components/Logo';
-import MenuRight from './components/MenuRight/MenuRight';
+import MenuRight from './components/MenuRight';
+import Container from '../../components/Container';
 
 const Nav = styled.header`
-  display :flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 1px;
-  box-shadow: 0px 1px 0px rgba(88, 73, 62, 0.2);
+  background: white;
+  box-shadow: 0px 1px 0px #dadada;
+`;
+
+const Layout = styled.div`
+display: flex;
+  justify-content: space-between;
 `;
 
 const Header = () => (
   <Nav>
-    <MenuLeft />
-    <Logo />
-    <MenuRight />
+    <Container>
+      <Layout>
+        <MenuLeft />
+        <Logo />
+        <MenuRight />
+      </Layout>
+    </Container>
   </Nav>
 );
 export default Header;
