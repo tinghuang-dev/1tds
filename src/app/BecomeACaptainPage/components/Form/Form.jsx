@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import useForm from '../../../../hooks/useForm';
@@ -7,6 +7,7 @@ import InviteMemberModal from './components/InviteMemberModal';
 import config from './config';
 import Input from '../../../../components/Input';
 import FormItem from '../../../../components/FormItem';
+import signUp from '../../../../apis/auth/signUp';
 
 const StyledForm = styled.form`
   padding: 0 48px;
@@ -17,8 +18,19 @@ const CallToAction = styled.div`
   text-align: center;
 `;
 
+const MessageBox = styled.div`
+  width: 100%;
+  background-color: #EB9050;
+  color: white;
+  border-radius: 4px;
+  text-align: center;
+  padding: 8px 0;
+  margin-bottom: 24px;
+`;
+
 export default function Form() {
   const [showInviteMemberModal, toggleShowInviteMemberModal] = useToggler(false);
+  const [serverError, setServerError] = useState();
 
   const {
     validate,
@@ -28,19 +40,34 @@ export default function Form() {
     toggleTouched,
   } = useForm(config);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!touched) toggleTouched();
+    setServerError();
+    toggleTouched(true);
 
-    if (validate()) {
+    if (!validate()) {
+      return;
+    }
+
+    try {
+      await signUp(values);
       toggleShowInviteMemberModal();
+    } catch (error) {
+      setServerError(error);
     }
   };
 
   return (
     <>
       <StyledForm onSubmit={handleSubmit}>
+        {serverError && (
+          <MessageBox>
+            {{
+              409: '该邮箱已被使用，请尝试其他邮箱，或前往“找回密码”',
+            }[serverError.status]}
+          </MessageBox>
+        )}
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);
           const error = touched && !!errorMessage;
