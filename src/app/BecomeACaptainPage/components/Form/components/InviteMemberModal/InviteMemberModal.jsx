@@ -26,7 +26,6 @@ const LinkWrapper = styled.div`
 const VIEW_SHARE_BY = {
   LINK: 'LINK',
   CONTACT: 'CONTACT',
-  SendEmail: 'SendEmail',
 };
 
 export default function InviteMemberModal({ onClose }) {
