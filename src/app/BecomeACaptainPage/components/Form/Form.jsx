@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import signUp from '../../../../apis/auth/signUp';
 import Button from '../../../../components/Button';
 import FormItem from '../../../../components/FormItem';
+import ForgetPasswordModal from '../../../ForgetPasswordModal';
 import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
 import InviteMemberModal from './components/InviteMemberModal';
@@ -32,6 +33,7 @@ const MessageBox = styled.div`
 const MODAL = {
   INVITE_MEMBER: 'INVITE_MEMBER',
   PENDING_EMAIL_CONFIRMATION: 'PENDING_EMAIL_CONFIRMATION',
+  FORGET_PASSWORD: 'FORGET_PASSWORD',
 };
 
 export default function Form() {
@@ -71,7 +73,13 @@ export default function Form() {
         {serverError && (
           <MessageBox>
             {{
-              409: '该邮箱已被使用，请尝试其他邮箱，或前往“找回密码”',
+              409: (
+                <>
+                  该邮箱已被使用，请尝试其他邮箱。
+                  <br />
+                  <Button onClick={() => setModal(MODAL.FORGET_PASSWORD)}>或前往找回密码</Button>
+                </>
+              ),
             }[serverError.status]}
           </MessageBox>
         )}
@@ -113,6 +121,9 @@ export default function Form() {
             Router.push('/');
           }}
         />
+      )}
+      {modal === MODAL.FORGET_PASSWORD && (
+        <ForgetPasswordModal onClose={() => setModal()} />
       )}
     </>
   );

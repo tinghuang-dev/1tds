@@ -1,6 +1,6 @@
 import validator from 'validator';
-import alertEmpty from '../../../../../utils/alertEmpty';
-import getMessage from '../../../../../utils/getMessage';
+import alertEmpty from '../../utils/alertEmpty';
+import getMessage from '../../utils/getMessage';
 
 const config = {
   email: {
@@ -15,14 +15,6 @@ const config = {
         message: '邮箱格式不正确',
       },
     ]),
-  },
-  password: {
-    label: '密码',
-    inputType: 'password',
-    getErrorMessage: (password) => getMessage([{
-      error: !password,
-      message: alertEmpty(config.password.label),
-    }]),
   },
 };
 

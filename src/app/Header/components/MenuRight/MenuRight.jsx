@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import { useState, React } from 'react';
-import Login from './Login';
+import React from 'react';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
+import useToggler from '../../../../hooks/useToggler';
+import UserAuthModals from './components/UserAuthModals';
 
 const Right = styled.ul`
   list-style: none;
@@ -21,12 +22,7 @@ const SearchBarWrapper = styled.div`
 `;
 
 const MenuRight = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-
-  const handleLoginModalShow = (event) => {
-    event.preventDefault();
-    setShowLoginModal((preState) => !preState);
-  };
+  const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
 
   return (
     <Right>
@@ -45,8 +41,8 @@ const MenuRight = () => {
         </SearchBarWrapper>
       </li>
       <li>
-        <Button size="md" onClick={handleLoginModalShow}>登陆</Button>
-        {showLoginModal && <Login onClose={handleLoginModalShow} />}
+        <Button size="md" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
+        {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
       </li>
     </Right>
   );
