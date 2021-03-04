@@ -13,22 +13,11 @@ const Right = styled.ul`
   align-items: center;
 `;
 
-const SearchBar = styled.div`
+const SearchBarWrapper = styled.div`
   display: flex;
-`;
-
-const SearchInput = styled(Input)`
-  height: 35px;
   width: 230px;
-  background: #F2F2F2;
-`;
-
-const SearchIcon = styled.div`
-  position: relative;
-  height: 20px;
-  width: 20px;
-  left: -30px;
-  top: 9px;
+  box-sizing: border-box;
+  margin-right: 20px;
 `;
 
 const MenuRight = () => {
@@ -42,17 +31,18 @@ const MenuRight = () => {
   return (
     <Right>
       <li>
-        <SearchBar>
-          <SearchInput type="text" />
-          <SearchIcon>
-            <Image
-              alt="SearchIcon"
-              src="/images/icons/searchIcon.svg"
-              layout="fill"
-              objectFit="contain"
-            />
-          </SearchIcon>
-        </SearchBar>
+        <SearchBarWrapper>
+          <Input
+            suffix={(
+              <Image
+                alt="搜索"
+                src="/images/icons/searchIcon.svg"
+                width={20}
+                height={20}
+              />
+            )}
+          />
+        </SearchBarWrapper>
       </li>
       <li>
         <Button size="md" onClick={handleLoginModalShow}>登陆</Button>
