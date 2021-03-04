@@ -90,6 +90,7 @@ export default function Form() {
           return (
             <FormItem
               key={key}
+              name={key}
               layout="inline"
               label={config[key].label}
               errorMessage={error && errorMessage}

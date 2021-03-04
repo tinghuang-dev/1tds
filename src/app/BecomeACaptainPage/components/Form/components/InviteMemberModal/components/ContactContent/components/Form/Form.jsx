@@ -54,6 +54,7 @@ export default function Form({
     <StyledForm onSubmit={handleSubmit}>
       <FormItem
         key={KEY}
+        name={KEY}
         layout="block"
         label={config[KEY].label}
         errorMessage={error && errorMessage}

@@ -42,6 +42,7 @@ export default function LoginModal({
           return (
             <FormItem
               key={key}
+              name={key}
               layout="block"
               label={config[key].label}
               errorMessage={error && errorMessage}

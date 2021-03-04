@@ -36,7 +36,7 @@ const ErrorMessage = styled.div`
 `;
 
 const FormItem = ({
-  key,
+  name,
   layout,
   label,
   errorMessage,
@@ -45,7 +45,7 @@ const FormItem = ({
   <StyledFormItem>
     <Layout layout={layout}>
       <LabelWrapper>
-        <Label htmlFor={key}>{label}</Label>
+        <Label htmlFor={name}>{label}</Label>
       </LabelWrapper>
       <InputWrapper>
         {children}

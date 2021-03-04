@@ -46,6 +46,7 @@ export default function ForgetPasswordModal({ onClose }) {
           return (
             <FormItem
               key={key}
+              name={key}
               layout="block"
               label={config[key].label}
               errorMessage={error && errorMessage}
