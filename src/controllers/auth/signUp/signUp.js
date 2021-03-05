@@ -2,8 +2,8 @@ import { hash } from 'bcryptjs';
 import { v4 as uuid } from 'uuid';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
-import Users from '../../db/models/users';
-import Verifications from '../../db/models/verifications';
+import Users from '../../../db/models/users';
+import Verifications from '../../../db/models/verifications';
 
 const signup = async (req, res) => {
   const {
