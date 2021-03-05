@@ -55,9 +55,9 @@ const signup = async (req, res) => {
     };
 
     await Verifications.create(verification);
-  });
 
-  res.status(201).end();
+    res.status(201).end();
+  });
 };
 
 export default signup;
