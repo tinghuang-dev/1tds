@@ -5,13 +5,17 @@ const Users = require('./users');
 
 class Verifications extends Model {
   static async createScopedTokenForUser(UserId, scope) {
+    const token = uuid();
+
     const verification = {
-      token: uuid(),
+      token,
       UserId,
       scope,
     };
 
     await this.create(verification);
+
+    return token;
   }
 
   static async getUserByScopedToken(token, scope) {

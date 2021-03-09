@@ -3,6 +3,7 @@ import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
+import mail from '../../../lib/mail';
 
 const signup = async (req, res) => {
   const {
@@ -48,7 +49,19 @@ const signup = async (req, res) => {
   hash(password, 10, async (err, hashedPassword) => {
     const user = await Users.create({ ...requestData, password: hashedPassword });
 
-    await Verifications.createScopedTokenForUser(user.id, Verifications.SCOPE.VERIFY_EMAIL);
+    const token = await Verifications.createScopedTokenForUser(
+      user.id,
+      Verifications.SCOPE.VERIFY_EMAIL,
+    );
+
+    const msg = {
+      to: email,
+      subject: '[一团袋鼠]请验证你的邮箱',
+      text: '请点击链接验证您的邮箱',
+      html: `<a style="color: black;" href="http://localhost:3000/api/auth/verify-email?token=${token}">请点击链接验证您的邮箱</a>`,
+    };
+
+    await mail.send(msg);
 
     res.status(201).end();
   });
