@@ -7,16 +7,10 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const SemiCircle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
-  height: 120px;
-  width: 120px;
-  background: white;
-  border-bottom: 1px solid #dadada;
+const LogoWrapper = styled.div`
   position: absolute;
+  height: 128px;
+  width: 128px;
   left: 0;
   top: 0;
   transform: translateX(-50%);
@@ -24,16 +18,16 @@ const SemiCircle = styled.div`
 
 const Logo = () => (
   <Wrapper>
-    <SemiCircle>
+    <LogoWrapper>
       <Link href="/">
         <Image
           alt="Logo"
           src="/images/logo/logo.svg"
-          width={75}
-          height={110}
+          width={128}
+          height={128}
         />
       </Link>
-    </SemiCircle>
+    </LogoWrapper>
   </Wrapper>
 );
 

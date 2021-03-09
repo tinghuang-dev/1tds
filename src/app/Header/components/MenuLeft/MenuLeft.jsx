@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Link from '../../../../components/Link';
 
 const Left = styled.ul`
+  height: 64px;
   list-style: none;
-  padding: 16px 0;
   margin: 0;
   display: flex;
   align-items: center;
