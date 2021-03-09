@@ -1,5 +1,4 @@
 import { hash } from 'bcryptjs';
-import { v4 as uuid } from 'uuid';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
@@ -49,12 +48,7 @@ const signup = async (req, res) => {
   hash(password, 10, async (err, hashedPassword) => {
     const user = await Users.create({ ...requestData, password: hashedPassword });
 
-    const verification = {
-      token: uuid(),
-      UserId: user.id,
-    };
-
-    await Verifications.create(verification);
+    await Verifications.createScopedTokenForUser(user.id, Verifications.SCOPE.VERIFY_EMAIL);
 
     res.status(201).end();
   });

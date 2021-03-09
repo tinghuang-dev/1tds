@@ -1,5 +1,4 @@
 import Verifications from '../../../db/models/verifications';
-import Users from '../../../db/models/users';
 
 const verifyEmail = async (req, res) => {
   const { token } = req.query;
@@ -10,7 +9,7 @@ const verifyEmail = async (req, res) => {
     return;
   }
 
-  const { User: user } = await Verifications.findOne({ where: { token }, include: Users });
+  const user = await Verifications.getUserByScopedToken(token, Verifications.SCOPE.VERIFY_EMAIL);
 
   if (!user) {
     res.status(201).end();

@@ -1,21 +1,40 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.changeColumn('Verifications', 'token', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
+    await queryInterface.dropTable('Verifications');
 
-    await queryInterface.removeColumn('Verifications', 'UserId');
-
-    await queryInterface.addColumn('Verifications', 'UserId', {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id',
+    await queryInterface.createTable('Verifications', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION',
+      token: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      scope: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      UserId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'NO ACTION',
+        onDelete: 'NO ACTION',
+      },
     });
   },
 
