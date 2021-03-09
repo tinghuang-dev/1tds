@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 import Heading from '../Heading';
 
 const HideBodyOverflow = createGlobalStyle`
@@ -27,7 +27,21 @@ const StyledModal = styled.div`
   border-radius: 8px;
   position: relative;
   height: auto;
-  width: 550px;
+
+  ${(props) => ({
+    sm: css`
+      width: 400px;
+      padding: 40px;
+    `,
+    default: css`
+      width: 550px;
+      padding: 60px 50px;
+    `,
+    lg: css`
+      width:750px;
+      padding: 75px;
+    `,
+  }[props.size || 'default'])}
 
   @media (min-width: 320px) and (max-width: 1024px) {
     width: 100%;
@@ -52,24 +66,19 @@ const Title = styled(Heading)`
   text-align: center;
 `;
 
-const Content = styled.div`
-  padding: 60px 50px;
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    padding: 40px 30px;
-  }
-`;
-
 export default function Modal({
   title,
   onClose,
   children,
+  size,
 }) {
   return (
     <>
       <HideBodyOverflow />
       <Overlay>
-        <StyledModal>
+        <StyledModal
+          size={size}
+        >
           <CloseButton right={50} top={32} type="button" onClick={onClose}>
             <Image
               src="/images/icons/squareCloseIcon.svg"
@@ -78,10 +87,10 @@ export default function Modal({
               width={32}
             />
           </CloseButton>
-          <Content>
+          <div>
             {title && <Title size="md">{title}</Title>}
             {children}
-          </Content>
+          </div>
         </StyledModal>
       </Overlay>
     </>
