@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import LoginModal from '../../../../../LoginModal';
-import ForgetPasswordModal from '../../../../../ForgetPasswordModal';
+import LoginModal from '../LoginModal';
+import ForgetPasswordModal from '../ForgetPasswordModal';
 
 const MODAL = {
   LOGIN: 'LOGIN',

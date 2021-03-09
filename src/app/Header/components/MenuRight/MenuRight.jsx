@@ -4,7 +4,7 @@ import React from 'react';
 import Button from '../../../../components/Button';
 import Input from '../../../../components/Input';
 import useToggler from '../../../../hooks/useToggler';
-import UserAuthModals from './components/UserAuthModals';
+import UserAuthModals from '../../../UserAuthModals';
 
 const Right = styled.ul`
   list-style: none;
