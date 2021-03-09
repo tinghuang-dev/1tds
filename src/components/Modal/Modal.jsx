@@ -28,6 +28,12 @@ const StyledModal = styled.div`
   position: relative;
   height: auto;
   width: 550px;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -48,6 +54,10 @@ const Title = styled(Heading)`
 
 const Content = styled.div`
   padding: 60px 50px;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    padding: 40px 30px;
+  }
 `;
 
 export default function Modal({
