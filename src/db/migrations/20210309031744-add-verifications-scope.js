@@ -8,6 +8,10 @@ module.exports = {
         allowNull: false,
       },
     );
+
+    await queryInterface.bulkUpdate('Verifications', {
+      scope: 'OLD_TOKEN',
+    });
   },
 
   down: async (queryInterface) => {
