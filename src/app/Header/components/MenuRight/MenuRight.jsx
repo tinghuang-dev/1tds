@@ -29,6 +29,7 @@ const MenuRight = () => {
       <li>
         <SearchBarWrapper>
           <Input
+            size="sm"
             suffix={(
               <Image
                 alt="搜索"
@@ -41,7 +42,7 @@ const MenuRight = () => {
         </SearchBarWrapper>
       </li>
       <li>
-        <Button size="md" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
+        <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
         {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
       </li>
     </Right>

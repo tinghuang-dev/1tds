@@ -106,7 +106,7 @@ export default function Form() {
           );
         })}
         <CallToAction>
-          <Button size="lg" type="submit">成为团长</Button>
+          <Button type="submit">成为团长</Button>
         </CallToAction>
       </StyledForm>
       {modal === MODAL.INVITE_MEMBER && (

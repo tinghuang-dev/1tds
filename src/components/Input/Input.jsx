@@ -15,7 +15,7 @@ const gap = (props) => ({
 
 const Container = styled.div`
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   width: 100%;
   display: flex;
   align-items: center;
@@ -29,13 +29,13 @@ const Container = styled.div`
 
   ${(props) => ({
     sm: css`
-      height: 32px;
+      height: 35px;
     `,
     default: css`
-      height: 36px;
+      height: 45px;
     `,
     lg: css`
-      height: 60px;
+      height: 70px;
     `,
   }[props.size || 'default'])}
 

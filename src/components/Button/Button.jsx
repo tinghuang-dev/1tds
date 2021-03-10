@@ -9,19 +9,19 @@ const Button = styled.button`
 
   ${(props) => ({
     sm: css`
-      height: 32px;
+      height: 35px;
       padding: 0 12px;
-      font-size: 12px;
+      font-size: 14px;
       letter-spacing: 1px;
     `,
     md: css`
-      height: 36px;
+      height: 45px;
       padding: 0 16px;
       font-size: 18px;
       letter-spacing: 2px;
     `,
     lg: css`
-      height: 60px;
+      height: 70px;
       padding: 0 24px;
       font-size: 20px;
       letter-spacing: 4px;

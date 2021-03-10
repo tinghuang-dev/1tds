@@ -24,8 +24,7 @@ const ProcessTitle = styled(Heading)`
 const BecomeCaptainButton = styled(Button)`
   background: #97a73f;
   font-family: 'ZCOOL KuaiLe';
-  font-size: 22px;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   color: #ffffff;
   margin-top: 52px;
 `;
@@ -38,7 +37,7 @@ const CaptainLinkBlock = () => (
       </ProcessTitle>
       <Link href="/become-a-captain">
         <a>
-          <BecomeCaptainButton size="lg">成为团长</BecomeCaptainButton>
+          <BecomeCaptainButton>成为团长</BecomeCaptainButton>
         </a>
       </Link>
     </CaptainLinkContainer>
