@@ -54,14 +54,7 @@ const signup = async (req, res) => {
       Verifications.SCOPE.VERIFY_EMAIL,
     );
 
-    const msg = {
-      to: email,
-      subject: '[一团袋鼠]请验证你的邮箱',
-      text: '请点击链接验证您的邮箱',
-      html: `<a style="color: black;" href="http://localhost:3000/api/auth/verify-email?token=${token}">请点击链接验证您的邮箱</a>`,
-    };
-
-    await mail.send(msg);
+    await mail.sendEmailVerification(email, token);
 
     res.status(201).end();
   });
