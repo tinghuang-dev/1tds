@@ -7,9 +7,11 @@ import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
 
 const Right = styled.ul`
+  flex: 1;
   height: 64px;
   list-style: none;
   display: flex;
+  justify-content: flex-end;
   margin: 0;
   align-items: center;
 `;

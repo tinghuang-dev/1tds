@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from '../../../../components/Link';
 
 const Left = styled.ul`
+  flex: 1;
   height: 64px;
   list-style: none;
   margin: 0;
