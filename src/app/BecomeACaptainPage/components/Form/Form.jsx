@@ -38,6 +38,8 @@ export default function Form() {
 
   const [serverError, setServerError] = useState();
 
+  const [submitting, setSubmitting] = useState(false);
+
   const {
     validate,
     handleChange,
@@ -50,6 +52,7 @@ export default function Form() {
     event.preventDefault();
 
     setServerError();
+    setSubmitting(true);
     toggleTouched(true);
 
     if (!validate()) {
@@ -62,6 +65,8 @@ export default function Form() {
     } catch (error) {
       setServerError(error);
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -73,8 +78,9 @@ export default function Form() {
               409: (
                 <>
                   该邮箱已被使用，请尝试其他邮箱。
-                  <br />
-                  <Button onClick={() => setModal(MODAL.FORGET_PASSWORD)}>或前往找回密码</Button>
+                  <Button variant="naked" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
+                    或前往找回密码
+                  </Button>
                 </>
               ),
             }[serverError.status]}
@@ -103,7 +109,7 @@ export default function Form() {
           );
         })}
         <CallToAction>
-          <Button type="submit">成为团长</Button>
+          <Button loading={submitting} type="submit">成为团长</Button>
         </CallToAction>
       </StyledForm>
       {modal === MODAL.INVITE_MEMBER && (

@@ -35,7 +35,7 @@ const Container = styled.div`
       height: 45px;
     `,
     lg: css`
-      height: 70px;
+      height: 60px;
     `,
   }[props.size || 'default'])}
 
@@ -93,7 +93,7 @@ const CustomInput = styled.input`
   };
 `;
 
-const Input = ({
+const Input = React.forwardRef(({
   size,
   variant,
   error,
@@ -101,7 +101,7 @@ const Input = ({
   suffix,
   readOnly,
   ...props
-}) => (
+}, ref) => (
   <Container
     size={size}
     variant={variant}
@@ -111,14 +111,14 @@ const Input = ({
     {prefix && (<Item size={size}>{prefix}</Item>)}
     <InputContainer size={size}>
       <CustomInput
-        /* eslint-disable-next-line react/jsx-props-no-spreading */
-        {...props}
+        {...props} /* eslint-disable-line react/jsx-props-no-spreading */
+        ref={ref}
         readOnly={readOnly}
         size={size}
       />
     </InputContainer>
     {suffix && (<Item size={size}>{suffix}</Item>)}
   </Container>
-);
+));
 
 export default Input;

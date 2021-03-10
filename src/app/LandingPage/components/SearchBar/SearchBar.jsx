@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
 import Button from '../../../../components/Button';
+import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Input';
 
 const SearchBarWrapper = styled.div`
@@ -19,7 +19,7 @@ const InputWrapper = styled.div`
 `;
 
 const CallToAction = styled.div`
-  margin-left: 62px;
+  margin-left: 36px;
 `;
 
 const SearchBar = () => (
@@ -28,26 +28,12 @@ const SearchBar = () => (
       <Input
         size="lg"
         variant="naked"
-        prefix={(
-          <Image
-            alt="地点"
-            src="/images/icons/location.svg"
-            width={20}
-            height={40}
-          />
-        )}
-        suffix={(
-          <Image
-            alt="搜索"
-            src="/images/icons/searchIcon.svg"
-            width={30}
-            height={40}
-          />
-        )}
+        prefix={(<Icon name="mapMarkerAlt" size="2x" />)}
+        suffix={(<Icon name="search" size="2x" />)}
       />
     </InputWrapper>
     <CallToAction>
-      <Button type="button" size="lg">查找团购</Button>
+      <Button size="lg">查找团购</Button>
     </CallToAction>
   </SearchBarWrapper>
 );

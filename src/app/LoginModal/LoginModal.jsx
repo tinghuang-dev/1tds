@@ -58,7 +58,7 @@ export default function LoginModal({
           );
         })}
 
-        <Button variant="naked" onClick={onForgetPassword}>
+        <Button variant="link" onClick={onForgetPassword}>
           忘记密码？
         </Button>
 

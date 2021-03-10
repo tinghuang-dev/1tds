@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import Icon from '../../../../../../../../components/Icon';
 import Button from '../../../../../../../../components/Button';
 import Input from '../../../../../../../../components/Input';
 
@@ -63,12 +64,7 @@ export default function LinkContent() {
         />
         <Button variant="naked">
           <Message>
-            <Image
-              width={16}
-              height={16}
-              src="/images/icons/reloadIcon.svg"
-              alt="刷新"
-            />
+            <Icon name="refresh" variant="naked" />
             &nbsp;
             刷新图片
           </Message>

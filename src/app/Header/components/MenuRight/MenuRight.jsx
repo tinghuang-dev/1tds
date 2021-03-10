@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import Image from 'next/image';
 import React from 'react';
+import styled from 'styled-components';
 import Button from '../../../../components/Button';
+import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Input';
 import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
@@ -28,17 +28,7 @@ const MenuRight = () => {
     <Right>
       <li>
         <SearchBarWrapper>
-          <Input
-            size="sm"
-            suffix={(
-              <Image
-                alt="搜索"
-                src="/images/icons/searchIcon.svg"
-                width={20}
-                height={20}
-              />
-            )}
-          />
+          <Input size="sm" suffix={(<Icon name="search" />)} />
         </SearchBarWrapper>
       </li>
       <li>

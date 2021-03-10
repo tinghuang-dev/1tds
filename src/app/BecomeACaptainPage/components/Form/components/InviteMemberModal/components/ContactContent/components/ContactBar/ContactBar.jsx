@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 import Button from '../../../../../../../../../../components/Button';
+import Icon from '../../../../../../../../../../components/Icon';
 
 const StyledBar = styled.div`
   padding: 4px 8px 4px 10px;
@@ -35,12 +35,7 @@ export default function ContactBar({ onDelete, children }) {
       </ContactWrapper>
 
       <CloseButton variant="naked" onClick={onDelete}>
-        <Image
-          width={20}
-          height={20}
-          alt="CircleCloseIcon"
-          src="/images/icons/circleCloseIcon.svg"
-        />
+        <Icon name="closeCircle" variant="naked" />
       </CloseButton>
     </StyledBar>
   );

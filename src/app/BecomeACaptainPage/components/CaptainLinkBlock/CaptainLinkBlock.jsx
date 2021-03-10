@@ -8,25 +8,18 @@ import Heading from '../../../../components/Heading';
 const CaptainLinkContainer = styled(Container)`
   background-color: #fceac6;
   box-sizing: border-box;
-  padding: 140px 0;
+  padding: 100px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const ProcessTitle = styled(Heading)`
-  padding:0 100px;
+  padding: 0 100px;
+  margin-bottom: 40px;
   line-height: 1.3;
   text-align: center;
   color: #c97a40;
-`;
-
-const BecomeCaptainButton = styled(Button)`
-  background: #97a73f;
-  font-family: 'ZCOOL KuaiLe';
-  letter-spacing: 2px;
-  color: #ffffff;
-  margin-top: 52px;
 `;
 
 const CaptainLinkBlock = () => (
@@ -37,7 +30,7 @@ const CaptainLinkBlock = () => (
       </ProcessTitle>
       <Link href="/become-a-captain">
         <a>
-          <BecomeCaptainButton>成为团长</BecomeCaptainButton>
+          <Button variant="success" size="lg">成为团长</Button>
         </a>
       </Link>
     </CaptainLinkContainer>

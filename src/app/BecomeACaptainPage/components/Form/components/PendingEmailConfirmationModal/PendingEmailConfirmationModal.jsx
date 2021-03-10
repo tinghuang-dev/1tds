@@ -46,7 +46,7 @@ export default function PendingEmailConfirmationModal({
           检查上面邮箱是否正确，
           若错误请
           {' '}
-          <Button variant="naked" onClick={onClose}>
+          <Button variant="link" onClick={onClose}>
             重新注册
           </Button>
         </li>

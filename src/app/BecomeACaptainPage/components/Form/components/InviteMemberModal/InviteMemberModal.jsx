@@ -53,7 +53,8 @@ export default function InviteMemberModal({ onClose }) {
     <Modal title="邀请团员" onClose={onClose}>
       <Notice>
         可在任一时间/页面邀请，
-        <Button variant="naked" onClick={onClose}>点击跳过</Button>
+        <Button variant="link" onClick={onClose}>点击跳过</Button>
+        {' '}
         该步骤
       </Notice>
 
@@ -67,7 +68,7 @@ export default function InviteMemberModal({ onClose }) {
           <LinkWrapper>
             通过
             {' '}
-            <Button variant="naked" onClick={() => setCurrentView(VIEW_SHARE_BY.LINK)}>
+            <Button variant="link" onClick={() => setCurrentView(VIEW_SHARE_BY.LINK)}>
               链接或图片
             </Button>
             {' '}
@@ -82,7 +83,7 @@ export default function InviteMemberModal({ onClose }) {
           <LinkWrapper>
             通过
             {' '}
-            <Button variant="naked" onClick={() => setCurrentView(VIEW_SHARE_BY.CONTACT)}>
+            <Button variant="link" onClick={() => setCurrentView(VIEW_SHARE_BY.CONTACT)}>
               联系方式
             </Button>
             {' '}

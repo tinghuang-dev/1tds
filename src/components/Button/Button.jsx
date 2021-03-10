@@ -1,6 +1,8 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
+import Icon from '../Icon';
 
-const Button = styled.button`
+const StyledButton = styled.button`
   font-family: 'ZCOOL KuaiLe';
   outline: none;
   border: none;
@@ -13,20 +15,27 @@ const Button = styled.button`
       padding: 0 12px;
       font-size: 14px;
       letter-spacing: 1px;
+      min-width: 80px;
     `,
     md: css`
       height: 45px;
       padding: 0 16px;
       font-size: 18px;
       letter-spacing: 2px;
+      min-width: 150px;
     `,
     lg: css`
-      height: 70px;
+      height: 60px;
       padding: 0 24px;
       font-size: 20px;
       letter-spacing: 4px;
+      min-width: 170px;
     `,
   }[props.size || 'md'])}
+
+
+  letter-spacing: 2px;
+  border-radius: 8px;
 
   ${(props) => ({
     primary: css`
@@ -41,22 +50,47 @@ const Button = styled.button`
       background: #97A73F;
       color: #ffffff;
     `,
-  }[props.color || 'primary'])}
-
-
-
-${(props) => ({
-    button: css`
-      text-align: center;
-      letter-spacing: 2px;
-      border-radius: 8px;
-    `,
     naked: css`
+      height: 0;
       padding: 0;
+      color: inherit;
+      letter-spacing: initial;
+      background: transparent;
+      min-width: initial;
+    `,
+    link: css`
+      height: 0;
+      padding: 0;
+      letter-spacing: initial;
       background: transparent;
       color: #6097e6;
+      min-width: initial;
     `,
-  }[props.variant || 'button'])}
+  }[props.variant || 'primary'])}
+
+  :hover {
+    filter: grayscale(30%);
+  }
+
+  :disabled {
+    filter: grayscale(50%);
+    cursor: no-drop;
+  }
 `;
+
+function Button({
+  loading,
+  children,
+  ...props
+}) {
+  return (
+    <StyledButton
+      {...loading && { disabled: true }} // eslint-disable-line react/jsx-props-no-spreading
+      {...props} // eslint-disable-line react/jsx-props-no-spreading
+    >
+      {loading ? (<Icon spin variant="naked" name="loading" />) : children}
+    </StyledButton>
+  );
+}
 
 export default Button;

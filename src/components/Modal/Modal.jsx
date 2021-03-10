@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
 import styled, { createGlobalStyle, css } from 'styled-components';
 import Heading from '../Heading';
+import Icon from '../Icon';
 
 const HideBodyOverflow = createGlobalStyle`
   body {
@@ -80,12 +80,7 @@ export default function Modal({
           size={size}
         >
           <CloseButton right={50} top={32} type="button" onClick={onClose}>
-            <Image
-              src="/images/icons/squareCloseIcon.svg"
-              alt="关闭"
-              height={32}
-              width={32}
-            />
+            <Icon name="closeCircle" size="2x" />
           </CloseButton>
           <div>
             {title && <Title size="md">{title}</Title>}
