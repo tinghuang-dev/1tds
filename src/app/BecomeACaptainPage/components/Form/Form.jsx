@@ -10,6 +10,7 @@ import useForm from '../../../../hooks/useForm';
 import InviteMemberModal from './components/InviteMemberModal';
 import PendingEmailConfirmationModal from './components/PendingEmailConfirmationModal';
 import config from './config';
+import MessageBox from '../../../../components/MessageBox';
 
 const StyledForm = styled.form`
   padding: 0 48px;
@@ -20,14 +21,10 @@ const CallToAction = styled.div`
   text-align: center;
 `;
 
-const MessageBox = styled.div`
+const StyledMessageBox = styled(MessageBox)`
   width: 100%;
-  background-color: #EB9050;
-  color: white;
-  border-radius: 4px;
-  text-align: center;
-  padding: 8px 0;
   margin-bottom: 24px;
+  text-align: center;
 `;
 
 const MODAL = {
@@ -71,7 +68,7 @@ export default function Form() {
     <>
       <StyledForm onSubmit={handleSubmit}>
         {serverError && (
-          <MessageBox>
+          <StyledMessageBox variant="error">
             {{
               409: (
                 <>
@@ -81,7 +78,7 @@ export default function Form() {
                 </>
               ),
             }[serverError.status]}
-          </MessageBox>
+          </StyledMessageBox>
         )}
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);

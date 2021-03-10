@@ -4,6 +4,7 @@ import Button from '../../components/Button';
 import FormItem from '../../components/FormItem';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import MessageBox from '../../components/MessageBox';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 
@@ -16,11 +17,8 @@ const ConfirmButton = styled(Button)`
   margin: 50px auto 28px;
 `;
 
-const Helper = styled.div`
-  background: #f0f0f0;
-  border-radius: 8px;
+const StyledMessageBox = styled(MessageBox)`
   margin: 16px 0;
-  padding: 8px 16px;
 `;
 
 export default function ForgetPasswordModal({ onClose }) {
@@ -35,7 +33,9 @@ export default function ForgetPasswordModal({ onClose }) {
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
-      <Helper>请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。</Helper>
+      <StyledMessageBox variant="info">
+        请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。
+      </StyledMessageBox>
       <Form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(
