@@ -33,7 +33,7 @@ export default function LoginModal({
   };
 
   return (
-    <Modal title="登陆" onClose={onClose}>
+    <Modal title="登陆" onClose={onClose} size="sm">
       <Form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);

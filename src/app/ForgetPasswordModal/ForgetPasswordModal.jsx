@@ -34,7 +34,7 @@ export default function ForgetPasswordModal({ onClose }) {
   };
 
   return (
-    <Modal title="忘记密码？" onClose={onClose}>
+    <Modal title="忘记密码？" onClose={onClose} size="sm">
       <Helper>请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。</Helper>
       <Form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
