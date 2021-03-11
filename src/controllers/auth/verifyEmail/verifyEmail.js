@@ -1,7 +1,7 @@
 import Verifications from '../../../db/models/verifications';
 
 const verifyEmail = async (req, res) => {
-  const { token } = req.query;
+  const { token } = req.body;
 
   if (!token) {
     res.status(404).end();
