@@ -15,7 +15,7 @@ const StyledButton = styled.button`
       padding: 0 12px;
       font-size: 14px;
       letter-spacing: 1px;
-      min-width: 80px;
+      min-width: 100px;
     `,
     md: css`
       height: 45px;

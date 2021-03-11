@@ -52,7 +52,7 @@ const Container = styled.div`
   `}
 
   ${(props) => props.readOnly && css`
-    background-color: #dadada;
+    background-color: #FCEAC6;
   `}
 `;
 
