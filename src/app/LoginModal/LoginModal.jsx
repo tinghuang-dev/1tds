@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -6,9 +6,15 @@ import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 import FormItem from '../../components/FormItem';
+import MessageBox from '../../components/MessageBox';
+import login from '../../apis/auth/login';
 
 const Form = styled.form`
   margin: 0 auto;
+`;
+
+const StyledMessageBox = styled(MessageBox)`
+  margin-bottom: 10px;
 `;
 
 const LoginButton = styled(Button)`
@@ -19,21 +25,52 @@ const LoginButton = styled(Button)`
 export default function LoginModal({
   onClose,
   onForgetPassword,
+  onNotVerifiedEmail,
 }) {
   const {
     validate, handleChange, values, touched, toggleTouched,
   } = useForm(config);
 
-  const handleSubmit = (event) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const [httpRequestStatus, setHttpRequestStatus] = useState();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!validate()) {
-      toggleTouched();
+    toggleTouched(true);
+
+    if (validate()) {
+      setSubmitting(true);
+
+      try {
+        await login(values);
+
+        setSubmitting(false);
+      } catch ({ status }) {
+        if (status === 412) {
+          onNotVerifiedEmail(values.email);
+
+          return;
+        }
+
+        setHttpRequestStatus(status);
+
+        setSubmitting(false);
+      }
     }
   };
 
   return (
     <Modal title="登陆" onClose={onClose} size="sm">
+      {httpRequestStatus && (
+        <StyledMessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+          {{
+            404: '邮箱与密码不匹配, 请重试',
+          }[httpRequestStatus] || '登录失败，请稍后再试'}
+        </StyledMessageBox>
+      )}
+
       <Form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);
@@ -62,7 +99,9 @@ export default function LoginModal({
           忘记密码？
         </Button>
 
-        <LoginButton type="submit">登录</LoginButton>
+        <LoginButton loading={submitting} type="submit">
+          登录
+        </LoginButton>
       </Form>
     </Modal>
   );
