@@ -56,6 +56,7 @@ export default function Form() {
     toggleTouched(true);
 
     if (!validate()) {
+      setSubmitting(false);
       return;
     }
 

@@ -7,12 +7,11 @@ import Container from '../../components/Container';
 
 const Nav = styled.header`
   background: white;
-  box-shadow: 0px 1px 0px #dadada;
+  border-bottom: 1px solid #dadada;
 `;
 
 const Layout = styled.div`
   display: flex;
-  justify-content: space-between;
 `;
 
 const Header = () => (

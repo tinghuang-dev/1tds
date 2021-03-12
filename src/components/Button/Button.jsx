@@ -16,6 +16,11 @@ const StyledButton = styled.button`
       font-size: 14px;
       letter-spacing: 1px;
       min-width: 100px;
+
+      @media (min-width: 320px) and (max-width: 1024px) {
+        height: 30px;
+        min-width: 45px;
+      }
     `,
     md: css`
       height: 45px;
@@ -51,7 +56,7 @@ const StyledButton = styled.button`
       color: #ffffff;
     `,
     naked: css`
-      height: 0;
+      height: initial;
       padding: 0;
       color: inherit;
       letter-spacing: initial;
@@ -59,7 +64,7 @@ const StyledButton = styled.button`
       min-width: initial;
     `,
     link: css`
-      height: 0;
+      height: initial;
       padding: 0;
       letter-spacing: initial;
       background: transparent;

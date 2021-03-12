@@ -5,39 +5,42 @@ import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Input';
 import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
+import ResponsiveSearchButton from './components/ResponsiveSearchButton';
 
-const Right = styled.ul`
+const RightNav = styled.div`
   flex: 1;
   height: 64px;
-  list-style: none;
   display: flex;
-  justify-content: flex-end;
-  margin: 0;
   align-items: center;
+  justify-content: flex-end;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    height: 40px;
+    padding-right: 16px;
+  }
 `;
 
 const SearchBarWrapper = styled.div`
-  display: flex;
   width: 230px;
-  box-sizing: border-box;
   margin-right: 20px;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const MenuRight = () => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
 
   return (
-    <Right>
-      <li>
-        <SearchBarWrapper>
-          <Input size="sm" suffix={(<Icon name="search" />)} />
-        </SearchBarWrapper>
-      </li>
-      <li>
-        <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
-        {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
-      </li>
-    </Right>
+    <RightNav>
+      <SearchBarWrapper>
+        <Input size="sm" suffix={(<Icon name="search" />)} />
+      </SearchBarWrapper>
+      <ResponsiveSearchButton />
+      <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
+      {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
+    </RightNav>
   );
 };
 

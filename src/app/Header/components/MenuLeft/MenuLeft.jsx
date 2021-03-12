@@ -1,18 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from '../../../../components/Link';
+import ResponsiveBurgerMenu from './components/ResponsiveBurgerMenu';
 
-const Left = styled.ul`
+const LeftNav = styled.div`
   flex: 1;
   height: 64px;
-  list-style: none;
-  margin: 0;
   display: flex;
   align-items: center;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    height: 40px;
+    padding-left: 16px;
+  }
 `;
 
 const Item = styled.li`
   padding: 0px 32px 0px 0px;
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const NavigationLink = styled(Link)`
@@ -20,23 +28,26 @@ const NavigationLink = styled(Link)`
 `;
 
 const MenuLeft = () => (
-  <Left>
-    <Item>
-      <NavigationLink href="/">
-        一团袋鼠
-      </NavigationLink>
-    </Item>
-    <Item>
-      <NavigationLink href="/become-a-captain">
-        成为团长
-      </NavigationLink>
-    </Item>
-    <Item>
-      <NavigationLink href="/faq">
-        常见问题
-      </NavigationLink>
-    </Item>
-  </Left>
+  <>
+    <LeftNav>
+      <ResponsiveBurgerMenu />
+      <Item>
+        <NavigationLink href="/">
+          一团袋鼠
+        </NavigationLink>
+      </Item>
+      <Item>
+        <NavigationLink href="/become-a-captain">
+          成为团长
+        </NavigationLink>
+      </Item>
+      <Item>
+        <NavigationLink href="/faq">
+          常见问题
+        </NavigationLink>
+      </Item>
+    </LeftNav>
+  </>
 );
 
 export default MenuLeft;

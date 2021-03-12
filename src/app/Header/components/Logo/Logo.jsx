@@ -14,6 +14,11 @@ const LogoWrapper = styled.div`
   left: 0;
   top: 0;
   transform: translateX(-50%);
+
+  @media (min-width: 320px) and (max-width: 1024px) {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const Logo = () => (
