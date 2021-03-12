@@ -99,7 +99,7 @@ export default function LoginModal({
           );
         })}
 
-        <Button variant="link" onClick={onForgetPassword}>
+        <Button variant="link" type="button" onClick={onForgetPassword}>
           忘记密码？
         </Button>
 
