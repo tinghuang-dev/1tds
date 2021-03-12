@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
@@ -35,6 +36,8 @@ export default function LoginModal({
 
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
+  const router = useRouter();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -46,7 +49,8 @@ export default function LoginModal({
       try {
         await login(values);
 
-        setSubmitting(false);
+        router.push('/user/profile');
+        onClose();
       } catch ({ status }) {
         if (status === 412) {
           onNotVerifiedEmail(values.email);

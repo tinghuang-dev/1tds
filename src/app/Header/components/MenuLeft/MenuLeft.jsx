@@ -15,7 +15,7 @@ const LeftNav = styled.div`
   }
 `;
 
-const Item = styled.li`
+const Item = styled.div`
   padding: 0px 32px 0px 0px;
 
   @media (min-width: 320px) and (max-width: 1024px) {
