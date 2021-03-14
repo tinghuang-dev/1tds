@@ -1,21 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import Icon from '../../../../../../components/Icon';
 import Button from '../../../../../../components/Button';
-
-const SearchButton = styled(Button)`
-  display: none;
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    display: block;
-    margin-right: 24px;
-  }
-`;
+import Icon from '../../../../../../components/Icon';
 
 const ResponsiveSearchButton = () => (
-  <SearchButton variant="naked">
+  <Button variant="naked">
     <Icon name="search" />
-  </SearchButton>
+  </Button>
 );
 
 export default ResponsiveSearchButton;

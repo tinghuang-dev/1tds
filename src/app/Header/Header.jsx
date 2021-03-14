@@ -1,28 +1,20 @@
 import React from 'react';
-import styled from 'styled-components';
-import MenuLeft from './components/MenuLeft';
-import Logo from './components/Logo';
-import MenuRight from './components/MenuRight';
+import Box from '../../components/Box';
 import Container from '../../components/Container';
-
-const Nav = styled.header`
-  background: white;
-  border-bottom: 1px solid #dadada;
-`;
-
-const Layout = styled.div`
-  display: flex;
-`;
+import Flex from '../../components/Flex';
+import Logo from './components/Logo';
+import MenuLeft from './components/MenuLeft';
+import MenuRight from './components/MenuRight';
 
 const Header = () => (
-  <Nav>
+  <Box as="header" bg="white" borderBottom="@1" borderColor="border">
     <Container>
-      <Layout>
+      <Flex>
         <MenuLeft />
         <Logo />
         <MenuRight />
-      </Layout>
+      </Flex>
     </Container>
-  </Nav>
+  </Box>
 );
 export default Header;

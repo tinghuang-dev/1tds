@@ -1,29 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
+import React from 'react';
+import Box from '../../../../components/Box';
 import Link from '../../../../components/Link';
 
-const Wrapper = styled.div`
-  position: relative;
-`;
-
-const LogoWrapper = styled.div`
-  position: absolute;
-  height: 128px;
-  width: 128px;
-  left: 0;
-  top: 0;
-  transform: translateX(-50%);
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    width: 80px;
-    height: 80px;
-  }
-`;
-
 const Logo = () => (
-  <Wrapper>
-    <LogoWrapper>
+  <Box position="relative">
+    <Box
+      position="absolute"
+      top="0"
+      left="0"
+      transform="translateX(-50%)"
+      width={['80px', null, '128px']}
+      height={['80px', null, '128px']}
+    >
       <Link href="/">
         <Image
           alt="Logo"
@@ -32,8 +21,8 @@ const Logo = () => (
           height={128}
         />
       </Link>
-    </LogoWrapper>
-  </Wrapper>
+    </Box>
+  </Box>
 );
 
 export default Logo;

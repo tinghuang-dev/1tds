@@ -1,53 +1,40 @@
 import React from 'react';
-import styled from 'styled-components';
+import Box from '../../../../components/Box';
+import Hide from '../../../../components/Hide';
+import Flex from '../../../../components/Flex';
 import Link from '../../../../components/Link';
 import ResponsiveBurgerMenu from './components/ResponsiveBurgerMenu';
 
-const LeftNav = styled.div`
-  flex: 1;
-  height: 64px;
-  display: flex;
-  align-items: center;
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    height: 40px;
-    padding-left: 16px;
-  }
-`;
-
-const Item = styled.div`
-  padding: 0px 32px 0px 0px;
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    display: none;
-  }
-`;
-
-const NavigationLink = styled(Link)`
-  color: #C97A40;
-`;
-
 const MenuLeft = () => (
-  <>
-    <LeftNav>
+  <Flex
+    alignItems="center"
+    pl={['md', null, 0]}
+    flex="1"
+    height={['40px', null, '64px']}
+  >
+    <Hide md lg>
       <ResponsiveBurgerMenu />
-      <Item>
-        <NavigationLink href="/">
-          一团袋鼠
-        </NavigationLink>
-      </Item>
-      <Item>
-        <NavigationLink href="/become-a-captain">
-          成为团长
-        </NavigationLink>
-      </Item>
-      <Item>
-        <NavigationLink href="/faq">
-          常见问题
-        </NavigationLink>
-      </Item>
-    </LeftNav>
-  </>
+    </Hide>
+    <Hide xs sm>
+      <Flex>
+        <Box pr="lg">
+          <Link variant="primary" href="/">
+            一团袋鼠
+          </Link>
+        </Box>
+        <Box pr="lg">
+          <Link variant="primary" href="/become-a-captain">
+            成为团长
+          </Link>
+        </Box>
+        <Box>
+          <Link variant="primary" href="/faq">
+            常见问题
+          </Link>
+        </Box>
+      </Flex>
+    </Hide>
+  </Flex>
 );
 
 export default MenuLeft;

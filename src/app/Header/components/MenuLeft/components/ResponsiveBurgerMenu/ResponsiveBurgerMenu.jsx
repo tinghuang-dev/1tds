@@ -1,33 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
-import Icon from '../../../../../../components/Icon';
+import Box from '../../../../../../components/Box';
 import Button from '../../../../../../components/Button';
+import Icon from '../../../../../../components/Icon';
 import useToggler from '../../../../../../hooks/useToggler';
 import SlideMenu from './components/SlideMenu';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const SlideMenuToggler = styled(Button)`
-  display: none;
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    display: block;
-  }
-`;
 
 const ResponsiveBurgerMenu = () => {
   const [showSlideMenu, toggleSlideMenu] = useToggler();
   const handleClick = () => toggleSlideMenu();
 
   return (
-    <Container>
-      <SlideMenuToggler variant="naked" onClick={handleClick}>
+    <Box position="relative">
+      <Button variant="naked" onClick={handleClick}>
         <Icon name={showSlideMenu ? 'close' : 'menu'} />
-      </SlideMenuToggler>
+      </Button>
       {showSlideMenu && (<SlideMenu onClose={() => toggleSlideMenu()} />)}
-    </Container>
+    </Box>
   );
 };
 
