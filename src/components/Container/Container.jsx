@@ -1,12 +1,16 @@
 import styled from 'styled-components';
+import { system } from 'styled-system';
 
-const Container = styled.div`
-  width: 1280px;
+const width = system({
+  width: true,
+});
+
+const Container = styled.div.attrs({
+  width: ['100%', null, '1280px'],
+})`
   margin: 0 auto;
 
-  @media (min-width: 320px) and (max-width: 1024px) {
-    width: 100%;
-  }
+  ${width}
 `;
 
 export default Container;

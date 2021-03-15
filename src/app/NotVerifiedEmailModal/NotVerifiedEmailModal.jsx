@@ -1,23 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import Button from '../../components/Button';
+import Box from '../../components/Box';
 import Modal from '../../components/Modal';
 import resendEmail from '../../apis/auth/resendEmail';
 import Input from '../../components/Input';
 import MessageBox from '../../components/MessageBox';
-
-const StyledMessageBox = styled(MessageBox)`
-  margin-bottom: 10px;
-`;
-
-const InputWrapper = styled.div`
-  margin: 20px auto 40px;
-`;
-
-const StyledButton = styled(Button)`
-  display: block;
-  margin: 0 auto;
-`;
+import FormItem from '../../components/FormItem';
 
 export default function NotVerifiedEmailModal({ email, onClose }) {
   const [submitting, setSubmitting] = useState(false);
@@ -41,20 +29,26 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
   return (
     <Modal title="登陆失败" onClose={onClose} size="sm">
       {httpRequestStatus && (
-        <StyledMessageBox variant={(httpRequestStatus !== 201) && 'error'}>
-          {{
-            201: '验证信息发送成功',
-          }[httpRequestStatus] || '邮件发送失败，请稍后再试'}
-        </StyledMessageBox>
+        <Box mb="md">
+          <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+            {{
+              201: '验证信息发送成功',
+            }[httpRequestStatus] || '邮件发送失败，请稍后再试'}
+          </MessageBox>
+        </Box>
       )}
 
-      请确认注册邮箱是否已验证。如果没有收到验证邮件，请点击下方按钮再次发送验证信息到以下邮箱。
+      <FormItem>
+        请确认注册邮箱是否已验证。如果没有收到验证邮件，请点击下方按钮再次发送验证信息到以下邮箱。
+      </FormItem>
 
-      <InputWrapper>
+      <FormItem>
         <Input value={email} readOnly />
-      </InputWrapper>
+      </FormItem>
 
-      <StyledButton loading={submitting} onClick={handleClick}>重新发送验证邮件</StyledButton>
+      <Box textAlign="center" mt="lg">
+        <Button loading={submitting} onClick={handleClick}>重新发送验证邮件</Button>
+      </Box>
     </Modal>
   );
 }

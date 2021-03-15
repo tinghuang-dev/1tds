@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { variant } from 'styled-system';
 import Icon from '../Icon';
 
 const StyledButton = styled.button`
@@ -8,70 +9,6 @@ const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   word-break: keep-all;
-
-  ${(props) => ({
-    sm: css`
-      height: 35px;
-      padding: 0 12px;
-      font-size: 14px;
-      letter-spacing: 1px;
-      min-width: 100px;
-
-      @media (min-width: 320px) and (max-width: 1024px) {
-        height: 30px;
-        min-width: 45px;
-      }
-    `,
-    md: css`
-      height: 45px;
-      padding: 0 16px;
-      font-size: 18px;
-      letter-spacing: 2px;
-      min-width: 150px;
-    `,
-    lg: css`
-      height: 60px;
-      padding: 0 24px;
-      font-size: 20px;
-      letter-spacing: 4px;
-      min-width: 170px;
-    `,
-  }[props.size || 'md'])}
-
-
-  letter-spacing: 2px;
-  border-radius: 8px;
-
-  ${(props) => ({
-    primary: css`
-      background: #EB9050;
-      color: #ffffff;
-    `,
-    secondary: css`
-      background: #FCEAC6;
-      color: #C97A40;
-    `,
-    success: css`
-      background: #97A73F;
-      color: #ffffff;
-    `,
-    naked: css`
-      height: initial;
-      padding: 0;
-      color: inherit;
-      letter-spacing: initial;
-      background: transparent;
-      min-width: initial;
-    `,
-    link: css`
-      height: initial;
-      padding: 0;
-      letter-spacing: initial;
-      background: transparent;
-      color: #6097e6;
-      min-width: initial;
-    `,
-  }[props.variant || 'primary'])}
 
   :hover {
     filter: grayscale(30%);
@@ -83,19 +20,91 @@ const StyledButton = styled.button`
   }
 `;
 
+const SizeButton = styled(StyledButton)(variant({
+  prop: 'size',
+  variants: {
+    sm: {
+      height: ['30px', null, '35px'],
+      py: 0,
+      px: 'sm',
+      fontSize: 'sm',
+      letterSpacing: '1px',
+      minWidth: ['45px', null, '100px'],
+    },
+    md: {
+      height: '45px',
+      py: 0,
+      px: 'md',
+      fontSize: 'lg',
+      letterSpacing: '2px',
+      minWidth: '150px',
+    },
+    lg: {
+      height: '60px',
+      py: 0,
+      px: 'lg',
+      fontSize: '1x',
+      letterSpacing: '4px',
+      minWidth: '170px',
+    },
+  },
+}));
+
+const VariantButton = styled(SizeButton)(variant({
+  prop: 'variant',
+  variants: {
+    primary: {
+      bg: 'primary',
+      color: 'white',
+      borderRadius: 'default',
+    },
+    secondary: {
+      bg: 'secondary',
+      color: 'primary',
+      borderRadius: 'default',
+    },
+    success: {
+      bg: 'success',
+      color: 'white',
+      borderRadius: 'default',
+    },
+    naked: {
+      height: 'initial',
+      p: 0,
+      color: 'inherit',
+      letterSpacing: 'initial',
+      bg: 'transparent',
+      minWidth: 'initial',
+    },
+    link: {
+      height: 'initial',
+      p: 0,
+      color: 'link',
+      letterSpacing: 'initial',
+      bg: 'transparent',
+      minWidth: 'initial',
+    },
+  },
+}));
+
 function Button({
   loading,
   children,
   ...props
 }) {
   return (
-    <StyledButton
+    <VariantButton
       {...loading && { disabled: true }} // eslint-disable-line react/jsx-props-no-spreading
       {...props} // eslint-disable-line react/jsx-props-no-spreading
     >
       {loading ? (<Icon spin variant="naked" name="loading" />) : children}
-    </StyledButton>
+    </VariantButton>
   );
 }
+
+Button.defaultProps = {
+  size: 'md',
+  variant: 'primary',
+};
 
 export default Button;

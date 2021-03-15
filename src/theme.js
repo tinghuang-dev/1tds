@@ -24,6 +24,7 @@ const fontSizes = {
   '2x': '26px',
   '3x': '32px',
   '4x': '46px',
+  '5x': '58px',
 };
 
 const colors = {
@@ -48,5 +49,10 @@ export default {
   },
   zIndices: {
     popup: '9999',
+  },
+  lineHeights: {
+    tight: 1,
+    normal: 1.4,
+    loose: 1.75,
   },
 };

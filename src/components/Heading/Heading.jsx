@@ -1,22 +1,31 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { variant } from 'styled-system';
 
-const Heading = styled.div`
+const StyledHeading = styled.div`
   font-family: 'ZCOOL KuaiLe';
   letter-spacing: 8px;
-  
-  ${(props) => ({
-    sm: css`
-      font-size: 24px;
-    `,
-    md: css`
-      font-size: 36px;
-    `,
-    lg: css`
-      font-size: 48px;
-    `,
-    xl: css`
-      font-size: 56px;
-    `,
-  }[props.size || 'lg'])}
 `;
+
+const Heading = styled(StyledHeading)(variant({
+  prop: 'size',
+  variants: {
+    sm: {
+      fontSize: '1x',
+    },
+    md: {
+      fontSize: '2x',
+    },
+    lg: {
+      fontSize: '3x',
+    },
+    '1x': {
+      fontSize: '4x',
+    },
+  },
+}));
+
+Heading.defaultProps = {
+  size: 'lg',
+};
+
 export default Heading;

@@ -1,39 +1,6 @@
-import styled, { css } from 'styled-components';
 import React from 'react';
-
-const StyledFormItem = styled.div`
-  margin: 12px 0; 
-`;
-
-const Layout = styled.div`
-  ${(props) => ({
-    inline: css`
-      display: flex;
-      align-items: center;
-    `,
-    block: css`
-      display: block;
-    `,
-  }[props.layout || 'inline'])}
-`;
-
-const Label = styled.label`
-  font-size: 18px;
-`;
-
-const LabelWrapper = styled.div`
-  width: 100px;
-  margin: 4px 0;
-`;
-
-const InputWrapper = styled.div`
-  flex: 1;
-`;
-
-const ErrorMessage = styled.div`
-  color: #E83D32;
-  margin-top: 4px;
-`;
+import Box from '../Box';
+import Text from '../Text';
 
 const FormItem = ({
   name,
@@ -41,23 +8,41 @@ const FormItem = ({
   label,
   errorMessage,
   children,
-}) => (
-  <StyledFormItem>
-    <Layout layout={layout}>
-      <LabelWrapper>
-        <Label htmlFor={name}>{label}</Label>
-      </LabelWrapper>
-      <InputWrapper>
-        {children}
-      </InputWrapper>
-    </Layout>
-    <Layout layout={layout}>
-      <LabelWrapper />
-      <div>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-      </div>
-    </Layout>
-  </StyledFormItem>
-);
+}) => {
+  const display = {
+    inline: 'flex',
+    block: 'block',
+  }[layout];
+
+  const alignItems = {
+    inline: 'center',
+    block: null,
+  };
+
+  return (
+    <Box my="md">
+      <Box display={display} alignItems={alignItems}>
+        {label && (
+          <Box width="100px">
+            <label htmlFor={name}>
+              <Text fontSize="lg">{label}</Text>
+            </label>
+          </Box>
+        )}
+        <Box flex="1">
+          {children}
+        </Box>
+      </Box>
+      <Box display={display} alignItems={alignItems}>
+        {label && (
+          <Box width="100px" />
+        )}
+        <div>
+          {errorMessage && <Box color="error" mt="xs">{errorMessage}</Box>}
+        </div>
+      </Box>
+    </Box>
+  );
+};
 
 export default FormItem;

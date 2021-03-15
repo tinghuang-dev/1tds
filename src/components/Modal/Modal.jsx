@@ -1,69 +1,16 @@
 import React from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
+import Box from '../Box';
+import Button from '../Button';
+import Flex from '../Flex';
 import Heading from '../Heading';
 import Icon from '../Icon';
+import Overlay from '../Overlay';
 
 const HideBodyOverflow = createGlobalStyle`
   body {
     overflow: hidden;
   }
-`;
-
-const Overlay = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  left: 0;
-  top: 0;
-`;
-
-const StyledModal = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  position: relative;
-  height: auto;
-
-  ${(props) => ({
-    sm: css`
-      width: 400px;
-      padding: 40px;
-    `,
-    default: css`
-      width: 550px;
-      padding: 60px 50px;
-    `,
-    lg: css`
-      width:750px;
-      padding: 75px;
-    `,
-  }[props.size || 'default'])}
-
-  @media (min-width: 320px) and (max-width: 1024px) {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  right: 50px;
-  top: 30px;
-  padding: 0;
-  outline: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-`;
-
-const Title = styled(Heading)`
-  margin-bottom: 36px;
-  text-align: center;
 `;
 
 export default function Modal({
@@ -72,21 +19,44 @@ export default function Modal({
   children,
   size,
 }) {
+  const width = {
+    sm: '400px',
+    default: '550px',
+    lg: '750px',
+  }[size];
+
+  const padding = {
+    sm: 'lg',
+    default: '1x',
+    lg: '2x',
+  }[size];
+
   return (
     <>
       <HideBodyOverflow />
-      <Overlay>
-        <StyledModal
-          size={size}
+      <Overlay bg="rgba(0, 0, 0, 0.5)">
+        <Box
+          width={['100%', null, width]}
+          height={['100%', null, 'auto']}
+          p={padding}
+          bg="white"
+          borderRadius={[null, null, 'default']}
+          position="relative"
         >
-          <CloseButton right={50} top={32} type="button" onClick={onClose}>
-            <Icon name="closeCircle" size="2x" />
-          </CloseButton>
+          <Box position="absolute" top="md" right="md">
+            <Button type="button" variant="naked" onClick={onClose}>
+              <Icon name="closeCircle" size="2x" />
+            </Button>
+          </Box>
           <div>
-            {title && <Title size="md">{title}</Title>}
+            {title && (
+              <Flex justifyContent="center" mb="lg">
+                <Heading size="md">{title}</Heading>
+              </Flex>
+            )}
             {children}
           </div>
-        </StyledModal>
+        </Box>
       </Overlay>
     </>
   );

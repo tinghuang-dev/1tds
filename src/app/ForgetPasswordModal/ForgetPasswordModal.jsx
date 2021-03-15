@@ -1,25 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import Box from '../../components/Box';
 import Button from '../../components/Button';
 import FormItem from '../../components/FormItem';
 import Input from '../../components/Input';
-import Modal from '../../components/Modal';
 import MessageBox from '../../components/MessageBox';
+import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
-
-const Form = styled.form`
-  margin: 0 auto;
-`;
-
-const ConfirmButton = styled(Button)`
-  display: block;
-  margin: 50px auto 28px;
-`;
-
-const StyledMessageBox = styled(MessageBox)`
-  margin: 16px 0;
-`;
 
 export default function ForgetPasswordModal({ onClose }) {
   const {
@@ -33,10 +20,12 @@ export default function ForgetPasswordModal({ onClose }) {
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
-      <StyledMessageBox variant="info">
-        请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。
-      </StyledMessageBox>
-      <Form onSubmit={handleSubmit}>
+      <Box mb="md">
+        <MessageBox variant="info">
+          请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。
+        </MessageBox>
+      </Box>
+      <form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(
             values[key],
@@ -61,8 +50,10 @@ export default function ForgetPasswordModal({ onClose }) {
             </FormItem>
           );
         })}
-        <ConfirmButton type="submit">确定</ConfirmButton>
-      </Form>
+        <Box textAlign="center" mt="lg">
+          <Button type="submit">确定</Button>
+        </Box>
+      </form>
     </Modal>
   );
 }

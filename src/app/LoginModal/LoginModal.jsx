@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Button from '../../components/Button';
+import Box from '../../components/Box';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
@@ -9,19 +9,6 @@ import config from './formConfig';
 import FormItem from '../../components/FormItem';
 import MessageBox from '../../components/MessageBox';
 import login from '../../apis/auth/login';
-
-const Form = styled.form`
-  margin: 0 auto;
-`;
-
-const StyledMessageBox = styled(MessageBox)`
-  margin-bottom: 10px;
-`;
-
-const LoginButton = styled(Button)`
-  display: block;
-  margin: 50px auto 28px;
-`;
 
 export default function LoginModal({
   onClose,
@@ -68,14 +55,16 @@ export default function LoginModal({
   return (
     <Modal title="登陆" onClose={onClose} size="sm">
       {httpRequestStatus && (
-        <StyledMessageBox variant={(httpRequestStatus !== 201) && 'error'}>
-          {{
-            404: '邮箱与密码不匹配, 请重试',
-          }[httpRequestStatus] || '登录失败，请稍后再试'}
-        </StyledMessageBox>
+        <Box mb="md">
+          <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+            {{
+              404: '邮箱与密码不匹配, 请重试',
+            }[httpRequestStatus] || '登录失败，请稍后再试'}
+          </MessageBox>
+        </Box>
       )}
 
-      <Form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);
           const error = touched && !!errorMessage;
@@ -103,10 +92,12 @@ export default function LoginModal({
           忘记密码？
         </Button>
 
-        <LoginButton loading={submitting} type="submit">
-          登录
-        </LoginButton>
-      </Form>
+        <Box textAlign="center" mt="lg">
+          <Button loading={submitting} type="submit">
+            登录
+          </Button>
+        </Box>
+      </form>
     </Modal>
   );
 }

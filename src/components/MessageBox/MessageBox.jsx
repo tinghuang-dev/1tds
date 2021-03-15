@@ -1,9 +1,12 @@
 import styled, { css } from 'styled-components';
+import Box from '../Box';
 
-const MessageBox = styled.div`
-  border-radius: 8px;
-  padding: 8px 16px;
-
+const MessageBox = styled(Box).attrs({
+  borderRadius: 'default',
+  p: 'sm',
+  px: 'md',
+  lineHeight: 'loose',
+})`
   ${(props) => ({
     success: css`
       color: white;
