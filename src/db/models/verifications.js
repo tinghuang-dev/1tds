@@ -1,7 +1,17 @@
 const { v4: uuid } = require('uuid');
 const { DataTypes, Model } = require('sequelize');
+const add = require('date-fns/add');
 const { sequelize } = require('./index');
 const Users = require('./users');
+
+const EXPIRE_LIST = {
+  RESET_PASSWORD: {
+    minutes: 15,
+  },
+  VERIFY_EMAIL: {
+    hours: 24,
+  },
+};
 
 class Verifications extends Model {
   static async createScopedTokenForUser(UserId, scope) {
@@ -19,7 +29,21 @@ class Verifications extends Model {
   }
 
   static async getUserByScopedToken(token, scope) {
-    const { User } = await this.findOne({ where: { token, scope }, include: Users });
+    const verification = await this.findOne({ where: { token, scope }, include: Users });
+
+    if (!verification) {
+      return null;
+    }
+
+    const { createdAt, User } = verification;
+
+    const expiredTime = add(createdAt, EXPIRE_LIST[scope]);
+
+    const isExpired = expiredTime < new Date();
+
+    if (isExpired) {
+      return null;
+    }
 
     return User;
   }
