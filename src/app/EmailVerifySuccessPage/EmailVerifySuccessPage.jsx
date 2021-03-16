@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import Container from '../../components/Container';
 import Heading from '../../components/Heading';
 import Button from '../../components/Button';
@@ -8,37 +7,14 @@ import useToggler from '../../hooks/useToggler';
 import UserAuthModals from '../UserAuthModals';
 import Link from '../../components/Link';
 import verifyEmail from '../../apis/auth/verifyEmail';
-import Icon from '../../components/Icon';
+import LoadingState from './components/LoadingState';
+import Box from '../../components/Box';
+import Flex from '../../components/Flex';
 import Title from '../../components/Title';
-
-const PageContainer = styled(Container)`
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledHeading = styled(Heading)`
-  text-align: center;
-  padding: 36px 0px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 36px 0px;
-`;
-
-const RightButton = styled(Button)`
-  margin-left: 62px;
-`;
-
-const LoadingIcon = styled(Icon)`
-  margin: 0 auto;
-`;
 
 const EmailVerifySuccessPage = () => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { query: { token } } = useRouter();
 
   useEffect(() => {
@@ -50,7 +26,7 @@ const EmailVerifySuccessPage = () => {
           // eslint-disable-next-line no-console
           console.log(error);
         }
-        setloading(false);
+        setLoading(false);
       };
       verifyUserEmail();
     }
@@ -59,20 +35,24 @@ const EmailVerifySuccessPage = () => {
   return (
     <>
       <Title>邮箱验证成功</Title>
-      <PageContainer>
-        {loading ? (<LoadingIcon spin variant="naked" name="loading" size="2x" />) : (
-          <>
-            <StyledHeading size="xl">邮箱验证成功</StyledHeading>
-            <ButtonWrapper>
+      <Box mt="3x">
+        {loading ? (<LoadingState />) : (
+          <Container>
+            <Box textAlign="center" py="lg">
+              <Heading size="1x">邮箱验证成功</Heading>
+            </Box>
+            <Flex justifyContent="center" py="lg">
               <Link href="/">
                 <Button color="secondary">前往首页</Button>
               </Link>
-              <RightButton onClick={() => toggleShowUserAuthModals()}>登陆</RightButton>
-            </ButtonWrapper>
+              <Box ml="1x">
+                <Button onClick={() => toggleShowUserAuthModals()}>登陆</Button>
+              </Box>
+            </Flex>
             {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
-          </>
+          </Container>
         )}
-      </PageContainer>
+      </Box>
     </>
   );
 };
