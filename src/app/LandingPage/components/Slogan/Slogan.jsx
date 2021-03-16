@@ -14,7 +14,7 @@ const SloganWrapper = styled.div`
 const Slogan = () => (
   <Banner>
     <SloganWrapper>
-      <Heading size="xl">看看附近在团些什么好东西吧!</Heading>
+      <Heading size="1x">看看附近在团些什么好东西吧!</Heading>
     </SloganWrapper>
   </Banner>
 );

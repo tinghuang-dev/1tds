@@ -9,6 +9,7 @@ import UserAuthModals from '../UserAuthModals';
 import Link from '../../components/Link';
 import verifyEmail from '../../apis/auth/verifyEmail';
 import Icon from '../../components/Icon';
+import Title from '../../components/Title';
 
 const PageContainer = styled(Container)`
   margin-top: 100px;
@@ -56,20 +57,23 @@ const EmailVerifySuccessPage = () => {
   }, [token]);
 
   return (
-    <PageContainer>
-      {loading ? (<LoadingIcon spin variant="naked" name="loading" size="2x" />) : (
-        <>
-          <StyledHeading size="xl">邮箱验证成功</StyledHeading>
-          <ButtonWrapper>
-            <Link href="/">
-              <Button color="secondary">前往首页</Button>
-            </Link>
-            <RightButton onClick={() => toggleShowUserAuthModals()}>登陆</RightButton>
-          </ButtonWrapper>
-          {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
-        </>
-      )}
-    </PageContainer>
+    <>
+      <Title>邮箱验证成功</Title>
+      <PageContainer>
+        {loading ? (<LoadingIcon spin variant="naked" name="loading" size="2x" />) : (
+          <>
+            <StyledHeading size="xl">邮箱验证成功</StyledHeading>
+            <ButtonWrapper>
+              <Link href="/">
+                <Button color="secondary">前往首页</Button>
+              </Link>
+              <RightButton onClick={() => toggleShowUserAuthModals()}>登陆</RightButton>
+            </ButtonWrapper>
+            {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
+          </>
+        )}
+      </PageContainer>
+    </>
   );
 };
 export default EmailVerifySuccessPage;

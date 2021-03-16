@@ -6,7 +6,9 @@ import Benefits from './components/Benefits';
 import BusinessProcess from './components/BusinessProcess';
 import CaptainLinkBlock from './components/CaptainLinkBlock';
 import Form from './components/Form';
+import Title from '../../components/Title';
 import Heading from '../../components/Heading';
+import Box from '../../components/Box';
 
 const FormWrapper = styled.div`
   background-color: lightblue;
@@ -16,11 +18,6 @@ const BecomeACaptain = styled.div`
   width: 50%;
   background: #FCEAC6;
   padding: 40px 48px;
-`;
-
-const Title = styled(Heading)`
-  margin: 0 0 20px;
-  text-align: center;
 `;
 
 const Introduction = styled.div`
@@ -38,12 +35,15 @@ const InfoLinkContainer = styled.div`
 export default function BecomeACaptainPage() {
   return (
     <>
+      <Title>成为团长</Title>
       <FormWrapper>
         <Container>
           <BecomeACaptain>
-            <Title size="xl">
-              成为团长
-            </Title>
+            <Box textAlign="center" mb="md">
+              <Heading size="1x">
+                成为团长
+              </Heading>
+            </Box>
 
             <Introduction>
               实现自身价值，工作顾家两不误。

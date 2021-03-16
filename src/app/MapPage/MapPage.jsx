@@ -1,9 +1,13 @@
 import React from 'react';
+import Title from '../../components/Title';
 
 const MapPage = () => (
-  <div>
-    MapPage
-  </div>
+  <>
+    <Title>主页</Title>
+    <div>
+      MapPage
+    </div>
+  </>
 );
 
 export default MapPage;
