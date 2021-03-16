@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '../../components/Box';
 import Button from '../../components/Button';
 import FormItem from '../../components/FormItem';
@@ -7,22 +7,43 @@ import MessageBox from '../../components/MessageBox';
 import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
+import forgetPassword from '../../apis/auth/forgetPassword';
 
 export default function ForgetPasswordModal({ onClose }) {
   const {
-    handleChange, values, touched, toggleTouched,
+    validate, handleChange, values, touched, toggleTouched,
   } = useForm(config);
 
-  const handleSubmit = (event) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const [httpRequestStatus, setHttpRequestStatus] = useState();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    toggleTouched();
+
+    toggleTouched(true);
+
+    if (validate()) {
+      setSubmitting(true);
+
+      try {
+        const { status } = await forgetPassword(values);
+        setHttpRequestStatus(status);
+      } catch (error) {
+        setHttpRequestStatus(error.status);
+        setSubmitting(false);
+      }
+      setSubmitting(false);
+    }
   };
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
       <Box mb="md">
         <MessageBox variant="info">
-          请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。
+          {{
+            201: '一封包含重置密码链接的邮件已发送至您的邮箱，请注意查收。',
+          }[httpRequestStatus] || '请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。'}
         </MessageBox>
       </Box>
       <form onSubmit={handleSubmit}>
@@ -51,7 +72,7 @@ export default function ForgetPasswordModal({ onClose }) {
           );
         })}
         <Box textAlign="center" mt="lg">
-          <Button type="submit">确定</Button>
+          <Button loading={submitting} type="submit">确定</Button>
         </Box>
       </form>
     </Modal>
