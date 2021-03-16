@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import Box from '../../../../components/Box';
-import Link from '../../../../components/Link';
+import Box from '../../components/Box';
+import Link from '../../components/Link';
 
 const Logo = () => (
   <Box position="relative">

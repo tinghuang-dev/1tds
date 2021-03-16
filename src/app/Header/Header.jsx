@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '../../components/Box';
 import Container from '../../components/Container';
 import Flex from '../../components/Flex';
-import Logo from './components/Logo';
+import Logo from '../Logo';
 import MenuLeft from './components/MenuLeft';
 import MenuRight from './components/MenuRight';
 
