@@ -11,7 +11,7 @@ const UserProfileContainer = styled(Container)`
 
 const UserProfilePage = () => (
   <>
-    <Title>账户信息｜用户中心｜一团袋鼠</Title>
+    <Title>账户信息｜用户中心</Title>
     <UserProfileContainer>
       <ProfileNav />
       <ProfileContent />

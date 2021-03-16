@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }) {
       <Header />
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Component {...pageProps} />
+      <div id="modal-root" />
     </ThemeProvider>
   );
 }

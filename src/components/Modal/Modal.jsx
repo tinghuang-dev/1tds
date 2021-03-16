@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import Box from '../Box';
 import Button from '../Button';
@@ -31,7 +32,7 @@ export default function Modal({
     lg: '2x',
   }[size];
 
-  return (
+  return createPortal(
     <>
       <HideBodyOverflow />
       <Overlay bg="rgba(0, 0, 0, 0.5)">
@@ -58,6 +59,7 @@ export default function Modal({
           </div>
         </Box>
       </Overlay>
-    </>
+    </>,
+    document.getElementById('modal-root'),
   );
 }
