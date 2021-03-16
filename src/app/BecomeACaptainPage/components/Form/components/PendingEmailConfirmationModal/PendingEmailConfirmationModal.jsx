@@ -1,38 +1,10 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import Button from '../../../../../../components/Button';
 import Modal from '../../../../../../components/Modal';
 import Input from '../../../../../../components/Input';
 import MessageBox from '../../../../../../components/MessageBox';
 import resendEmail from '../../../../../../apis/auth/resendEmail';
-
-const StyledMessageBox = styled(MessageBox)`
-  margin-bottom: 10px;
-`;
-
-const CallToAction = styled.div`
-  display:flex;
-  justify-content: center;
-  margin-top: 30px;
-`;
-
-const LinkWrapper = styled.ul`
-  font-size: 18px;
-  line-height: 40px;
-  margin: 16px 0;
-`;
-
-const SentenceWrapper = styled.div`
-  padding: 20px 0px;
-  font-size: 18px;
-  line-height: 30px;
-  box-shadow: 0px 1px 0px rgba(88, 73, 62, 0.2);
-`;
-
-const ConfirmWrapper = styled.div`
-  margin-top: 20px;
-  font-size: 18px;
-`;
+import Box from '../../../../../../components/Box';
 
 export default function PendingEmailConfirmationModal({
   email,
@@ -57,25 +29,31 @@ export default function PendingEmailConfirmationModal({
   };
 
   return (
-    <Modal title="验证邮件已发送" onClose={onClose}>
+    <Modal title="验证邮件已发送" onClose={onClose} size="default">
       {httpRequestStatus && (
-        <StyledMessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+        <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
           {{
             201: '验证信息发送成功',
           }[httpRequestStatus] || '邮件发送失败，请稍后再试'}
-        </StyledMessageBox>
+        </MessageBox>
       )}
 
-      <SentenceWrapper>
+      <Box
+        fontSize="lg"
+        py="lg"
+        lineHeight="loose"
+        borderBottom="@1"
+        borderBottomColor="border"
+      >
         {`验证邮箱已发送到你的邮箱 ${email},`}
         请点击邮件中的确认链接完成验证
-      </SentenceWrapper>
+      </Box>
 
-      <ConfirmWrapper>
+      <Box mt="md" fontSize="lg">
         没有收到确认邮件？
-      </ConfirmWrapper>
+      </Box>
 
-      <LinkWrapper>
+      <Box fontSize="lg" my="md" lineHeight="loose">
         <li>
           检查上面邮箱是否正确，
           若错误请
@@ -90,15 +68,15 @@ export default function PendingEmailConfirmationModal({
         <li>
           稍等几分钟，若仍收不到邮件，重新发送确认邮件
         </li>
-      </LinkWrapper>
+      </Box>
 
       <Input readOnly value={email} />
 
-      <CallToAction>
+      <Box textAlign="center" mt="lg">
         <Button loading={submitting} onClick={handleClick}>
           重新发送
         </Button>
-      </CallToAction>
+      </Box>
     </Modal>
   );
 }
