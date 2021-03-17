@@ -1,1 +1,1 @@
-export { default } from '../app/EmailVerifySuccessPage';
+export { default } from '../app/EmailVerifyPage';

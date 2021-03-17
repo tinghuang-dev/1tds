@@ -4,7 +4,7 @@ const verifyEmail = async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
-    res.status(404).end();
+    res.status(400).end();
 
     return;
   }
@@ -12,7 +12,7 @@ const verifyEmail = async (req, res) => {
   const user = await Verifications.getUserByScopedToken(token, Verifications.SCOPE.VERIFY_EMAIL);
 
   if (!user) {
-    res.status(201).end();
+    res.status(404).end();
 
     return;
   }
