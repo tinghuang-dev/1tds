@@ -40,10 +40,16 @@ const config = {
   password: {
     label: '密码',
     inputType: 'password',
-    getErrorMessage: (password) => getMessage([{
-      error: !password,
-      message: alertEmpty(config.password.label),
-    }]),
+    getErrorMessage: (password) => getMessage([
+      {
+        error: !password,
+        message: alertEmpty(config.password.label),
+      },
+      {
+        error: !validator.isStrongPassword(password, { minUppercase: 0, minSymbols: 0 }),
+        message: '至少8个字符，且包含一个字母或数字',
+      },
+    ]),
   },
   confirmPassword: {
     label: '确认密码',
@@ -55,7 +61,7 @@ const config = {
       },
       {
         error: confirmPassword !== formValues.password,
-        message: '输入密码不符',
+        message: '两次密码输入不一致',
       },
     ]),
   },
