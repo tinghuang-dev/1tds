@@ -10,6 +10,7 @@ export default function Icon({
   const color = {
     naked: '',
     primary: '#EB9050',
+    text: '#4F4F4F',
   }[variant || 'primary'];
 
   return (

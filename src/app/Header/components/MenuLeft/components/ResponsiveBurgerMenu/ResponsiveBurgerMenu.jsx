@@ -12,7 +12,7 @@ const ResponsiveBurgerMenu = () => {
   return (
     <Box position="relative">
       <Button variant="naked" onClick={handleClick}>
-        <Icon name={showSlideMenu ? 'close' : 'menu'} />
+        <Icon variant="text" name={showSlideMenu ? 'close' : 'menu'} />
       </Button>
       {showSlideMenu && (<SlideMenu onClose={() => toggleSlideMenu()} />)}
     </Box>

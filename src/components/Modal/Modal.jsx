@@ -35,7 +35,7 @@ export default function Modal({
   return createPortal(
     <>
       <HideBodyOverflow />
-      <Overlay bg="rgba(0, 0, 0, 0.5)">
+      <Overlay bg="semitransparent">
         <Box
           width={['100%', null, width]}
           height={['100%', null, 'auto']}

@@ -36,6 +36,7 @@ const colors = {
   border: '#dadada',
   link: '#6097E6',
   grey: '#f0f0f0',
+  semitransparent: 'rgba(0, 0, 0, 0.5)',
 };
 
 export default {
