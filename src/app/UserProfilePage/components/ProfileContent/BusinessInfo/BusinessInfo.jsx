@@ -21,20 +21,7 @@ const DataContainer = styled.div`
   padding: 20px 0;
 `;
 
-const data = [
-  {
-    key: 'mobile',
-    label: '手机',
-    value: '0419238119',
-  },
-  {
-    key: 'address',
-    label: '地址',
-    value: '620 Breanne Centers, Mt Waverley, VIC 3149',
-  },
-];
-
-const BusinessInfo = () => (
+const BusinessInfo = ({ user }) => (
   <ContentContainer>
     <TitleContainer>
       <Heading size="sm">经营信息</Heading>
@@ -44,11 +31,12 @@ const BusinessInfo = () => (
     </TitleContainer>
 
     <DataContainer>
-      {data.map(({ key, label, value }) => (
-        <FormItem key={key} layout="inline" label={label}>
-          <Input readOnly value={value} />
-        </FormItem>
-      ))}
+      <FormItem layout="inline" label="手机">
+        <Input readOnly value={user.mobile} />
+      </FormItem>
+      <FormItem layout="inline" label="地址">
+        <Input readOnly value={user.address} />
+      </FormItem>
     </DataContainer>
   </ContentContainer>
 );

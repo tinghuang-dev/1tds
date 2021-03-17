@@ -8,10 +8,10 @@ const ProfileContentContainer = styled.div`
   flex: 1;
 `;
 
-const ProfileNav = () => (
+const ProfileContent = ({ user }) => (
   <ProfileContentContainer>
-    <PersonalInfo />
-    <BusinessInfo />
+    <PersonalInfo user={user} />
+    <BusinessInfo user={user} />
   </ProfileContentContainer>
 );
-export default ProfileNav;
+export default ProfileContent;

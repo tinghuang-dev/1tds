@@ -9,9 +9,12 @@ const ContentContainer = styled.div`
   margin: 10px 0;
 `;
 
-const Title = styled(Heading)`
+const TitleContainer = styled.div`
   border-bottom: solid 1px #000000;
   padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const DataContainer = styled.div`
@@ -22,23 +25,15 @@ const ChangePasswordButton = styled(Button)`
   margin-left: 20px;
 `;
 
-const InnerContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const PersonalInfo = () => (
+const PersonalInfo = ({ user }) => (
   <ContentContainer>
-    <Title size="sm">账户信息</Title>
+    <TitleContainer>
+      <Heading size="sm">账户信息</Heading>
+      <ChangePasswordButton size="sm" type="submit" variant="primary">修改密码</ChangePasswordButton>
+    </TitleContainer>
     <DataContainer>
       <FormItem layout="inline" label="邮箱">
-        <Input readOnly value="zlong@outlook.com" />
-      </FormItem>
-      <FormItem layout="inline" label="密码">
-        <InnerContainer>
-          <Input readOnly value="PASSWORD" type="password" />
-          <ChangePasswordButton size="sm" type="submit" variant="success">修改密码</ChangePasswordButton>
-        </InnerContainer>
+        <Input readOnly value={user.email} />
       </FormItem>
     </DataContainer>
   </ContentContainer>

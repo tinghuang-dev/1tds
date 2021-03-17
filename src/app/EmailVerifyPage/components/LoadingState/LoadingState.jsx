@@ -7,7 +7,7 @@ import Flex from '../../../../components/Flex';
 import Box from '../../../../components/Box';
 import Text from '../../../../components/Text';
 
-const LoadingState = () => (
+const LoadingState = ({ heading, text }) => (
   <Overlay bg="white">
     <Flex
       justifyContent="center"
@@ -21,11 +21,13 @@ const LoadingState = () => (
         height={128}
       />
       <Box pt="lg" pb="md">
-        <Heading size="lg">激活账号</Heading>
+        <Heading size="lg">
+          {heading}
+        </Heading>
       </Box>
       <Box pb="1x">
         <Text fontSize="lg">
-          正在激活您的账号，请耐心等待。
+          {text}
         </Text>
       </Box>
       <Icon spin variant="naked" name="loading" size="3x" />

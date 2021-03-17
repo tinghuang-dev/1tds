@@ -33,7 +33,7 @@ const EmailVerifyPage = () => {
   const verified = httpRequestStatus === 201;
 
   return !httpRequestStatus ? (
-    <LoadingState />
+    <LoadingState heading="激活账号" text="正在激活您的账号，请耐心等待。" />
   ) : (
     <>
       <Title>激活账号</Title>
