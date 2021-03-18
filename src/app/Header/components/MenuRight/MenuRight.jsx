@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import jwt from 'jsonwebtoken';
 import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
 import Flex from '../../../../components/Flex';
@@ -8,9 +9,41 @@ import Input from '../../../../components/Input';
 import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
 import ResponsiveSearchButton from './components/ResponsiveSearchButton';
+import axios from '../../../../lib/axios';
+
+const getAuthToken = () => {
+  const authToken = localStorage.getItem('AUTH_TOKEN');
+  const payload = jwt.decode(authToken);
+
+  if (!payload) {
+    return null;
+  }
+
+  const { exp } = payload;
+  if (Date.now() > exp * 1000) {
+    return null;
+  }
+
+  return payload;
+};
 
 const MenuRight = () => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
+  const [tokenizedUser, setTokenizedUser] = useState();
+
+  useEffect(() => {
+    setTokenizedUser(getAuthToken());
+
+    const interceptor = axios.interceptors.response.use((response) => {
+      setTokenizedUser(getAuthToken());
+
+      return response;
+    });
+
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
+  }, []);
 
   return (
     <Flex
@@ -30,8 +63,12 @@ const MenuRight = () => {
           <ResponsiveSearchButton />
         </Hide>
       </Box>
-      <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
-      {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
+      {tokenizedUser ? (<Icon name="userCircle" size="2x" />) : (
+        <>
+          <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
+          {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}
+        </>
+      )}
     </Flex>
   );
 };

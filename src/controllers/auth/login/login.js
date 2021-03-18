@@ -36,7 +36,7 @@ const login = async (req, res) => {
       email,
     };
 
-    const token = sign(tokenData, JWT_SECRET, { expiresIn: '1h' });
+    const token = sign(tokenData, JWT_SECRET, { expiresIn: '15m' });
 
     res.setHeader('X-Auth-Token', token);
 
