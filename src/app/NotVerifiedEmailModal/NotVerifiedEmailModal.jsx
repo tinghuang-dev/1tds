@@ -38,16 +38,18 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
         </Box>
       )}
 
-      <FormItem>
-        请确认注册邮箱是否已验证。如果没有收到验证邮件，请点击下方按钮再次发送验证信息到以下邮箱。
-      </FormItem>
+      <MessageBox variant="error">
+        该账号尚未通过邮箱验证
+        <br />
+        请检查收件箱并验证
+      </MessageBox>
 
       <FormItem>
         <Input value={email} readOnly />
       </FormItem>
 
       <Box textAlign="center" mt="lg">
-        <Button loading={submitting} onClick={handleClick}>重新发送验证邮件</Button>
+        <Button variant="secondary" loading={submitting} onClick={handleClick}>重新发送验证邮件</Button>
       </Box>
     </Modal>
   );
