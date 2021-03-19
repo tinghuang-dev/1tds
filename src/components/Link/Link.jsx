@@ -16,6 +16,9 @@ const VariantAnchor = styled(Anchor)(variant({
     primary: {
       color: 'primary',
     },
+    text: {
+      color: 'inherit',
+    },
   },
 }));
 

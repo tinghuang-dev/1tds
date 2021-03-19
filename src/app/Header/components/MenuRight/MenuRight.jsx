@@ -10,6 +10,7 @@ import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
 import ResponsiveSearchButton from './components/ResponsiveSearchButton';
 import axios from '../../../../lib/axios';
+import UserProfileMenu from './components/UserProfileMenu';
 
 const getAuthToken = () => {
   const authToken = localStorage.getItem('AUTH_TOKEN');
@@ -63,7 +64,7 @@ const MenuRight = () => {
           <ResponsiveSearchButton />
         </Hide>
       </Box>
-      {tokenizedUser ? (<Icon name="userCircle" size="2x" />) : (
+      {tokenizedUser ? (<UserProfileMenu />) : (
         <>
           <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
           {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}

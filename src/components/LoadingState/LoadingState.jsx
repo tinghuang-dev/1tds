@@ -1,11 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import Heading from '../../../../components/Heading';
-import Icon from '../../../../components/Icon';
-import Overlay from '../../../../components/Overlay';
-import Flex from '../../../../components/Flex';
-import Box from '../../../../components/Box';
-import Text from '../../../../components/Text';
+import Heading from '../Heading';
+import Icon from '../Icon';
+import Overlay from '../Overlay';
+import Flex from '../Flex';
+import Box from '../Box';
+import Text from '../Text';
 
 const LoadingState = ({ heading, text }) => (
   <Overlay bg="white">

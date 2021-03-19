@@ -5,7 +5,7 @@ import ProfileNav from './components/ProfileNav';
 import ProfileContent from './components/ProfileContent';
 import Title from '../../components/Title';
 import getUser from '../../apis/auth/getUser';
-import LoadingState from '../EmailVerifyPage/components/LoadingState';
+import LoadingState from '../../components/LoadingState';
 
 const UserProfileContainer = styled(Container)`
   display: flex;
@@ -29,7 +29,7 @@ const UserProfilePage = () => {
 
   return (
     <>
-      <Title>账户信息｜用户中心</Title>
+      <Title>用户信息｜用户中心</Title>
       <UserProfileContainer>
         <ProfileNav />
         {user ? (

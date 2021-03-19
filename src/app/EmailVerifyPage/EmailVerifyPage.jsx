@@ -5,7 +5,7 @@ import useToggler from '../../hooks/useToggler';
 import UserAuthModals from '../UserAuthModals';
 import Link from '../../components/Link';
 import verifyEmail from '../../apis/auth/verifyEmail';
-import LoadingState from './components/LoadingState';
+import LoadingState from '../../components/LoadingState';
 import Box from '../../components/Box';
 import Flex from '../../components/Flex';
 import Title from '../../components/Title';

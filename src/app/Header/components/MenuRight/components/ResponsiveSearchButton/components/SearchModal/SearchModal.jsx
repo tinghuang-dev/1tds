@@ -1,9 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import Box from '../../../../../../../components/Box';
-import Icon from '../../../../../../../components/Icon';
-import Input from '../../../../../../../components/Input';
-import Overlay from '../../../../../../../components/Overlay';
+import Box from '../../../../../../../../components/Box';
+import Icon from '../../../../../../../../components/Icon';
+import Input from '../../../../../../../../components/Input';
+import Overlay from '../../../../../../../../components/Overlay';
 
 function SearchModal() {
   return createPortal(
