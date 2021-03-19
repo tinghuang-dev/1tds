@@ -10,6 +10,11 @@ const UserProfileMenu = () => {
   const [showDropdownMenu, toggleDropdownMenu] = useToggler();
   const handleClick = () => toggleDropdownMenu();
 
+  const removeAuthToken = () => {
+    localStorage.removeItem('AUTH_TOKEN');
+    window.location.assign('/');
+  };
+
   return (
     <Box position="relative">
       <Button variant="naked" onClick={handleClick}>
@@ -33,7 +38,9 @@ const UserProfileMenu = () => {
             </Link>
           </Box>
           <Box px="md" pt="sm">
-            <Button variant="naked" size="sm">登出</Button>
+            <Button variant="naked" size="sm" onClick={removeAuthToken}>
+              登出
+            </Button>
           </Box>
         </DropdownMenu>
       )}
