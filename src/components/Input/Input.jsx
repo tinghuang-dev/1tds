@@ -52,7 +52,11 @@ const Container = styled.div`
   `}
 
   ${(props) => props.readOnly && css`
+    border-color: transparent;
     background-color: #FCEAC6;
+    &:focus-within {
+    border-color: transparent;
+  }
   `}
 `;
 
