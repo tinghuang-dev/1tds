@@ -13,7 +13,7 @@ const ResponsiveSearchButton = () => {
       <Button variant="naked" onClick={handleClick}>
         <Icon name="search" variant="text" />
       </Button>
-      {showSearchModal && (<SearchModal />)}
+      {showSearchModal && (<SearchModal onClose={handleClick} />)}
     </>
   );
 };

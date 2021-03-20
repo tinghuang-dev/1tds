@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import Box from '../Box';
 import Button from '../Button';
+import ClickOutside from '../ClickOutside';
 import Flex from '../Flex';
 import Heading from '../Heading';
 import Icon from '../Icon';
@@ -36,28 +37,30 @@ export default function Modal({
     <>
       <HideBodyOverflow />
       <Overlay bg="semitransparent">
-        <Box
-          width={['100%', null, width]}
-          height={['100%', null, 'auto']}
-          p={padding}
-          bg="white"
-          borderRadius={[null, null, 'default']}
-          position="relative"
-        >
-          <Box position="absolute" top="md" right="md">
-            <Button type="button" variant="naked" onClick={onClose}>
-              <Icon name="closeCircle" size="2x" />
-            </Button>
+        <ClickOutside onOutsideClick={onClose}>
+          <Box
+            width={['100%', null, width]}
+            height={['100%', null, 'auto']}
+            p={padding}
+            bg="white"
+            borderRadius={[null, null, 'default']}
+            position="relative"
+          >
+            <Box position="absolute" top="md" right="md">
+              <Button type="button" variant="naked" onClick={onClose}>
+                <Icon name="closeCircle" size="2x" />
+              </Button>
+            </Box>
+            <div>
+              {title && (
+                <Flex justifyContent="center" mb="lg">
+                  <Heading size="md">{title}</Heading>
+                </Flex>
+              )}
+              {children}
+            </div>
           </Box>
-          <div>
-            {title && (
-              <Flex justifyContent="center" mb="lg">
-                <Heading size="md">{title}</Heading>
-              </Flex>
-            )}
-            {children}
-          </div>
-        </Box>
+        </ClickOutside>
       </Overlay>
     </>,
     document.getElementById('modal-root'),
