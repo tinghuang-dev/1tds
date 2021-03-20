@@ -10,8 +10,8 @@ const Logo = () => (
       top="0"
       left="0"
       transform="translateX(-50%)"
-      width={['80px', null, '128px']}
-      height={['80px', null, '128px']}
+      width="100px"
+      height="100px"
     >
       <Link href="/">
         <Image

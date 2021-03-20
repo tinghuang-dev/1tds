@@ -1,17 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
-import PersonalInfo from './PersonalInfo/PersonalInfo';
+import Box from '../../../../components/Box';
+import Icon from '../../../../components/Icon';
 import BusinessInfo from './BusinessInfo/BusinessInfo';
-
-const ProfileContentContainer = styled.div`
-  padding: 100px 48px;
-  flex: 1;
-`;
+import PersonalInfo from './PersonalInfo/PersonalInfo';
 
 const ProfileContent = ({ user }) => (
-  <ProfileContentContainer>
-    <PersonalInfo user={user} />
-    <BusinessInfo user={user} />
-  </ProfileContentContainer>
+  <Box flex="1" py="1x" pl="1x">
+    {user ? (
+      <>
+        <PersonalInfo user={user} />
+        <BusinessInfo user={user} />
+      </>
+    ) : (
+      <Icon variant="naked" name="loading" />
+    )}
+  </Box>
 );
 export default ProfileContent;

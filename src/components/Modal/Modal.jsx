@@ -39,8 +39,8 @@ export default function Modal({
       <Overlay bg="semitransparent">
         <ClickOutside onOutsideClick={onClose}>
           <Box
-            width={['100%', null, width]}
-            height={['100%', null, 'auto']}
+            width={['100vw', null, width]}
+            height={['100vh', null, 'auto']}
             p={padding}
             bg="white"
             borderRadius={[null, null, 'default']}
@@ -48,7 +48,7 @@ export default function Modal({
           >
             <Box position="absolute" top="md" right="md">
               <Button type="button" variant="naked" onClick={onClose}>
-                <Icon name="closeCircle" size="2x" />
+                <Icon name="close" size="lg" />
               </Button>
             </Box>
             <div>

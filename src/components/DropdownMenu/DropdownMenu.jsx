@@ -24,13 +24,12 @@ const DropdownMenu = ({
         bg="white"
         fontSize="sm"
         position="absolute"
-        textAlign="center"
         zIndex="popup"
         borderRadius="default"
         border="@1"
         borderColor="border"
         onClick={onClose}
-        mt={['0', null, 'xs']}
+        mt="xs"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...placementPosition}
       >

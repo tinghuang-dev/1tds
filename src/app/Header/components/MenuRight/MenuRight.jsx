@@ -52,7 +52,7 @@ const MenuRight = () => {
       justifyContent="flex-end"
       pr={['md', null, 0]}
       flex="1"
-      height={['40px', null, '64px']}
+      height="50px"
     >
       <Box mr="md">
         <Hide xs sm>

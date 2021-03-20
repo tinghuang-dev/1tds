@@ -18,7 +18,7 @@ const UserProfileMenu = () => {
   return (
     <Box position="relative">
       <Button variant="naked" onClick={handleClick}>
-        <Icon name="userCircle" size="2x" />
+        <Icon name="userCircle" size="lg" />
       </Button>
       {showDropdownMenu && (
         <DropdownMenu placement="right" onClose={handleClick}>

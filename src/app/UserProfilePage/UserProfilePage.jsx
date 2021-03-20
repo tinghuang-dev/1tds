@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Container from '../../components/Container/Container';
-import ProfileNav from './components/ProfileNav';
-import ProfileContent from './components/ProfileContent';
-import Title from '../../components/Title';
 import getUser from '../../apis/auth/getUser';
-import LoadingState from '../../components/LoadingState';
+import Container from '../../components/Container/Container';
+import Title from '../../components/Title';
+import ProfileContent from './components/ProfileContent';
+import ProfileNav from './components/ProfileNav';
 
 const UserProfileContainer = styled(Container)`
   display: flex;
@@ -32,9 +31,7 @@ const UserProfilePage = () => {
       <Title>用户信息｜用户中心</Title>
       <UserProfileContainer>
         <ProfileNav />
-        {user ? (
-          <ProfileContent user={user} />
-        ) : (<LoadingState heading="正在加载" />)}
+        <ProfileContent user={user} />
       </UserProfileContainer>
     </>
   );
