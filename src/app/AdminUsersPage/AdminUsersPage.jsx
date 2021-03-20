@@ -1,59 +1,50 @@
-import React from 'react';
-import styled from 'styled-components';
-import Link from '../../components/Link';
-import Container from '../../components/Container';
-
-const AdminPage = styled.div`
-  display: flex;
-  padding: 80px 0;
-`;
-
-const Menu = styled.ul`
-  width: 250px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const Item = styled.li`
-  display: block;
-`;
-
-const ItemLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  padding: 0 12px 0 36px;
-  height: 50px;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-`;
-
-const LINKS = [{
-  name: '用户管理',
-  href: '/admin/users',
-}, {
-  name: '团购管理',
-  href: '/admin/products',
-}, {
-  name: '订单管理',
-  href: '/admin/orders',
-}];
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import getUsers from '../../apis/admin/getUsers';
+import Box from '../../components/Box';
+import Title from '../../components/Title';
+import Icon from '../../components/Icon';
+import AdminPage from '../AdminPage';
+import UsersTable from './components/UsersTable';
 
 export default function AdminUsersPage() {
+  const { query } = useRouter();
+  const [response, setResponse] = useState();
+
+  const page = parseFloat(query.page || 0);
+  const pageSize = parseFloat(query.pageSize || 10);
+
+  useEffect(() => {
+    getUsers({
+      page,
+      pageSize,
+      where: query.where,
+    })
+      .then(setResponse)
+      .catch(setResponse);
+  }, [page, pageSize, query]);
+
   return (
-    <Container>
+    <>
+      <Title>用户管理 | Admin</Title>
       <AdminPage>
-        <Menu>
-          {LINKS.map(({ name, href }) => (
-            <Item key={name}>
-              <ItemLink href={href}>{name}</ItemLink>
-            </Item>
-          ))}
-        </Menu>
-        <div />
+        {response ? (
+          <>
+            {response.status === 200 ? (
+              <UsersTable
+                rows={response.data.rows}
+                count={response.data.count}
+                page={page}
+                pageSize={pageSize}
+              />
+            ) : (
+              <Box>出错了，请稍后重试……</Box>
+            )}
+          </>
+        ) : (
+          <Icon variant="naked" name="loading" spin />
+        )}
       </AdminPage>
-    </Container>
+    </>
   );
 }

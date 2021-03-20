@@ -82,7 +82,7 @@ const CustomInput = styled.input`
 
   ${(props) => ({
     sm: css`
-      font-size: 12px;
+      font-size: 14px;
     `,
     default: css`
       font-size: 18px;
