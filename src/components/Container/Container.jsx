@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 import { system } from 'styled-system';
 
-const width = system({
-  width: true,
+const maxWidth = system({
+  maxWidth: true,
 });
 
 const Container = styled.div.attrs({
-  width: ['100%', null, '1280px'],
+  maxWidth: ['100%', null, '1280px'],
 })`
   margin: 0 auto;
 
-  ${width}
+  ${maxWidth}
 `;
 
 export default Container;

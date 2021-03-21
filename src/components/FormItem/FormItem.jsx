@@ -20,12 +20,12 @@ const FormItem = ({
   };
 
   return (
-    <Box my="md">
+    <Box my={['lg', null, 'md']}>
       <Box display={display} alignItems={alignItems}>
         {label && (
-          <Box width="100px">
+          <Box width="100px" mb="sm">
             <label htmlFor={name}>
-              <Text fontSize="lg">{label}</Text>
+              <Text fontSize={['md', null, 'lg']}>{label}</Text>
             </label>
           </Box>
         )}

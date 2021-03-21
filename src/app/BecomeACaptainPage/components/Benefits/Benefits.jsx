@@ -1,62 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
 import Container from '../../../../components/Container';
 import Heading from '../../../../components/Heading';
-
-const BenefitContainer = styled(Container)`
-  padding: 80px 140px;
-  box-sizing: border-box;
-`;
-
-const BenefitCardRow = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  margin-top: 40px;
-`;
-
-const BenefitCard = styled.div`
-  display: flex;
-  flex: 1 0 50%;
-  padding: 4px 8px;
-  margin: 20px 0;
-  border-radius: 8px;
-  align-items: center;
-`;
-
-const CardIcon = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-right: 32px;
-`;
-
-const CardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const ContentTitle = styled(Heading)`
-  letter-spacing: 0px;
-`;
-
-const ContentDescription = styled.div`
-  margin-top: 12px;
-  line-height: 1.8;
-  margin-top: 20px;
-`;
+import Box from '../../../../components/Box';
+import Flex from '../../../../components/Flex';
+import Paragraph from '../../../../components/Paragraph/Paragraph';
+import Hide from '../../../../components/Hide';
 
 const data = [
   {
     key: '运营支持',
     icon: '/images/icons/supportBusiness.svg',
-    title: '运营支持',
+    title: '提供运营支持',
     content: '专业运营团队手把手教学，让你无经验上手无压力。',
   },
   {
     key: '管理生意',
     icon: '/images/icons/manageBusiness.svg',
-    title: '轻松管理你的生意',
+    title: '轻松管理生意',
     content:
       '简单快速处理订单，高效会员管理系统。可视化数据分析让你的生意如虎添翼。',
   },
@@ -78,24 +39,68 @@ const data = [
 
 const Benefits = () => (
   <div id="info">
-    <BenefitContainer>
-      <Heading>平台优势</Heading>
-      <BenefitCardRow>
-        {data.map(({
-          key, icon, title, content,
-        }) => (
-          <BenefitCard key={key}>
-            <CardIcon>
-              <Image src={icon} width={100} height={100} />
-            </CardIcon>
-            <CardContent>
-              <ContentTitle size="sm">{title}</ContentTitle>
-              <ContentDescription>{content}</ContentDescription>
-            </CardContent>
-          </BenefitCard>
-        ))}
-      </BenefitCardRow>
-    </BenefitContainer>
+    <Container>
+      <Box
+        py="1x"
+        px={['lg', null, '2x']}
+        bg={['secondary', null, 'white']}
+      >
+        <Heading>平台优势</Heading>
+        <Hide xs sm>
+          <Flex flexWrap="wrap" my="lg">
+            {data.map(({
+              key, icon, title, content,
+            }) => (
+              <Flex
+                width="50%"
+                py="xs"
+                px="sm"
+                my="md"
+                key={key}
+              >
+                <Box mr="lg">
+                  <Image src={icon} width={100} height={100} />
+                </Box>
+                <Flex flexDirection="column" flex="1">
+                  <Heading size="sm">{title}</Heading>
+                  <Box>
+                    <Paragraph>{content}</Paragraph>
+                  </Box>
+                </Flex>
+              </Flex>
+            ))}
+          </Flex>
+        </Hide>
+        <Hide md lg>
+          <Flex
+            justifyContent="center"
+            flexWrap="wrap"
+            my="lg"
+          >
+            {data.map(({
+              key, icon, title,
+            }) => (
+              <Flex
+                bg="lightSecondary"
+                borderRadius="default"
+                alignItems="center"
+                py="sm"
+                px="md"
+                m="md"
+                key={key}
+              >
+                <Box mr="md">
+                  <Image src={icon} width={50} height={50} />
+                </Box>
+                <Flex flexDirection="column" flex="1">
+                  <Heading size="sm">{title}</Heading>
+                </Flex>
+              </Flex>
+            ))}
+          </Flex>
+        </Hide>
+      </Box>
+    </Container>
   </div>
 );
 

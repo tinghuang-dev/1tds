@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
-import styled from 'styled-components';
 import signUp from '../../../../apis/auth/signUp';
 import Button from '../../../../components/Button';
 import FormItem from '../../../../components/FormItem';
@@ -11,21 +10,7 @@ import InviteMemberModal from './components/InviteMemberModal';
 import PendingEmailConfirmationModal from './components/PendingEmailConfirmationModal';
 import config from './config';
 import MessageBox from '../../../../components/MessageBox';
-
-const StyledForm = styled.form`
-  padding: 0 48px;
-`;
-
-const CallToAction = styled.div`
-  margin-top: 24px;
-  text-align: center;
-`;
-
-const StyledMessageBox = styled(MessageBox)`
-  width: 100%;
-  margin-bottom: 24px;
-  text-align: center;
-`;
+import Box from '../../../../components/Box';
 
 const MODAL = {
   INVITE_MEMBER: 'INVITE_MEMBER',
@@ -72,47 +57,56 @@ export default function Form() {
 
   return (
     <>
-      <StyledForm onSubmit={handleSubmit}>
-        {serverError && (
-          <StyledMessageBox variant="error">
-            {{
-              409: (
-                <>
-                  该邮箱已被使用，请尝试其他邮箱。
-                  <Button variant="naked" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
-                    或前往找回密码
-                  </Button>
-                </>
-              ),
-            }[serverError.status]}
-          </StyledMessageBox>
-        )}
-        {Object.keys(config).map((key) => {
-          const errorMessage = config[key].getErrorMessage?.(values[key], values);
-          const error = touched && !!errorMessage;
+      <Box mx={['sm', null, '1x']}>
+        <form onSubmit={handleSubmit}>
+          {serverError && (
+            <MessageBox mb="md" textAlign="center" variant="error">
+              {{
+                409: (
+                  <>
+                    该邮箱已被使用，请尝试其他邮箱。
+                    <Button variant="naked" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
+                      或前往找回密码
+                    </Button>
+                  </>
+                ),
+              }[serverError.status]}
+            </MessageBox>
+          )}
+          {Object.keys(config).map((key) => {
+            const errorMessage = config[key].getErrorMessage?.(values[key], values);
+            const error = touched && !!errorMessage;
 
-          return (
-            <FormItem
-              key={key}
-              name={key}
-              layout="inline"
-              label={config[key].label}
-              errorMessage={error && errorMessage}
-            >
-              <Input
-                type={config[key].inputType || 'text'}
+            return (
+              <FormItem
+                key={key}
                 name={key}
-                onChange={handleChange(key)}
-                value={values[key]}
-                error={error}
-              />
-            </FormItem>
-          );
-        })}
-        <CallToAction>
-          <Button loading={submitting} type="submit">成为团长</Button>
-        </CallToAction>
-      </StyledForm>
+                layout={['block', null, 'inline']}
+                label={config[key].label}
+                errorMessage={error && errorMessage}
+              >
+                <Input
+                  size={['sm', null, 'md']}
+                  type={config[key].inputType || 'text'}
+                  name={key}
+                  onChange={handleChange(key)}
+                  value={values[key]}
+                  error={error}
+                />
+              </FormItem>
+            );
+          })}
+          <Box mt="lg" textAlign="center">
+            <Button
+              loading={submitting}
+              type="submit"
+            >
+              成为团长
+            </Button>
+          </Box>
+        </form>
+      </Box>
+
       {modal === MODAL.INVITE_MEMBER && (
         <InviteMemberModal
           onClose={() => setModal(MODAL.PENDING_EMAIL_CONFIRMATION)}

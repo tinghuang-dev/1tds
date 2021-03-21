@@ -30,7 +30,9 @@ const fontSizes = {
 const colors = {
   white: '#FFFFFF',
   primary: '#EB9050',
+  darkPrimary: '#c97a40',
   secondary: '#FCEAC6',
+  lightSecondary: '#FCF4E7',
   success: '#97A73F',
   error: '#E83D32',
   border: '#dadada',

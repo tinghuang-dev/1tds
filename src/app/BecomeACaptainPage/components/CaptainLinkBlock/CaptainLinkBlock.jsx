@@ -1,40 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
 import Link from 'next/link';
 import Button from '../../../../components/Button';
-import Container from '../../../../components/Container';
 import Heading from '../../../../components/Heading';
-
-const CaptainLinkContainer = styled(Container)`
-  background-color: #fceac6;
-  box-sizing: border-box;
-  padding: 100px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ProcessTitle = styled(Heading)`
-  padding: 0 100px;
-  margin-bottom: 40px;
-  line-height: 1.3;
-  text-align: center;
-  color: #c97a40;
-`;
+import Flex from '../../../../components/Flex';
+import Box from '../../../../components/Box';
+import Container from '../../../../components/Container';
 
 const CaptainLinkBlock = () => (
-  <>
-    <CaptainLinkContainer>
-      <ProcessTitle>
-        颠覆传统电商带来社区拼团新体验，顾客就在家门口，居家就能做生意！
-      </ProcessTitle>
+  <Container>
+    <Flex
+      py="1x"
+      px={['md', null, 'lg']}
+      flexDirection="column"
+      alignItems="center"
+      bg="secondary"
+    >
+      <Box
+        color="darkPrimary"
+        mb="1x"
+        lineHeight="normal"
+      >
+        <Heading size={['md', null, 'lg']}>
+          颠覆传统电商带来社区拼团新体验，顾客就在家门口，居家就能做生意！
+        </Heading>
+      </Box>
       <Link href="/become-a-captain">
         <a>
-          <Button variant="success" size="lg">成为团长</Button>
+          <Button variant="success" size={['md', null, 'lg']}>成为团长</Button>
         </a>
       </Link>
-    </CaptainLinkContainer>
-  </>
+    </Flex>
+  </Container>
 );
 
 export default CaptainLinkBlock;
