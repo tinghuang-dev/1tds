@@ -1,40 +1,51 @@
 import React from 'react';
-import styled from 'styled-components';
+import Flex from '../../../../components/Flex';
+import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
+import Hide from '../../../../components/Hide';
 import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Input';
 
-const SearchBarWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px 0;
-`;
-
-const InputWrapper = styled.div`
-  width: 600px;
-  margin-left: 4px;
-  background-color: #F2F2F2;
-  border-radius: 8px;
-`;
-
-const CallToAction = styled.div`
-  margin-left: 36px;
-`;
-
 const SearchBar = () => (
-  <SearchBarWrapper>
-    <InputWrapper>
+  <Flex
+    flexWrap={['wrap', null, 'initial']}
+    mt={['1x', null, 0]}
+    py="sm"
+  >
+    <Box width="100%" bg="grey" borderRadius="default">
       <Input
-        size="lg"
+        size={['md', null, 'lg']}
         variant="naked"
-        prefix={(<Icon name="mapMarkerAlt" size="2x" />)}
-        suffix={(<Icon name="search" size="2x" />)}
+        prefix={(
+          <>
+            <Hide xs sm>
+              <Icon name="mapMarkerAlt" size="2x" />
+            </Hide>
+            <Hide md lg>
+              <Icon name="mapMarkerAlt" size="1x" />
+            </Hide>
+          </>
+        )}
+        suffix={(
+          <>
+            <Hide xs sm>
+              <Icon name="search" size="2x" />
+            </Hide>
+            <Hide md lg>
+              <Icon name="search" size="1x" />
+            </Hide>
+          </>
+        )}
       />
-    </InputWrapper>
-    <CallToAction>
-      <Button size="lg">查找团购</Button>
-    </CallToAction>
-  </SearchBarWrapper>
+    </Box>
+    <Flex
+      flex="1"
+      justifyContent="flex-end"
+      ml={[null, null, 'lg']}
+      my={['lg', null, 0]}
+    >
+      <Button size={['md', null, 'lg']}>查找团购</Button>
+    </Flex>
+  </Flex>
 );
 export default SearchBar;
