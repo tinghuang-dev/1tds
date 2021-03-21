@@ -1,75 +1,101 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { variant as styledVariant } from 'styled-system';
+import Flex from '../Flex';
 
-const gap = (props) => ({
-  sm: css`
-    padding: 0 4px;
-  `,
-  default: css`
-    padding: 0 6px;
-  `,
-  lg: css`
-    padding: 0 8px;
-  `,
-}[props.size || 'default']);
+const Container = styled(Flex).attrs({
+  border: '@2',
+  borderColor: 'transparent',
+  borderRadius: 'default',
+  width: '100%',
+  alignItems: 'center',
+  overflow: 'hidden',
+})``;
 
-const Container = styled.div`
-  border-radius: 8px;
-  border: 2px solid transparent;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+const SizeContainer = styled(Container)(styledVariant({
+  prop: 'size',
+  variants: {
+    sm: {
+      px: 'xs',
+      height: '35px',
+    },
+    md: {
+      px: 'sm',
+      height: '45px',
+    },
+    lg: {
+      px: 'sm',
+      height: '60px',
+    },
+  },
+}));
 
-  &:focus-within {
-    border-color: #6097e5;
-  }
+const VariantContainer = styled(SizeContainer)(
+  {
+    '&:focus-within': {
+      borderColor: '#6097E6',
+    },
+  },
+  styledVariant({
+    prop: 'variant',
+    variants: {
+      default: {
+        borderColor: '#c97a40',
+        bg: 'white',
+      },
+      naked: '',
+      error: {
+        borderColor: 'error',
+        bg: 'white',
+      },
+      readOnly: {
+        borderColor: 'transparent',
+        bg: 'secondary',
+        '&:focus-within': {
+          borderColor: 'transparent',
+        },
+      },
+    },
+  }),
+);
 
-  ${gap}
+const InputContainer = ({
+  error, readOnly, variant, ...otherProps
+}) => {
+  const getVariant = () => {
+    if (readOnly) {
+      return 'readOnly';
+    }
 
-  ${(props) => ({
-    sm: css`
-      height: 35px;
-    `,
-    default: css`
-      height: 45px;
-    `,
-    lg: css`
-      height: 60px;
-    `,
-  }[props.size || 'default'])}
+    if (error) {
+      return 'error';
+    }
 
-  ${(props) => ({
-    default: css`
-      border-color: #c97a40;
-      background-color: #ffffff;
-    `,
-    naked: css``,
-  }[props.variant || 'default'])}
+    return variant;
+  };
 
-  ${(props) => props.error && css`
-    border-color: #e83d32;
-  `}
+  return (
+    <VariantContainer
+      variant={getVariant()}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...otherProps}
+    />
+  );
+};
 
-  ${(props) => props.readOnly && css`
-    border-color: transparent;
-    background-color: #FCEAC6;
-    &:focus-within {
-    border-color: transparent;
-  }
-  `}
-`;
-
-const Item = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${gap}
-`;
-
-const InputContainer = styled(Item)`
-  flex: 1;
-`;
+const Item = styled(Flex)(
+  {
+    alignItems: 'center',
+  },
+  styledVariant({
+    prop: 'size',
+    variants: {
+      sm: { px: 'xs' },
+      md: { px: 'sm' },
+      lg: { px: 'sm' },
+    },
+  }),
+);
 
 const CustomInput = styled.input`
   box-sizing: border-box;
@@ -80,22 +106,19 @@ const CustomInput = styled.input`
   margin: 0;
   background-color: transparent;
 
-  ${(props) => ({
-    sm: css`
-      font-size: 14px;
-    `,
-    default: css`
-      font-size: 18px;
-    `,
-    lg: css`
-      font-size: 20px;
-    `,
-  }[props.size || 'default'])}
-
   &::placeholder {
     color: black;
   };
 `;
+
+const SizeInput = styled(CustomInput)(styledVariant({
+  prop: 'size',
+  variants: {
+    sm: { fontSize: 'sm' },
+    md: { fontSize: 'md' },
+    lg: { fontSize: 'lg' },
+  },
+}));
 
 const Input = React.forwardRef(({
   size,
@@ -106,23 +129,28 @@ const Input = React.forwardRef(({
   readOnly,
   ...props
 }, ref) => (
-  <Container
+  <InputContainer
     size={size}
     variant={variant}
     error={error}
     readOnly={readOnly}
   >
     {prefix && (<Item size={size}>{prefix}</Item>)}
-    <InputContainer size={size}>
-      <CustomInput
+    <Item flex="1" size={size}>
+      <SizeInput
         {...props} /* eslint-disable-line react/jsx-props-no-spreading */
         ref={ref}
         readOnly={readOnly}
         size={size}
       />
-    </InputContainer>
+    </Item>
     {suffix && (<Item size={size}>{suffix}</Item>)}
-  </Container>
+  </InputContainer>
 ));
+
+Input.defaultProps = {
+  size: 'md',
+  variant: 'default',
+};
 
 export default Input;
