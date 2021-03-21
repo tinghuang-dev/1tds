@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import getUser from '../../apis/auth/getUser';
 import Container from '../../components/Container/Container';
@@ -19,10 +20,10 @@ const UserProfilePage = () => {
         const { data } = await getUser();
         setUser(data);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        Router.push('/login');
       }
     };
+
     getUserDetails();
   }, []);
 
