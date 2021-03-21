@@ -9,8 +9,13 @@ import resetPassword from '../../apis/auth/resetPassword';
 import config from './formConfig';
 import useForm from '../../hooks/useForm';
 import MessageBox from '../../components/MessageBox';
-import useToggler from '../../hooks/useToggler';
+import ForgetPasswordModal from '../ForgetPasswordModal';
 import UserAuthModals from '../UserAuthModals';
+
+const MODAL = {
+  FORGET_PASSWORD: 'FORGET_PASSWORD',
+  USER_AUTH_MODAL: 'USER_AUTH_MODAL',
+};
 
 export default function ResetPasswordPage() {
   const {
@@ -21,7 +26,7 @@ export default function ResetPasswordPage() {
 
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
-  const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
+  const [modal, setModal] = useState();
 
   const router = useRouter();
   const { token } = router.query;
@@ -39,10 +44,14 @@ export default function ResetPasswordPage() {
           password: values.password,
           token,
         });
+
         setHttpRequestStatus(status);
       } catch (error) {
         setSubmitting(false);
+
+        setHttpRequestStatus(error.status);
       }
+
       setSubmitting(false);
     }
   };
@@ -50,19 +59,26 @@ export default function ResetPasswordPage() {
   return (
     <ModalPage title="重置密码">
       <Box mt="lg">
-        {{
-          201: (
-            <>
-              <MessageBox variant="info">
-                重置密码成功，
-                <Button variant="naked" onClick={() => toggleShowUserAuthModals()}>点击重新登录</Button>
-                {showUserAuthModals && (
-                  <UserAuthModals onClose={() => toggleShowUserAuthModals()} />
-                )}
-              </MessageBox>
-            </>
-          ),
-        }[httpRequestStatus] || '请输入新密码'}
+        {httpRequestStatus ? (
+          <>
+            {{
+              201: (
+                <MessageBox variant="success">
+                  重置密码成功，
+                  <Button variant="naked" onClick={() => setModal(MODAL.USER_AUTH_MODAL)}>点击重新登录</Button>
+                </MessageBox>
+              ),
+              404: (
+                <MessageBox variant="error">
+                  重置密码失败，
+                  <Button variant="link" type="button" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
+                    请再次申请重置密码
+                  </Button>
+                </MessageBox>
+              ),
+            }[httpRequestStatus]}
+          </>
+        ) : '请输入新密码'}
       </Box>
       <Box py="lg">
         <form onSubmit={handleSubmit}>
@@ -95,6 +111,18 @@ export default function ResetPasswordPage() {
           </Box>
         </form>
       </Box>
+      {{
+        [MODAL.FORGET_PASSWORD]: (
+          <ForgetPasswordModal
+            onClose={() => setModal()}
+          />
+        ),
+        [MODAL.USER_AUTH_MODAL]: (
+          <UserAuthModals
+            onClose={() => setModal()}
+          />
+        ),
+      }[modal]}
     </ModalPage>
   );
 }
