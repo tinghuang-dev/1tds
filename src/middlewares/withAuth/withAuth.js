@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom';
 import { verify } from 'jsonwebtoken';
 import Users from '../../db/models/users';
 
@@ -5,8 +6,7 @@ const withAuth = (next) => async (req, res) => {
   const token = req.headers['x-auth-token'];
 
   if (!token) {
-    res.status(400).end();
-    return;
+    throw Boom.badRequest();
   }
 
   const { JWT_SECRET } = process.env;
@@ -15,15 +15,13 @@ const withAuth = (next) => async (req, res) => {
     const requestUser = verify(token, JWT_SECRET);
 
     if (!requestUser) {
-      res.status(404).end();
-      return;
+      throw Boom.notFound();
     }
 
     const user = await Users.findOne({ where: { id: requestUser.id } });
 
     if (!user) {
-      res.status(401).end();
-      return;
+      throw Boom.unauthorized();
     }
 
     req.user = user;
@@ -31,9 +29,7 @@ const withAuth = (next) => async (req, res) => {
     await next(req, res);
   } catch (e) {
     if (e.name === 'TokenExpiredError') {
-      res.status(401).end();
-
-      return;
+      throw Boom.unauthorized();
     }
 
     throw e;

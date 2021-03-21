@@ -1,13 +1,16 @@
+import Boom from '@hapi/boom';
+
 const withMethod = (method) => async (req, res) => {
-  const controller = method[req.method];
+  const next = method[req.method];
 
-  if (!controller) {
-    res.status(405).end();
+  if (!next) {
+    const error = Boom.methodNotAllowed();
+    const { statusCode, payload } = error.output;
 
-    return;
+    res.status(statusCode).json(payload);
   }
 
-  await controller(req, res);
+  await next(req, res);
 };
 
 export default withMethod;

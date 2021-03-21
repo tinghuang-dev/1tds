@@ -1,14 +1,15 @@
+import Boom from '@hapi/boom';
+import { pipe } from 'ramda';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
+import withError from '../../../middlewares/withError';
 
 const forgetPassword = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    res.status(400).end();
-
-    return;
+    throw Boom.badRequest();
   }
 
   const user = await Users.findOne({ where: { email } });
@@ -29,4 +30,6 @@ const forgetPassword = async (req, res) => {
   res.status(201).end();
 };
 
-export default forgetPassword;
+export default pipe(
+  withError,
+)(forgetPassword);

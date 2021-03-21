@@ -1,14 +1,15 @@
+import Boom from '@hapi/boom';
+import { pipe } from 'ramda';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
+import withError from '../../../middlewares/withError';
 
 const resendEmail = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    res.status(404).end();
-
-    return;
+    throw Boom.badRequest();
   }
 
   const user = await Users.findOne({ where: { email } });
@@ -29,4 +30,6 @@ const resendEmail = async (req, res) => {
   res.status(201).end();
 };
 
-export default resendEmail;
+export default pipe(
+  withError,
+)(resendEmail);

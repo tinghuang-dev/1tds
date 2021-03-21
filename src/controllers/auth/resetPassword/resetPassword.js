@@ -1,5 +1,8 @@
+import Boom from '@hapi/boom';
 import { hash } from 'bcryptjs';
+import { pipe } from 'ramda';
 import Verifications from '../../../db/models/verifications';
+import withError from '../../../middlewares/withError';
 
 const resetPassword = async (req, res) => {
   const {
@@ -8,17 +11,13 @@ const resetPassword = async (req, res) => {
   } = req.body;
 
   if (!token && !password) {
-    res.status(400).end();
-
-    return;
+    throw Boom.badRequest();
   }
 
   const user = await Verifications.getUserByScopedToken(token, Verifications.SCOPE.RESET_PASSWORD);
 
   if (!user) {
-    res.status(404).end();
-
-    return;
+    throw Boom.notFound();
   }
 
   hash(password, 10, async (err, hashedPassword) => {
@@ -28,4 +27,6 @@ const resetPassword = async (req, res) => {
 
   res.status(201).end();
 };
-export default resetPassword;
+export default pipe(
+  withError,
+)(resetPassword);

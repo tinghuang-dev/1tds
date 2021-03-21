@@ -1,20 +1,19 @@
+import Boom from '@hapi/boom';
+import { pipe } from 'ramda';
+import withError from '../../../middlewares/withError';
 import Verifications from '../../../db/models/verifications';
 
 const verifyEmail = async (req, res) => {
   const { token } = req.body;
 
   if (!token) {
-    res.status(400).end();
-
-    return;
+    throw Boom.badRequest();
   }
 
   const user = await Verifications.getUserByScopedToken(token, Verifications.SCOPE.VERIFY_EMAIL);
 
   if (!user) {
-    res.status(404).end();
-
-    return;
+    throw Boom.notFound();
   }
 
   await user.verifyEmail();
@@ -22,4 +21,6 @@ const verifyEmail = async (req, res) => {
   res.status(201).end();
 };
 
-export default verifyEmail;
+export default pipe(
+  withError,
+)(verifyEmail);

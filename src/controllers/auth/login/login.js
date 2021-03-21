@@ -1,6 +1,9 @@
-import { sign } from 'jsonwebtoken';
+import Boom from '@hapi/boom';
 import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
+import { pipe } from 'ramda';
 import Users from '../../../db/models/users';
+import withError from '../../../middlewares/withError';
 
 const login = async (req, res) => {
   const {
@@ -11,22 +14,16 @@ const login = async (req, res) => {
   const user = await Users.findOne({ where: { email } });
 
   if (!user) {
-    res.status(404).end();
-
-    return;
+    throw Boom.notFound();
   }
 
   if (user.status === 'PENDING_VERIFICATION') {
-    res.status(412).end();
-
-    return;
+    throw Boom.preconditionFailed();
   }
 
   compare(password, user.password, async (err, result) => {
     if (!result) {
-      res.status(404).end();
-
-      return;
+      throw Boom.notFound();
     }
 
     const { JWT_SECRET } = process.env;
@@ -50,4 +47,6 @@ const login = async (req, res) => {
     res.status(200).json(responseData);
   });
 };
-export default login;
+export default pipe(
+  withError,
+)(login);

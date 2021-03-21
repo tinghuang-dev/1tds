@@ -1,5 +1,8 @@
+import { pipe } from 'ramda';
 import { Op } from 'sequelize';
 import Users from '../../../../db/models/users';
+import withAuth from '../../../../middlewares/withAuth';
+import withError from '../../../../middlewares/withError';
 
 const paginate = (query) => {
   const page = parseFloat(query.page);
@@ -45,4 +48,7 @@ const listUsers = async (req, res) => {
   res.status(200).json(result);
 };
 
-export default listUsers;
+export default pipe(
+  withError,
+  withAuth,
+)(listUsers);

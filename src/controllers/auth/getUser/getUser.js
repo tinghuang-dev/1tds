@@ -1,5 +1,6 @@
 import { pipe } from 'ramda';
 import withAuth from '../../../middlewares/withAuth';
+import withError from '../../../middlewares/withError';
 
 const getUser = async (req, res) => {
   const { user } = req;
@@ -15,5 +16,6 @@ const getUser = async (req, res) => {
 };
 
 export default pipe(
+  withError,
   withAuth,
 )(getUser);

@@ -1,9 +1,12 @@
+import Boom from '@hapi/boom';
 import { hash } from 'bcryptjs';
+import { pipe } from 'ramda';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
+import withError from '../../../middlewares/withError';
 
 const signup = async (req, res) => {
   const {
@@ -22,28 +25,20 @@ const signup = async (req, res) => {
 
   const emptyFields = Object.values(requestData).filter((field) => !field);
   if (emptyFields.length) {
-    res.status(400).end();
-
-    return;
+    throw Boom.badRequest();
   }
 
   if (!isMobilePhone(mobile, 'en-AU')) {
-    res.status(422).end();
-
-    return;
+    throw Boom.badData();
   }
 
   if (!isEmail(email)) {
-    res.status(422).end();
-
-    return;
+    throw Boom.badData();
   }
 
   const conflictUser = await Users.findOne({ where: { email } });
   if (conflictUser) {
-    res.status(409).end();
-
-    return;
+    throw Boom.conflict();
   }
 
   hash(password, 10, async (err, hashedPassword) => {
@@ -60,4 +55,6 @@ const signup = async (req, res) => {
   });
 };
 
-export default signup;
+export default pipe(
+  withError,
+)(signup);
