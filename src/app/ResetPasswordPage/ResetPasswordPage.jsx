@@ -18,16 +18,6 @@ const MODAL = {
 };
 
 export default function ResetPasswordPage() {
-  const {
-    validate,
-    handleChange,
-    values,
-    touched,
-    toggleTouched,
-    submitting,
-    setSubmitting,
-  } = useForm(config);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
   const [modal, setModal] = useState();
@@ -35,30 +25,28 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const { token } = router.query;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (values) => {
+    const { status } = await resetPassword({
+      password: values.password,
+      token,
+    });
 
-    toggleTouched(true);
+    setHttpRequestStatus(status);
+  };
 
-    if (validate()) {
-      setSubmitting(true);
-
-      try {
-        const { status } = await resetPassword({
-          password: values.password,
-          token,
-        });
-
-        setHttpRequestStatus(status);
-      } catch (error) {
-        setSubmitting(false);
-
-        setHttpRequestStatus(error.status);
-      }
-
-      setSubmitting(false);
+  const onSubmitFail = (error) => {
+    if (error) {
+      setHttpRequestStatus(error.status);
     }
   };
+
+  const {
+    handleChange,
+    values,
+    touched,
+    submitting,
+    handleSubmit,
+  } = useForm(config, onSubmit, onSubmitFail);
 
   return (
     <ModalPage title="重置密码">
