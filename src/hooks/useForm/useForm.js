@@ -13,6 +13,8 @@ export default function useForm(config) {
 
   const [touched, toggleTouched] = useToggler();
 
+  const [submitting, setSubmitting] = useState(false);
+
   const values = keys.reduce((acc, key) => ({
     ...acc,
     [key]: state[key],
@@ -43,6 +45,8 @@ export default function useForm(config) {
     values,
     touched,
     toggleTouched,
+    submitting,
+    setSubmitting,
   };
 
   return form;
