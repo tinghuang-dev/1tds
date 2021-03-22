@@ -31,25 +31,6 @@ export default function ForgetPasswordModal({ onClose }) {
     handleSubmit,
   } = useForm(config, onSubmit, onSubmitFail);
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   toggleTouched(true);
-
-  //   if (validate()) {
-  //     setSubmitting(true);
-
-  //     try {
-  //       const { status } = await forgetPassword(values);
-  //       setHttpRequestStatus(status);
-  //     } catch (error) {
-  //       setHttpRequestStatus(error.status);
-  //       setSubmitting(false);
-  //     }
-  //     setSubmitting(false);
-  //   }
-  // };
-
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
       <Box mb="md">
