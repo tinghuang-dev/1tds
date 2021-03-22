@@ -23,37 +23,24 @@ export default function Form() {
 
   const [serverError, setServerError] = useState();
 
+  const onSubmit = async (values) => {
+    await signUp(values);
+    setModal(MODAL.INVITE_MEMBER);
+  };
+
+  const onSubmitFail = (error) => {
+    if (error) {
+      setServerError(error);
+    }
+  };
+
   const {
-    validate,
     handleChange,
     values,
     touched,
-    toggleTouched,
     submitting,
-    setSubmitting,
-  } = useForm(config);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setServerError();
-    setSubmitting(true);
-    toggleTouched(true);
-
-    if (!validate()) {
-      setSubmitting(false);
-      return;
-    }
-
-    try {
-      await signUp(values);
-      setModal(MODAL.INVITE_MEMBER);
-    } catch (error) {
-      setServerError(error);
-    }
-
-    setSubmitting(false);
-  };
+    handleSubmit,
+  } = useForm(config, onSubmit, onSubmitFail);
 
   return (
     <>
