@@ -19,10 +19,14 @@ const MODAL = {
 
 export default function ResetPasswordPage() {
   const {
-    validate, handleChange, values, touched, toggleTouched,
+    validate,
+    handleChange,
+    values,
+    touched,
+    toggleTouched,
+    submitting,
+    setSubmitting,
   } = useForm(config);
-
-  const [submitting, setSubmitting] = useState(false);
 
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 

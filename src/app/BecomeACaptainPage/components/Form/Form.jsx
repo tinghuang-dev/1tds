@@ -23,14 +23,14 @@ export default function Form() {
 
   const [serverError, setServerError] = useState();
 
-  const [submitting, setSubmitting] = useState(false);
-
   const {
     validate,
     handleChange,
     values,
     touched,
     toggleTouched,
+    submitting,
+    setSubmitting,
   } = useForm(config);
 
   const handleSubmit = async (event) => {
