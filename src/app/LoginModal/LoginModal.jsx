@@ -15,46 +15,33 @@ export default function LoginModal({
   onForgetPassword,
   onNotVerifiedEmail,
 }) {
-  const {
-    validate,
-    handleChange,
-    values,
-    touched,
-    toggleTouched,
-    submitting,
-    setSubmitting,
-  } = useForm(config);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSubmit = async (values) => {
+    await login(values);
 
-    toggleTouched(true);
-
-    if (validate()) {
-      setSubmitting(true);
-
-      try {
-        await login(values);
-
-        router.push('/user/profile');
-        onClose();
-      } catch ({ status }) {
-        if (status === 412) {
-          onNotVerifiedEmail(values.email);
-
-          return;
-        }
-
-        setHttpRequestStatus(status);
-
-        setSubmitting(false);
-      }
-    }
+    router.push('/user/profile');
+    onClose();
   };
+
+  const onSubmitFail = (error, values) => {
+    if (error.status === 412) {
+      onNotVerifiedEmail(values.email);
+
+      return;
+    }
+    setHttpRequestStatus(error.status);
+  };
+
+  const {
+    handleChange,
+    values,
+    touched,
+    submitting,
+    handleSubmit,
+  } = useForm(config, onSubmit, onSubmitFail);
 
   return (
     <Modal title="登陆" onClose={onClose} size="sm">
