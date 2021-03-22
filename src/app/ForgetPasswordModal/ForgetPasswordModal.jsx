@@ -10,36 +10,45 @@ import config from './formConfig';
 import forgetPassword from '../../apis/auth/forgetPassword';
 
 export default function ForgetPasswordModal({ onClose }) {
+  const [httpRequestStatus, setHttpRequestStatus] = useState();
+
+  const onSubmit = async (values) => {
+    const { status } = await forgetPassword(values);
+    setHttpRequestStatus(status);
+  };
+
+  const onSubmitFail = (error) => {
+    if (error) {
+      setHttpRequestStatus(error.status);
+    }
+  };
+
   const {
-    validate,
     handleChange,
     values,
     touched,
-    toggleTouched,
     submitting,
-    setSubmitting,
-  } = useForm(config);
+    handleSubmit,
+  } = useForm(config, onSubmit, onSubmitFail);
 
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  //   toggleTouched(true);
 
-    toggleTouched(true);
+  //   if (validate()) {
+  //     setSubmitting(true);
 
-    if (validate()) {
-      setSubmitting(true);
-
-      try {
-        const { status } = await forgetPassword(values);
-        setHttpRequestStatus(status);
-      } catch (error) {
-        setHttpRequestStatus(error.status);
-        setSubmitting(false);
-      }
-      setSubmitting(false);
-    }
-  };
+  //     try {
+  //       const { status } = await forgetPassword(values);
+  //       setHttpRequestStatus(status);
+  //     } catch (error) {
+  //       setHttpRequestStatus(error.status);
+  //       setSubmitting(false);
+  //     }
+  //     setSubmitting(false);
+  //   }
+  // };
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
