@@ -81,7 +81,7 @@ export default function Form() {
               <FormItem
                 key={key}
                 name={key}
-                layout={['block', null, 'inline']}
+                layout={['block', null, 'flex']}
                 label={config[key].label}
                 errorMessage={error && errorMessage}
               >

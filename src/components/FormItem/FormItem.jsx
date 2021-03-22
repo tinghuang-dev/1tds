@@ -9,21 +9,15 @@ const FormItem = ({
   errorMessage,
   children,
 }) => {
-  const display = {
-    inline: 'flex',
-    block: 'block',
-  }[layout];
-
   const alignItems = {
     inline: 'center',
-    block: null,
   };
 
   return (
-    <Box my={['lg', null, 'md']}>
-      <Box display={display} alignItems={alignItems}>
+    <Box my={['sm', null, 'md']}>
+      <Box display={layout} alignItems={alignItems}>
         {label && (
-          <Box width="100px" mb="sm">
+          <Box width="100px" mb={['xs', null, 'sm']}>
             <label htmlFor={name}>
               <Text fontSize={['md', null, 'lg']}>{label}</Text>
             </label>
@@ -33,12 +27,16 @@ const FormItem = ({
           {children}
         </Box>
       </Box>
-      <Box display={display} alignItems={alignItems}>
+      <Box display={layout} alignItems={alignItems}>
         {label && (
           <Box width="100px" />
         )}
         <div>
-          {errorMessage && <Box color="error" mt="xs">{errorMessage}</Box>}
+          {errorMessage && (
+            <Box color="error" mt="xs" fontSize={['sm', null, 'md']}>
+              {errorMessage}
+            </Box>
+          )}
         </div>
       </Box>
     </Box>

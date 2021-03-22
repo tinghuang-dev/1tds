@@ -13,11 +13,13 @@ export default function BecomeACaptainPage() {
   return (
     <>
       <Title>成为团长</Title>
-      <Box bg={['white', null, 'lightblue']}>
+      <Box bg={['white', null, 'lightblue']} height={['850px', null, '800px']}>
         <Container>
           <Box
             width={['100%', null, '50%']}
-            p="lg"
+            height={['850px', null, '800px']}
+            px="lg"
+            py={['1x', null, 'lg']}
             bg={['white', null, 'secondary']}
           >
             <Box textAlign="center" my="md">
