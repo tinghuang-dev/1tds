@@ -5,7 +5,7 @@ import BusinessInfo from './BusinessInfo/BusinessInfo';
 import PersonalInfo from './PersonalInfo/PersonalInfo';
 
 const ProfileContent = ({ user }) => (
-  <Box flex="1" py="1x" pl="1x">
+  <Box flex="1" py="md" px="lg">
     {user ? (
       <>
         <PersonalInfo user={user} />
