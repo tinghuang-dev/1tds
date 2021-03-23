@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import jwt from 'jsonwebtoken';
 import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
 import Flex from '../../../../components/Flex';
@@ -11,22 +10,7 @@ import UserAuthModals from '../../../UserAuthModals';
 import ResponsiveSearchButton from './components/ResponsiveSearchButton';
 import axios from '../../../../lib/axios';
 import UserProfileMenu from './components/UserProfileMenu';
-
-const getAuthToken = () => {
-  const authToken = localStorage.getItem('AUTH_TOKEN');
-  const payload = jwt.decode(authToken);
-
-  if (!payload) {
-    return null;
-  }
-
-  const { exp } = payload;
-  if (Date.now() > exp * 1000) {
-    return null;
-  }
-
-  return payload;
-};
+import getAuthToken from '../../../../utils/getAuthToken';
 
 const MenuRight = () => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
