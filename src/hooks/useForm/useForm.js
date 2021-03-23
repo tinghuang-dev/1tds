@@ -39,8 +39,10 @@ export default function useForm(config, onSubmit, onSubmitFail) {
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
 
     toggleTouched(true);
 
@@ -48,7 +50,7 @@ export default function useForm(config, onSubmit, onSubmitFail) {
       setSubmitting(true);
 
       try {
-        onSubmit(values);
+        await onSubmit(values);
       } catch (error) {
         onSubmitFail(error, values);
       }
