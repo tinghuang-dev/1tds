@@ -4,16 +4,18 @@ import Button from '../../../../../../components/Button';
 import DropdownMenu from '../../../../../../components/DropdownMenu';
 import Icon from '../../../../../../components/Icon';
 import Link from '../../../../../../components/Link';
+import useGetActiveLinkProps from '../../../../../../hooks/useGetActiveLinkProps';
 import useToggler from '../../../../../../hooks/useToggler';
+import logout from '../../../../../../utils/logout';
 
 const UserProfileMenu = () => {
   const [showDropdownMenu, toggleDropdownMenu] = useToggler();
-  const handleClick = () => toggleDropdownMenu();
-
-  const removeAuthToken = () => {
-    localStorage.removeItem('AUTH_TOKEN');
-    window.location.assign('/');
+  const handleClick = (event) => {
+    event.stopPropagation();
+    toggleDropdownMenu();
   };
+
+  const getActiveLinkProps = useGetActiveLinkProps();
 
   return (
     <Box position="relative">
@@ -23,22 +25,28 @@ const UserProfileMenu = () => {
       {showDropdownMenu && (
         <DropdownMenu placement="right" onClose={handleClick}>
           <Box px="md">
-            <Link variant="text" href="/user/profile">
+            <Link
+              {...getActiveLinkProps('/user/profile')} /* eslint-disable-line react/jsx-props-no-spreading */
+            >
               用户信息
             </Link>
           </Box>
           <Box px="md" mt="md">
-            <Link variant="text" href="/">
+            <Link
+              {...getActiveLinkProps('/')} /* eslint-disable-line react/jsx-props-no-spreading */
+            >
               团购管理
             </Link>
           </Box>
           <Box px="md" pb="sm" mt="md" borderBottom="@1" borderColor="border">
-            <Link variant="text" href="/">
+            <Link
+              {...getActiveLinkProps('/')} /* eslint-disable-line react/jsx-props-no-spreading */
+            >
               团员管理
             </Link>
           </Box>
           <Box px="md" pt="sm">
-            <Button variant="naked" size="sm" onClick={removeAuthToken}>
+            <Button variant="naked" size="sm" onClick={logout}>
               登出
             </Button>
           </Box>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
 import Flex from '../../../../components/Flex';
@@ -8,27 +8,10 @@ import Input from '../../../../components/Input';
 import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
 import ResponsiveSearchButton from './components/ResponsiveSearchButton';
-import axios from '../../../../lib/axios';
 import UserProfileMenu from './components/UserProfileMenu';
-import getAuthToken from '../../../../utils/getAuthToken';
 
-const MenuRight = () => {
+const MenuRight = ({ user }) => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
-  const [tokenizedUser, setTokenizedUser] = useState();
-
-  useEffect(() => {
-    setTokenizedUser(getAuthToken());
-
-    const interceptor = axios.interceptors.response.use((response) => {
-      setTokenizedUser(getAuthToken());
-
-      return response;
-    });
-
-    return () => {
-      axios.interceptors.response.eject(interceptor);
-    };
-  }, []);
 
   return (
     <Flex
@@ -48,7 +31,11 @@ const MenuRight = () => {
           <ResponsiveSearchButton />
         </Hide>
       </Box>
-      {tokenizedUser ? (<UserProfileMenu />) : (
+      {user ? (
+        <Hide xs sm>
+          <UserProfileMenu />
+        </Hide>
+      ) : (
         <>
           <Button size="sm" onClick={() => toggleShowUserAuthModals()}>登陆</Button>
           {showUserAuthModals && (<UserAuthModals onClose={() => toggleShowUserAuthModals()} />)}

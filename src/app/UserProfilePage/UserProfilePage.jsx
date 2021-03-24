@@ -24,7 +24,7 @@ const UserProfilePage = () => {
     <>
       <Title>用户信息｜用户中心</Title>
       <Container>
-        <Flex>
+        <Flex mt={['lg', null, '0']}>
           <Hide xs sm>
             <ProfileNav />
           </Hide>

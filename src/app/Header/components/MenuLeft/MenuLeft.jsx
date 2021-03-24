@@ -6,7 +6,7 @@ import Link from '../../../../components/Link';
 import useGetActiveLinkProps from '../../../../hooks/useGetActiveLinkProps';
 import ResponsiveBurgerMenu from './components/ResponsiveBurgerMenu';
 
-const MenuLeft = () => {
+const MenuLeft = ({ user }) => {
   const getActiveLinkProps = useGetActiveLinkProps();
 
   return (
@@ -17,7 +17,7 @@ const MenuLeft = () => {
       height="50px"
     >
       <Hide md lg>
-        <ResponsiveBurgerMenu />
+        <ResponsiveBurgerMenu user={user} />
       </Hide>
       <Hide xs sm>
         <Flex>
