@@ -22,7 +22,7 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
 
   return (
     <Modal title="登陆失败" onClose={onClose} size="sm">
-      {httpRequestStatus && (
+      {httpRequestStatus ? (
         <Box mb="md">
           <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
             {{
@@ -30,13 +30,13 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
             }[httpRequestStatus] || '邮件发送失败，请稍后再试'}
           </MessageBox>
         </Box>
+      ) : (
+        <MessageBox variant="error">
+          该账号尚未通过邮箱验证
+          <br />
+          请检查收件箱并验证
+        </MessageBox>
       )}
-
-      <MessageBox variant="error">
-        该账号尚未通过邮箱验证
-        <br />
-        请检查收件箱并验证
-      </MessageBox>
 
       <FormItem>
         <Input value={email} readOnly />
