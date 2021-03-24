@@ -9,48 +9,42 @@ import config from './formConfig';
 import FormItem from '../../components/FormItem';
 import MessageBox from '../../components/MessageBox';
 import login from '../../apis/auth/login';
+import useApi from '../../hooks/useApi';
 
 export default function LoginModal({
   onClose,
   onForgetPassword,
   onNotVerifiedEmail,
 }) {
-  const {
-    validate, handleChange, values, touched, toggleTouched,
-  } = useForm(config);
-
-  const [submitting, setSubmitting] = useState(false);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
   const router = useRouter();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    toggleTouched(true);
-
-    if (validate()) {
-      setSubmitting(true);
-
-      try {
-        await login(values);
-
-        router.push('/user/profile');
-        onClose();
-      } catch ({ status }) {
-        if (status === 412) {
-          onNotVerifiedEmail(values.email);
-
-          return;
-        }
-
-        setHttpRequestStatus(status);
-
-        setSubmitting(false);
-      }
-    }
+  const onSuccess = () => {
+    router.push('/user/profile');
+    onClose();
   };
+
+  const onFail = (error, values) => {
+    if (error.status === 412) {
+      onNotVerifiedEmail(values.email);
+
+      return;
+    }
+    setHttpRequestStatus(error.status);
+  };
+
+  const {
+    requesting,
+    sendRequest,
+  } = useApi(login, { onSuccess, onFail });
+
+  const {
+    handleChange,
+    values,
+    touched,
+    handleSubmit,
+  } = useForm(config, sendRequest);
 
   return (
     <Modal title="登陆" onClose={onClose} size="sm">
@@ -93,7 +87,7 @@ export default function LoginModal({
         </Button>
 
         <Box textAlign="center" mt="lg">
-          <Button loading={submitting} type="submit">
+          <Button loading={requesting} type="submit">
             登录
           </Button>
         </Box>

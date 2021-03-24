@@ -6,25 +6,19 @@ import resendEmail from '../../apis/auth/resendEmail';
 import Input from '../../components/Input';
 import MessageBox from '../../components/MessageBox';
 import FormItem from '../../components/FormItem';
+import useApi from '../../hooks/useApi';
 
 export default function NotVerifiedEmailModal({ email, onClose }) {
-  const [submitting, setSubmitting] = useState(false);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
-  const handleClick = async () => {
-    setSubmitting(true);
+  const onSuccess = ({ status }) => setHttpRequestStatus(status);
 
-    try {
-      const { status } = await resendEmail(email);
+  const onFail = (error) => setHttpRequestStatus(error.status);
 
-      setHttpRequestStatus(status);
-    } catch (error) {
-      setHttpRequestStatus(error.status);
-    }
-
-    setSubmitting(false);
-  };
+  const {
+    requesting,
+    sendRequest,
+  } = useApi(() => resendEmail(email), { onSuccess, onFail });
 
   return (
     <Modal title="登陆失败" onClose={onClose} size="sm">
@@ -49,7 +43,7 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
       </FormItem>
 
       <Box textAlign="center" mt="lg">
-        <Button variant="secondary" loading={submitting} onClick={handleClick}>重新发送验证邮件</Button>
+        <Button variant="secondary" loading={requesting} onClick={sendRequest}>重新发送验证邮件</Button>
       </Box>
     </Modal>
   );

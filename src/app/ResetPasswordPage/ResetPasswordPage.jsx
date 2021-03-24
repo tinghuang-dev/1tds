@@ -11,6 +11,7 @@ import useForm from '../../hooks/useForm';
 import MessageBox from '../../components/MessageBox';
 import ForgetPasswordModal from '../ForgetPasswordModal';
 import UserAuthModals from '../UserAuthModals';
+import useApi from '../../hooks/useApi';
 
 const MODAL = {
   FORGET_PASSWORD: 'FORGET_PASSWORD',
@@ -18,12 +19,6 @@ const MODAL = {
 };
 
 export default function ResetPasswordPage() {
-  const {
-    validate, handleChange, values, touched, toggleTouched,
-  } = useForm(config);
-
-  const [submitting, setSubmitting] = useState(false);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
   const [modal, setModal] = useState();
@@ -31,30 +26,25 @@ export default function ResetPasswordPage() {
   const router = useRouter();
   const { token } = router.query;
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const callResetPassword = ({ password }) => resetPassword({
+    password, token,
+  });
 
-    toggleTouched(true);
+  const onSuccess = ({ status }) => setHttpRequestStatus(status);
 
-    if (validate()) {
-      setSubmitting(true);
+  const onFail = (error) => setHttpRequestStatus(error.status);
 
-      try {
-        const { status } = await resetPassword({
-          password: values.password,
-          token,
-        });
+  const {
+    requesting,
+    sendRequest,
+  } = useApi(callResetPassword, { onSuccess, onFail });
 
-        setHttpRequestStatus(status);
-      } catch (error) {
-        setSubmitting(false);
-
-        setHttpRequestStatus(error.status);
-      }
-
-      setSubmitting(false);
-    }
-  };
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    touched,
+  } = useForm(config, sendRequest);
 
   return (
     <ModalPage title="重置密码">
@@ -107,7 +97,7 @@ export default function ResetPasswordPage() {
             );
           })}
           <Box textAlign="center" mt="lg">
-            <Button size="md" variant="primary" mt="md" loading={submitting} type="submit">确定</Button>
+            <Button size="md" variant="primary" mt="md" loading={requesting} type="submit">确定</Button>
           </Box>
         </form>
       </Box>

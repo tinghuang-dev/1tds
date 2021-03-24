@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import useToggler from '../useToggler/useToggler';
+import useToggler from '../useToggler';
 
-export default function useForm(config) {
+export default function useForm(config, onsubmit) {
   const keys = Object.keys(config);
 
   const initialState = keys.reduce((acc, key) => ({
@@ -37,12 +37,25 @@ export default function useForm(config) {
     }));
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    toggleTouched(true);
+
+    const valid = validate();
+
+    if (!valid) {
+      return;
+    }
+
+    onsubmit(values);
+  };
+
   const form = {
-    validate,
     handleChange,
     values,
     touched,
-    toggleTouched,
+    handleSubmit,
   };
 
   return form;

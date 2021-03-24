@@ -5,28 +5,22 @@ import Input from '../../../../../../components/Input';
 import MessageBox from '../../../../../../components/MessageBox';
 import resendEmail from '../../../../../../apis/auth/resendEmail';
 import Box from '../../../../../../components/Box';
+import useApi from '../../../../../../hooks/useApi';
 
 export default function PendingEmailConfirmationModal({
   email,
   onClose,
 }) {
-  const [submitting, setSubmitting] = useState(false);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
-  const handleClick = async () => {
-    setSubmitting(true);
+  const onSuccess = ({ status }) => setHttpRequestStatus(status);
 
-    try {
-      const { status } = await resendEmail(email);
+  const onFail = (error) => setHttpRequestStatus(error.status);
 
-      setHttpRequestStatus(status);
-    } catch (error) {
-      setHttpRequestStatus(error.status);
-    }
-
-    setSubmitting(false);
-  };
+  const {
+    requesting,
+    sendRequest,
+  } = useApi(() => resendEmail(email), { onSuccess, onFail });
 
   return (
     <Modal title="验证邮件已发送" onClose={onClose} size="default">
@@ -73,7 +67,7 @@ export default function PendingEmailConfirmationModal({
       <Input readOnly value={email} />
 
       <Box textAlign="center" mt="lg">
-        <Button loading={submitting} onClick={handleClick}>
+        <Button loading={requesting} onClick={sendRequest}>
           重新发送
         </Button>
       </Box>

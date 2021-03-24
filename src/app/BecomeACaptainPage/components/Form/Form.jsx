@@ -11,6 +11,7 @@ import PendingEmailConfirmationModal from './components/PendingEmailConfirmation
 import config from './config';
 import MessageBox from '../../../../components/MessageBox';
 import Box from '../../../../components/Box';
+import useApi from '../../../../hooks/useApi';
 
 const MODAL = {
   INVITE_MEMBER: 'INVITE_MEMBER',
@@ -23,37 +24,21 @@ export default function Form() {
 
   const [serverError, setServerError] = useState();
 
-  const [submitting, setSubmitting] = useState(false);
+  const onSuccess = () => setModal(MODAL.INVITE_MEMBER);
+
+  const onFail = (error) => setServerError(error);
 
   const {
-    validate,
+    requesting,
+    sendRequest,
+  } = useApi(signUp, { onSuccess, onFail });
+
+  const {
     handleChange,
     values,
     touched,
-    toggleTouched,
-  } = useForm(config);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setServerError();
-    setSubmitting(true);
-    toggleTouched(true);
-
-    if (!validate()) {
-      setSubmitting(false);
-      return;
-    }
-
-    try {
-      await signUp(values);
-      setModal(MODAL.INVITE_MEMBER);
-    } catch (error) {
-      setServerError(error);
-    }
-
-    setSubmitting(false);
-  };
+    handleSubmit,
+  } = useForm(config, sendRequest);
 
   return (
     <>
@@ -98,7 +83,7 @@ export default function Form() {
           })}
           <Box mt="lg" textAlign="center">
             <Button
-              loading={submitting}
+              loading={requesting}
               type="submit"
             >
               成为团长

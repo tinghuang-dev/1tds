@@ -8,34 +8,26 @@ import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 import forgetPassword from '../../apis/auth/forgetPassword';
+import useApi from '../../hooks/useApi';
 
 export default function ForgetPasswordModal({ onClose }) {
-  const {
-    validate, handleChange, values, touched, toggleTouched,
-  } = useForm(config);
-
-  const [submitting, setSubmitting] = useState(false);
-
   const [httpRequestStatus, setHttpRequestStatus] = useState();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const onSuccess = ({ status }) => setHttpRequestStatus(status);
 
-    toggleTouched(true);
+  const onFail = (error) => setHttpRequestStatus(error.status);
 
-    if (validate()) {
-      setSubmitting(true);
+  const {
+    requesting,
+    sendRequest,
+  } = useApi(forgetPassword, { onSuccess, onFail });
 
-      try {
-        const { status } = await forgetPassword(values);
-        setHttpRequestStatus(status);
-      } catch (error) {
-        setHttpRequestStatus(error.status);
-        setSubmitting(false);
-      }
-      setSubmitting(false);
-    }
-  };
+  const {
+    handleChange,
+    values,
+    touched,
+    handleSubmit,
+  } = useForm(config, sendRequest);
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
@@ -72,7 +64,7 @@ export default function ForgetPasswordModal({ onClose }) {
           );
         })}
         <Box textAlign="center" mt="lg">
-          <Button loading={submitting} type="submit">确定</Button>
+          <Button loading={requesting} type="submit">确定</Button>
         </Box>
       </form>
     </Modal>
