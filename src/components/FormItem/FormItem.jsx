@@ -17,9 +17,9 @@ const FormItem = ({
     <Box my={['sm', null, 'md']}>
       <Box display={layout} alignItems={alignItems}>
         {label && (
-          <Box width="100px" mb={['xs', null, 'sm']}>
+          <Box width="100px" mb={layout !== 'flex' ? ['xs', null, 'sm'] : 0}>
             <label htmlFor={name}>
-              <Text fontSize={['md', null, 'lg']}>{label}</Text>
+              <Text>{label}</Text>
             </label>
           </Box>
         )}

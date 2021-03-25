@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom';
 import { hash } from 'bcryptjs';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
@@ -55,6 +55,6 @@ const signup = async (req, res) => {
   });
 };
 
-export default pipe(
+export default compose(
   withError,
 )(signup);

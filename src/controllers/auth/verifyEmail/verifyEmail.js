@@ -1,5 +1,5 @@
 import Boom from '@hapi/boom';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import withError from '../../../middlewares/withError';
 import Verifications from '../../../db/models/verifications';
 
@@ -21,6 +21,6 @@ const verifyEmail = async (req, res) => {
   res.status(201).end();
 };
 
-export default pipe(
+export default compose(
   withError,
 )(verifyEmail);

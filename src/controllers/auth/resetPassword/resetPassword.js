@@ -1,6 +1,6 @@
 import Boom from '@hapi/boom';
 import { hash } from 'bcryptjs';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import Verifications from '../../../db/models/verifications';
 import withError from '../../../middlewares/withError';
 
@@ -27,6 +27,6 @@ const resetPassword = async (req, res) => {
 
   res.status(201).end();
 };
-export default pipe(
+export default compose(
   withError,
 )(resetPassword);

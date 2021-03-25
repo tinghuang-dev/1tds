@@ -1,4 +1,4 @@
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import withAuth from '../../../middlewares/withAuth';
 import withError from '../../../middlewares/withError';
 
@@ -15,7 +15,7 @@ const getUser = async (req, res) => {
   res.status(200).json(responseUser);
 };
 
-export default pipe(
+export default compose(
   withError,
   withAuth,
 )(getUser);

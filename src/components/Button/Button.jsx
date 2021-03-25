@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { variant } from 'styled-system';
+import { variant, border } from 'styled-system';
 import Icon from '../Icon';
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({
+  border: '@2',
+  borderColor: 'transparent',
+})`
   font-family: 'ZCOOL KuaiLe';
   outline: none;
   border: none;
@@ -18,6 +21,8 @@ const StyledButton = styled.button`
     filter: grayscale(50%);
     cursor: no-drop;
   }
+
+  ${border}
 `;
 
 const SizeButton = styled(StyledButton)(variant({
@@ -56,6 +61,12 @@ const VariantButton = styled(SizeButton)(variant({
     primary: {
       bg: 'primary',
       color: 'white',
+      borderRadius: 'default',
+    },
+    primaryOutlined: {
+      bg: 'white',
+      color: 'primary',
+      borderColor: 'primary',
       borderRadius: 'default',
     },
     secondary: {

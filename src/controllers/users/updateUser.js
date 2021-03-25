@@ -1,7 +1,8 @@
 import Boom from '@hapi/boom';
-import { pipe } from 'ramda';
-import withError from '../../middlewares/withError';
+import { compose } from 'ramda';
 import Users from '../../db/models/users';
+import withAuth from '../../middlewares/withAuth';
+import withError from '../../middlewares/withError';
 
 const updateUser = async (req, res) => {
   const {
@@ -33,6 +34,7 @@ const updateUser = async (req, res) => {
 
   res.status(200).json(responseData);
 };
-export default pipe(
+export default compose(
+  withAuth,
   withError,
 )(updateUser);

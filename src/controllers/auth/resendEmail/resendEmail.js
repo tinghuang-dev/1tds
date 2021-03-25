@@ -1,5 +1,5 @@
 import Boom from '@hapi/boom';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
@@ -30,6 +30,6 @@ const resendEmail = async (req, res) => {
   res.status(201).end();
 };
 
-export default pipe(
+export default compose(
   withError,
 )(resendEmail);

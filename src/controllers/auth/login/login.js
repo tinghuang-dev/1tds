@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import Users from '../../../db/models/users';
 import withError from '../../../middlewares/withError';
 
@@ -47,6 +47,6 @@ const login = async (req, res) => {
     res.status(200).json(responseData);
   });
 };
-export default pipe(
+export default compose(
   withError,
 )(login);

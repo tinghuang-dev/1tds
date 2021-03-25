@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Button from '../Button';
 import Flex from '../Flex';
 import Input from '../Input';
+import Box from '../Box';
 
 const Select = styled.select`
   border: 0;
@@ -80,8 +81,9 @@ export default function UsersTable({
             }))}
             size="sm"
           />
-            &nbsp;
-          <Button size="sm">搜索</Button>
+          <Box ml="md">
+            <Button size="sm">搜索</Button>
+          </Box>
         </Flex>
       </Flex>
     </form>

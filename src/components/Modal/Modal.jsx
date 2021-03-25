@@ -25,13 +25,7 @@ export default function Modal({
     sm: '400px',
     default: '550px',
     lg: '750px',
-  }[size];
-
-  const padding = {
-    sm: 'lg',
-    default: '1x',
-    lg: '2x',
-  }[size];
+  }[size || 'default'];
 
   return createPortal(
     <>
@@ -41,7 +35,7 @@ export default function Modal({
           <Box
             width={['100vw', null, width]}
             height={['100vh', null, 'auto']}
-            p={padding}
+            p="lg"
             bg="white"
             borderRadius={[null, null, 'default']}
             position="relative"

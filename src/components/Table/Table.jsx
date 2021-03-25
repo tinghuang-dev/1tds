@@ -23,6 +23,7 @@ const TableRow = styled.tr.attrs({
 
 const TableData = styled.td.attrs({
   height: '50px',
+  py: 'sm',
   px: 'md',
 })`
   ${space}
@@ -60,7 +61,10 @@ export default function Table({
               key={index} // eslint-disable-line react/no-array-index-key
             >
               {Object.keys(data).map((key) => (
-                <TableData key={key}>
+                <TableData
+                  key={key}
+                  width={data[key].width || 'auto'}
+                >
                   {data[key].render ? data[key].render(row) : row[key]}
                 </TableData>
               ))}

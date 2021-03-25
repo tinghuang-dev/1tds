@@ -1,4 +1,4 @@
-import { pipe } from 'ramda';
+import { compose } from 'ramda';
 import { Op } from 'sequelize';
 import Users from '../../../../db/models/users';
 import withAuth from '../../../../middlewares/withAuth';
@@ -48,7 +48,7 @@ const listUsers = async (req, res) => {
   res.status(200).json(result);
 };
 
-export default pipe(
+export default compose(
   withError,
   withAuth,
 )(listUsers);
