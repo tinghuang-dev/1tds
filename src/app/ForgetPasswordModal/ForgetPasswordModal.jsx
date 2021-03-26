@@ -32,10 +32,10 @@ export default function ForgetPasswordModal({ onClose }) {
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
       <Box mb="md">
-        <MessageBox variant="info">
+        <MessageBox variant={(httpRequestStatus !== 201) && 'info'}>
           {{
             201: '一封包含重置密码链接的邮件已发送至您的邮箱，请注意查收。',
-          }[httpRequestStatus] || '请输入您的登陆邮箱，您会收到一份包含重设密码链接的电子邮件。'}
+          }[httpRequestStatus] || '请输入您的登陆邮箱。若该邮箱已注册，您会收到一份包含重设密码链接的电子邮件。'}
         </MessageBox>
       </Box>
       <form onSubmit={handleSubmit}>
