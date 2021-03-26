@@ -7,7 +7,7 @@ import Button from '../../../../../components/Button';
 import Heading from '../../../../../components/Heading';
 
 const BusinessInfo = ({ user }) => (
-  <Box my="sm">
+  <Box my="md">
     <Box pb="md" borderBottom="@1">
       <Flex alignItems="center" justifyContent="space-between">
         <Heading size="sm">经营信息</Heading>

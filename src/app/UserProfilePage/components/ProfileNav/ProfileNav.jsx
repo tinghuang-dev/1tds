@@ -1,37 +1,32 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import Button from '../../../../components/Button';
-
-const ProfileNavContainer = styled.div`
-  background: #f2f2f2;
-  width: 380px;
-  padding: 100px 48px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const NavButton = styled(Button)`
-  margin: 10px 0;
-  background: transparent;
-  color: inherit;
-
-  ${(props) => props.active && css`
-    background: #EB9050;
-    color: #ffffff;
-  `}
-`;
+import Box from '../../../../components/Box';
+import Flex from '../../../../components/Flex';
 
 const ProfileNav = () => (
-  <ProfileNavContainer>
-    <NavButton active size="lg">
-      用户信息
-    </NavButton>
-    <NavButton size="lg">
-      团购管理
-    </NavButton>
-    <NavButton size="lg">
-      团员管理
-    </NavButton>
-  </ProfileNavContainer>
+  <Flex
+    py="2x"
+    px="lg"
+    flexDirection="column"
+    bg="grey"
+    width="350px"
+    alignItems="center"
+  >
+    <Box my="md">
+      <Button variant="primary" size="lg">
+        用户信息
+      </Button>
+    </Box>
+    <Box my="md">
+      <Button size="lg" variant="naked">
+        团购管理
+      </Button>
+    </Box>
+    <Box my="md">
+      <Button variant="naked" size="lg">
+        团员管理
+      </Button>
+    </Box>
+  </Flex>
 );
 export default ProfileNav;
