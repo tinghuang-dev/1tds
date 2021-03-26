@@ -1,8 +1,7 @@
-import Boom from '@hapi/boom';
 import { compose } from 'ramda';
-import Users from '../../db/models/users';
-import withAuth from '../../middlewares/withAuth';
-import withError from '../../middlewares/withError';
+import withUser from '../../../middlewares/withUser';
+import withAuth from '../../../middlewares/withAuth';
+import withError from '../../../middlewares/withError';
 
 const updateUser = async (req, res) => {
   const {
@@ -10,20 +9,11 @@ const updateUser = async (req, res) => {
     address,
   } = req.body;
 
-  const { userId } = req.query;
+  const { user } = req;
 
-  if (!userId) {
-    throw Boom.notFound();
-  }
-
-  if (userId !== req.user.id) {
-    throw Boom.unauthorized();
-  }
-
-  const user = await Users.findByPk(userId);
   user.mobile = mobile;
   user.address = address;
-  user.save();
+  await user.save();
 
   const responseData = {
     id: user.id,
@@ -36,5 +26,6 @@ const updateUser = async (req, res) => {
 };
 export default compose(
   withAuth,
+  withUser,
   withError,
 )(updateUser);
