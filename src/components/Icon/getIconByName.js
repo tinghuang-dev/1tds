@@ -1,7 +1,7 @@
 import {
   faBars,
   faMapMarkerAlt, faRedo, faSearch, faSpinner, faTimes, faTimesCircle, faUserCircle,
-  faAngleLeft, faAngleRight,
+  faAngleLeft, faAngleRight, faShareAlt, faShareAltSquare, faCaretRight,
 } from '@fortawesome/free-solid-svg-icons';
 
 const getIconByName = (name) => ({
@@ -15,6 +15,9 @@ const getIconByName = (name) => ({
   userCircle: faUserCircle,
   angleLeft: faAngleLeft,
   angleRight: faAngleRight,
+  share: faShareAlt,
+  shareSquare: faShareAltSquare,
+  caretRight: faCaretRight,
 }[name]);
 
 export default getIconByName;

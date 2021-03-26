@@ -33,6 +33,7 @@ const colors = {
   darkPrimary: '#c97a40',
   secondary: '#FCEAC6',
   lightSecondary: '#FCF4E7',
+  darkSecondary: '#DFCAA8',
   success: '#97A73F',
   error: '#E83D32',
   border: '#dadada',
