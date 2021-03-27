@@ -6,6 +6,7 @@ import Input from '../../components/Input';
 import Box from '../../components/Box';
 import config from './formConfig';
 import useForm from '../../hooks/useForm';
+import useMessage from '../../hooks/useMessage/useMessage';
 
 export default function ChangePasswordModal({ onClose }) {
   const {
@@ -14,10 +15,18 @@ export default function ChangePasswordModal({ onClose }) {
     touched,
   } = useForm(config);
 
+  const message = useMessage();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    message.success('密码修改成功！');
+  };
+
   return (
     <Modal title="修改密码" onClose={onClose} size="sm">
       <Box>
-        <form onSubmit={() => console.log('submit success!')}>
+        <form onSubmit={handleSubmit}>
           {Object.keys(config).map((key) => {
             const errorMessage = config[key].getErrorMessage?.(
               values[key],

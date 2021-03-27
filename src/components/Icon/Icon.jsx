@@ -11,6 +11,8 @@ export default function Icon({
     naked: '',
     primary: '#EB9050',
     link: '#6097E6',
+    success: '#97A73F',
+    error: '#E83D32',
   }[variant || 'primary'];
 
   return (
