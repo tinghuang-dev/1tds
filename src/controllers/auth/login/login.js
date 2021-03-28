@@ -21,31 +21,30 @@ const login = async (req, res) => {
     throw Boom.preconditionFailed();
   }
 
-  compare(password, user.password, async (err, result) => {
-    if (!result) {
-      throw Boom.notFound();
-    }
+  const result = await compare(password, user.password);
+  if (!result) {
+    throw Boom.notFound();
+  }
 
-    const { JWT_SECRET } = process.env;
+  const { JWT_SECRET } = process.env;
 
-    const tokenData = {
-      id: user.id,
-      email,
-    };
+  const tokenData = {
+    id: user.id,
+    email,
+  };
 
-    const token = sign(tokenData, JWT_SECRET, { expiresIn: '15m' });
+  const token = sign(tokenData, JWT_SECRET, { expiresIn: '15m' });
 
-    res.setHeader('X-Auth-Token', token);
+  res.setHeader('X-Auth-Token', token);
 
-    const responseData = {
-      id: user.id,
-      email: user.email,
-      mobile: user.mobile,
-      address: user.address,
-    };
+  const responseData = {
+    id: user.id,
+    email: user.email,
+    mobile: user.mobile,
+    address: user.address,
+  };
 
-    res.status(200).json(responseData);
-  });
+  res.status(200).json(responseData);
 };
 export default compose(
   withError,

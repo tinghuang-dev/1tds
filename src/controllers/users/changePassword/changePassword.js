@@ -14,6 +14,7 @@ const changePassword = async (req, res) => {
   const { user } = req;
 
   const result = await compare(password, user.password);
+
   if (!result) {
     throw Boom.preconditionFailed();
   }
@@ -22,6 +23,7 @@ const changePassword = async (req, res) => {
 
   user.password = hashedPassword;
   await user.save();
+
   res.status(201).end();
 };
 export default compose(
