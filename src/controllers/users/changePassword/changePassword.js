@@ -5,7 +5,7 @@ import withUser from '../../../middlewares/withUser';
 import withAuth from '../../../middlewares/withAuth';
 import withError from '../../../middlewares/withError';
 
-const changePassword = (req, res) => {
+const changePassword = async (req, res) => {
   const {
     password,
     newPassword,
@@ -13,18 +13,16 @@ const changePassword = (req, res) => {
 
   const { user } = req;
 
-  compare(password, user.password, (err, result) => {
-    if (!result) {
-      throw Boom.preconditionFailed();
-    }
+  const result = await compare(password, user.password);
+  if (!result) {
+    throw Boom.preconditionFailed();
+  }
 
-    hash(newPassword, 10, async (hashedPassword) => {
-      user.password = hashedPassword;
-      await user.save();
+  const hashedPassword = await hash(newPassword, 10);
 
-      res.status(201).end();
-    });
-  });
+  user.password = hashedPassword;
+  await user.save();
+  res.status(201).end();
 };
 export default compose(
   withAuth,

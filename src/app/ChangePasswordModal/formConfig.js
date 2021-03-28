@@ -3,44 +3,44 @@ import alertEmpty from '../../utils/alertEmpty';
 import getMessage from '../../utils/getMessage';
 
 const config = {
-  oldPassword: {
-    label: '旧密码',
-    inputType: 'password',
-    getErrorMessage: (oldPassword) => getMessage([
-      {
-        error: !oldPassword,
-        message: alertEmpty(config.oldPassword.label),
-      },
-    ]),
-  },
   password: {
-    label: '新密码',
+    label: '当前密码',
     inputType: 'password',
-    getErrorMessage: (password, formValues) => getMessage([
+    getErrorMessage: (password) => getMessage([
       {
         error: !password,
         message: alertEmpty(config.password.label),
       },
+    ]),
+  },
+  newPassword: {
+    label: '新密码',
+    inputType: 'password',
+    getErrorMessage: (newPassword, formValues) => getMessage([
       {
-        error: password === formValues.oldPassword,
+        error: !newPassword,
+        message: alertEmpty(config.newPassword.label),
+      },
+      {
+        error: newPassword === formValues.password,
         message: '输入密码不能与旧密码相同',
       },
       {
-        error: !validator.isStrongPassword(password, { minUppercase: 0, minSymbols: 0 }),
+        error: !validator.isStrongPassword(newPassword, { minUppercase: 0, minSymbols: 0 }),
         message: '至少8个字符，且包含一个字母或数字',
       },
     ]),
   },
-  confirmPassword: {
+  confirmNewPassword: {
     label: '再次输入',
     inputType: 'password',
-    getErrorMessage: (confirmPassword, formValues) => getMessage([
+    getErrorMessage: (confirmNewPassword, formValues) => getMessage([
       {
-        error: !confirmPassword,
-        message: alertEmpty(config.confirmPassword.label),
+        error: !confirmNewPassword,
+        message: alertEmpty(config.confirmNewPassword.label),
       },
       {
-        error: confirmPassword !== formValues.password,
+        error: confirmNewPassword !== formValues.newPassword,
         message: '输入密码不符',
       },
     ]),

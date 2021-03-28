@@ -27,7 +27,9 @@ export default function PersonalInfo({ user }) {
           </FormItem>
         </Box>
       </Box>
-      {changePassword && <ChangePasswordModal onClose={() => setChangePassword(false)} />}
+      {changePassword && (
+        <ChangePasswordModal userId={user.id} onClose={() => setChangePassword(false)} />
+      )}
     </>
   );
 }
