@@ -6,7 +6,7 @@ export default function useForm(config, onsubmit) {
 
   const initialState = keys.reduce((acc, key) => ({
     ...acc,
-    [key]: '',
+    [key]: config[key]?.initialValue || '',
   }), {});
 
   const [state, setState] = useState(initialState);

@@ -28,7 +28,7 @@ const UserProfilePage = () => {
           <Hide xs sm>
             <ProfileNav />
           </Hide>
-          <ProfileContent user={user} />
+          <ProfileContent user={user} setUser={setUser} />
         </Flex>
       </Container>
     </>

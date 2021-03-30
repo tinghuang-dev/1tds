@@ -1,59 +1,56 @@
+import Router from 'next/router';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Button from '../../components/Button';
+import login from '../../apis/auth/login';
 import Box from '../../components/Box';
+import Button from '../../components/Button';
+import FormItem from '../../components/FormItem';
 import Input from '../../components/Input';
+import MessageBox from '../../components/MessageBox';
 import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
-import FormItem from '../../components/FormItem';
-import MessageBox from '../../components/MessageBox';
-import login from '../../apis/auth/login';
-import useApi from '../../hooks/useApi';
 
 export default function LoginModal({
   onClose,
   onForgetPassword,
   onNotVerifiedEmail,
 }) {
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
-
-  const router = useRouter();
-
-  const onSuccess = () => {
-    router.push('/user/profile');
-    onClose();
-  };
-
-  const onFail = (error, values) => {
-    if (error.status === 412) {
-      onNotVerifiedEmail(values.email);
-
-      return;
-    }
-    setHttpRequestStatus(error.status);
-  };
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi(login, { onSuccess, onFail });
+  const [response, setResponse] = useState();
 
   const {
     handleChange,
     values,
     touched,
     handleSubmit,
-  } = useForm(config, sendRequest);
+  } = useForm(config, (data) => {
+    setResponse();
+
+    login(data)
+      .then(setResponse)
+      .then(() => {
+        onClose();
+        Router.push('/user/profile');
+      })
+      .catch((error) => {
+        if (error.status === 412) {
+          onNotVerifiedEmail(values.email);
+
+          return;
+        }
+
+        setResponse(error);
+      });
+  });
 
   return (
     <Modal title="登陆" onClose={onClose} size="sm">
-      {httpRequestStatus && (
+      {response && (
         <Box mb="md">
-          <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+          <MessageBox variant={(response.status !== 200) && 'error'}>
             {{
-              404: '邮箱与密码不匹配, 请重试',
-            }[httpRequestStatus] || '登录失败，请稍后再试'}
+              200: '登陆成功',
+              404: '邮箱与密码不匹配，请重试',
+            }[response.status] || '登录失败，请稍后再试'}
           </MessageBox>
         </Box>
       )}
@@ -87,7 +84,7 @@ export default function LoginModal({
         </Button>
 
         <Box textAlign="center" mt="lg">
-          <Button loading={requesting} type="submit">
+          <Button loading={!response && touched} type="submit">
             登录
           </Button>
         </Box>

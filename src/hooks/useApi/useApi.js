@@ -15,7 +15,9 @@ export default function useApi(onRequest, { onSuccess, onFail }) {
     } catch (error) {
       setRequesting(false);
 
-      onFail(error, params);
+      if (onFail) {
+        onFail(error, params);
+      }
     }
   };
 
