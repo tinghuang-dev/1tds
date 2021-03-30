@@ -1,38 +1,39 @@
 import React from 'react';
 import Flex from '../../../components/Flex';
+import Icon from '../../../components/Icon';
 import SearchBar from './components/SearchBar';
 import CaptainCard from './components/CaptainCard';
-import CAPTAIN_LIST from './CaptainListData';
 
-const data = CAPTAIN_LIST;
-
-const CaptainList = () => (
+const CaptainList = ({
+  captains,
+}) => (
   <Flex
     flexDirection="column"
     width={400}
-    border="@1"
-    borderColor="primary"
+    borderRight="@1"
+    borderLeft="@1"
+    borderColor="border"
   >
     <SearchBar />
-    {data.map(({
-      id,
-      name,
-      description,
-      address,
-      lastUpdate,
-      teamSize,
-      tags,
-    }) => (
+    {captains ? captains.map((c) => (
       <CaptainCard
-        key={id}
-        name={name}
-        description={description}
-        address={address}
-        lastUpdate={lastUpdate}
-        teamSize={teamSize}
-        tags={tags}
+        key={c.id}
+        name={c.name}
+        address={c.address}
+        description={c.leadingProduct?.shortDescription}
+        lastUpdatedAt={c.leadingProduct?.updatedAt}
       />
-    ))}
+    )) : (
+      <Flex
+        height="500px"
+        alignItems="center"
+        justifyContent="center"
+        borderBottom="@1"
+        borderColor="border"
+      >
+        <Icon variant="naked" name="loading" spin />
+      </Flex>
+    )}
   </Flex>
 );
 

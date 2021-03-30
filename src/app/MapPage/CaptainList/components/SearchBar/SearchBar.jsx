@@ -7,7 +7,8 @@ import Icon from '../../../../../components/Icon';
 
 const SearchBar = () => (
   <Flex
-    p="lg"
+    py="md"
+    px="lg"
     borderBottom="@1"
     borderBottomColor="border"
   >

@@ -5,7 +5,7 @@ import withError from '../../../../middlewares/withError';
 import withAuth from '../../../../middlewares/withAuth';
 import cms, { MODAL } from '../../../../lib/cms';
 
-const login = async (req, res) => {
+const createCaptain = async (req, res) => {
   const { userId } = req.query;
   const { name } = req.body;
 
@@ -13,6 +13,7 @@ const login = async (req, res) => {
     throw Boom.badRequest();
   }
 
+  // TODO: withUser
   const user = await Users.findByPk(userId);
 
   if (!user) {
@@ -32,4 +33,4 @@ const login = async (req, res) => {
 export default compose(
   withError,
   withAuth,
-)(login);
+)(createCaptain);

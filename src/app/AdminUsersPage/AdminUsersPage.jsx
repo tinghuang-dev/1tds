@@ -36,7 +36,7 @@ function AdminUsersPage() {
     requestListUsers();
   }, [requestListUsers]);
 
-  const [onAction, setOnAction] = useState();
+  const [action, setAction] = useState();
 
   return (
     <>
@@ -46,7 +46,7 @@ function AdminUsersPage() {
           <>
             {response.status === 200 ? (
               <UsersTable
-                onAction={setOnAction}
+                onAction={setAction}
                 rows={response.data.rows}
                 count={response.data.count}
                 page={page}
@@ -60,14 +60,14 @@ function AdminUsersPage() {
           <Icon variant="naked" name="loading" spin />
         )}
       </AdminPage>
-      {onAction && (
-        <UserModal user={onAction.user} onClose={() => setOnAction()}>
+      {action && (
+        <UserModal user={action.user} onClose={() => setAction()}>
           {{
             [ACTION.CAPTAIN_NOW]: (
               <CaptainNow
-                userId={onAction.user.id}
+                userId={action.user.id}
                 onDone={() => {
-                  setOnAction();
+                  setAction();
                   requestListUsers();
                 }}
               />

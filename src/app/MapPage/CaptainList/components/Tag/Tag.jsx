@@ -3,7 +3,6 @@ import Box from '../../../../../components/Box';
 
 const Tag = ({ children }) => (
   <Box
-    fontSize="md"
     fontFamily="ZCOOL KuaiLe"
     borderRadius="default"
     color="greys.@600"
