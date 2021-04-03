@@ -34,7 +34,6 @@ const SearchBar = ({ isScriptLoaded, isScriptLoadSucceed }) => {
               <Box width="100%" bg="grey" borderRadius="default">
                 <Flex display="block">
                   <Input
-                    // eslint-disable-next-line no-undef
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...getInput({
                       placeholder: 'Enter Address ...',
