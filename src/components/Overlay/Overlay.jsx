@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { system } from 'styled-system';
+import Box from '../Box';
 
 const config = {
   properties: ['backgroundColor', 'bg'],
@@ -12,7 +13,9 @@ const backgroundColor = system({
   backgroundColor: config,
 });
 
-const Overlay = styled.div`
+const Overlay = styled(Box).attrs({
+  zIndex: 'popup',
+})`
   position: fixed;
   width: 100%;
   height: 100%;
