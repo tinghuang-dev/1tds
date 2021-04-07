@@ -7,28 +7,25 @@ import Button from '../../../../../components/Button';
 import Heading from '../../../../../components/Heading';
 import config from './config';
 import useForm from '../../../../../hooks/useForm';
-import useApi from '../../../../../hooks/useApi';
 import updateUser from '../../../../../apis/user/updateUser';
 
-const BusinessInfo = ({ user, setUser }) => {
+const BusinessInfo = ({ response, setResponse }) => {
   const [editing, setEditing] = useState(false);
 
-  const onSuccess = (response) => {
-    setEditing(false);
-    setUser(response.data);
-  };
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi((data) => updateUser(user.id, data), { onSuccess });
+  const user = response.data;
 
   const {
     handleChange,
     values,
     touched,
     handleSubmit,
-  } = useForm(config(user), sendRequest);
+  } = useForm(config(user), (data) => {
+    setEditing();
+
+    updateUser(user.id, data)
+      .then(setResponse);
+    setEditing(false);
+  });
 
   return (
     <Box my="sm">
@@ -50,7 +47,7 @@ const BusinessInfo = ({ user, setUser }) => {
                 <Button
                   type="submit"
                   size="sm"
-                  loading={requesting}
+                  loading={!editing && touched}
                 >
                   保存
                 </Button>

@@ -4,12 +4,12 @@ import Icon from '../../../../components/Icon';
 import BusinessInfo from './BusinessInfo/BusinessInfo';
 import PersonalInfo from './PersonalInfo/PersonalInfo';
 
-const ProfileContent = ({ user, setUser }) => (
+const ProfileContent = ({ response, setResponse }) => (
   <Box flex="1" py="1x" px="lg">
-    {user ? (
+    {response ? (
       <>
-        <PersonalInfo user={user} />
-        <BusinessInfo user={user} setUser={setUser} />
+        <PersonalInfo response={response} />
+        <BusinessInfo response={response} setResponse={setResponse} />
       </>
     ) : (
       <Icon variant="naked" name="loading" />

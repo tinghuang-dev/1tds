@@ -5,30 +5,31 @@ import Input from '../../../../../../components/Input';
 import MessageBox from '../../../../../../components/MessageBox';
 import resendEmail from '../../../../../../apis/auth/resendEmail';
 import Box from '../../../../../../components/Box';
-import useApi from '../../../../../../hooks/useApi';
 
 export default function PendingEmailConfirmationModal({
   email,
   onClose,
 }) {
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
+  const [response, setResponse] = useState();
 
-  const onSuccess = ({ status }) => setHttpRequestStatus(status);
+  const [touched, setTouched] = useState(false);
 
-  const onFail = (error) => setHttpRequestStatus(error.status);
+  const handleClick = () => {
+    setResponse();
+    setTouched(true);
 
-  const {
-    requesting,
-    sendRequest,
-  } = useApi(() => resendEmail(email), { onSuccess, onFail });
+    resendEmail(email)
+      .then(setResponse)
+      .catch(setResponse);
+  };
 
   return (
     <Modal title="验证邮件已发送" onClose={onClose} size="default">
-      {httpRequestStatus && (
-        <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
+      {response && (
+        <MessageBox variant={(response.status !== 201) && 'error'}>
           {{
             201: '已重新发送邮件',
-          }[httpRequestStatus] || '邮件发送失败，请稍后再试'}
+          }[response.status] || '邮件发送失败，请稍后再试'}
         </MessageBox>
       )}
 
@@ -67,7 +68,7 @@ export default function PendingEmailConfirmationModal({
       <Input readOnly value={email} />
 
       <Box textAlign="center" mt="lg">
-        <Button loading={requesting} onClick={sendRequest}>
+        <Button loading={!response && touched} onClick={handleClick}>
           重新发送
         </Button>
       </Box>

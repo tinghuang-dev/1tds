@@ -11,7 +11,6 @@ import PendingEmailConfirmationModal from './components/PendingEmailConfirmation
 import config from './config';
 import MessageBox from '../../../../components/MessageBox';
 import Box from '../../../../components/Box';
-import useApi from '../../../../hooks/useApi';
 
 const MODAL = {
   INVITE_MEMBER: 'INVITE_MEMBER',
@@ -22,40 +21,32 @@ const MODAL = {
 export default function Form() {
   const [modal, setModal] = useState();
 
-  const [serverError, setServerError] = useState();
-
-  const onSuccess = () => setModal(MODAL.INVITE_MEMBER);
-
-  const onFail = (error) => setServerError(error);
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi(signUp, { onSuccess, onFail });
+  const [response, setResponse] = useState();
 
   const {
     handleChange,
     values,
     touched,
     handleSubmit,
-  } = useForm(config, sendRequest);
+  } = useForm(config, (data) => {
+    setResponse();
+
+    signUp(data)
+      .then(setResponse)
+      .then(() => setModal(MODAL.INVITE_MEMBER))
+      .catch(setResponse);
+  });
 
   return (
     <>
       <Box mx={['sm', null, '1x']}>
         <form onSubmit={handleSubmit}>
-          {serverError && (
+          {response?.status === 409 && (
             <MessageBox mb="md" textAlign="center" variant="error">
-              {{
-                409: (
-                  <>
-                    该邮箱已被使用，请尝试其他邮箱。
-                    <Button variant="naked" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
-                      或前往找回密码
-                    </Button>
-                  </>
-                ),
-              }[serverError.status]}
+              该邮箱已被使用，请尝试其他邮箱。
+              <Button variant="naked" onClick={() => setModal(MODAL.FORGET_PASSWORD)}>
+                或前往找回密码
+              </Button>
             </MessageBox>
           )}
           {Object.keys(config).map((key) => {
@@ -83,7 +74,7 @@ export default function Form() {
           })}
           <Box mt="lg" textAlign="center">
             <Button
-              loading={requesting}
+              loading={!response && touched}
               type="submit"
             >
               成为团长

@@ -11,7 +11,6 @@ import useForm from '../../hooks/useForm';
 import MessageBox from '../../components/MessageBox';
 import ForgetPasswordModal from '../ForgetPasswordModal';
 import UserAuthModals from '../UserAuthModals';
-import useApi from '../../hooks/useApi';
 
 const MODAL = {
   FORGET_PASSWORD: 'FORGET_PASSWORD',
@@ -19,37 +18,30 @@ const MODAL = {
 };
 
 export default function ResetPasswordPage() {
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
+  const [response, setResponse] = useState();
 
   const [modal, setModal] = useState();
 
   const router = useRouter();
   const { token } = router.query;
 
-  const callResetPassword = ({ password }) => resetPassword({
-    password, token,
-  });
-
-  const onSuccess = ({ status }) => setHttpRequestStatus(status);
-
-  const onFail = (error) => setHttpRequestStatus(error.status);
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi(callResetPassword, { onSuccess, onFail });
-
   const {
     handleChange,
     values,
     handleSubmit,
     touched,
-  } = useForm(config, sendRequest);
+  } = useForm(config, ({ password }) => {
+    setResponse();
+
+    resetPassword({ password, token })
+      .then(setResponse)
+      .catch(setResponse);
+  });
 
   return (
     <ModalPage title="重置密码">
       <Box mt="lg">
-        {httpRequestStatus ? (
+        {response ? (
           <>
             {{
               201: (
@@ -66,7 +58,7 @@ export default function ResetPasswordPage() {
                   </Button>
                 </MessageBox>
               ),
-            }[httpRequestStatus]}
+            }[response.status]}
           </>
         ) : '请输入新密码'}
       </Box>
@@ -97,7 +89,7 @@ export default function ResetPasswordPage() {
             );
           })}
           <Box textAlign="center" mt="lg">
-            <Button size="md" variant="primary" mt="md" loading={requesting} type="submit">确定</Button>
+            <Button size="md" variant="primary" mt="md" loading={!response && touched} type="submit">确定</Button>
           </Box>
         </form>
       </Box>

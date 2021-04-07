@@ -9,12 +9,12 @@ import Hide from '../../components/Hide';
 import withAuth from '../../components/withAuth';
 
 const UserProfilePage = () => {
-  const [user, setUser] = useState();
+  const [response, setResponse] = useState();
 
   useEffect(() => {
     const getUserDetails = async () => {
-      const { data } = await getUser();
-      setUser(data);
+      const data = await getUser();
+      setResponse(data);
     };
 
     getUserDetails();
@@ -28,7 +28,7 @@ const UserProfilePage = () => {
           <Hide xs sm>
             <ProfileNav />
           </Hide>
-          <ProfileContent user={user} setUser={setUser} />
+          <ProfileContent response={response} setResponse={setResponse} />
         </Flex>
       </Container>
     </>

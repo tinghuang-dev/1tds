@@ -8,34 +8,30 @@ import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 import forgetPassword from '../../apis/auth/forgetPassword';
-import useApi from '../../hooks/useApi';
 
 export default function ForgetPasswordModal({ onClose }) {
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
-
-  const onSuccess = ({ status }) => setHttpRequestStatus(status);
-
-  const onFail = (error) => setHttpRequestStatus(error.status);
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi(forgetPassword, { onSuccess, onFail });
+  const [response, setResponse] = useState();
 
   const {
     handleChange,
     values,
     touched,
     handleSubmit,
-  } = useForm(config, sendRequest);
+  } = useForm(config, (data) => {
+    setResponse();
+
+    forgetPassword(data)
+      .then(setResponse)
+      .catch(setResponse);
+  });
 
   return (
     <Modal title="忘记密码？" onClose={onClose} size="sm">
       <Box mb="md">
-        <MessageBox variant={(httpRequestStatus !== 201) && 'info'}>
+        <MessageBox variant={(response?.status !== 201) && 'info'}>
           {{
             201: '一封包含重置密码链接的邮件已发送至您的邮箱，请注意查收。',
-          }[httpRequestStatus] || '请输入您的登陆邮箱。若该邮箱已注册，您会收到一份包含重设密码链接的电子邮件。'}
+          }[response?.status] || '请输入您的登陆邮箱。若该邮箱已注册，您会收到一份包含重设密码链接的电子邮件。'}
         </MessageBox>
       </Box>
       <form onSubmit={handleSubmit}>
@@ -64,7 +60,7 @@ export default function ForgetPasswordModal({ onClose }) {
           );
         })}
         <Box textAlign="center" mt="lg">
-          <Button loading={requesting} type="submit">确定</Button>
+          <Button loading={!response && touched} type="submit">确定</Button>
         </Box>
       </form>
     </Modal>

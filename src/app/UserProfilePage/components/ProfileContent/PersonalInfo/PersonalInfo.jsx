@@ -7,8 +7,10 @@ import Flex from '../../../../../components/Flex';
 import Heading from '../../../../../components/Heading';
 import ChangePasswordModal from '../../../../ChangePasswordModal';
 
-export default function PersonalInfo({ user }) {
+export default function PersonalInfo({ response }) {
   const [changePassword, setChangePassword] = useState(false);
+
+  const user = response.data;
 
   return (
     <>

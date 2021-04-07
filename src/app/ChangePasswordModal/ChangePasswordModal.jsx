@@ -7,43 +7,37 @@ import useMessage from '../../hooks/useMessage/useMessage';
 import Box from '../../components/Box';
 import config from './formConfig';
 import useForm from '../../hooks/useForm';
-import useApi from '../../hooks/useApi';
 import changePassword from '../../apis/users/changePassword';
 import MessageBox from '../../components/MessageBox';
 
 export default function ChangePasswordModal({ userId, onClose }) {
-  const [httpRequestStatus, setHttpRequestStatus] = useState();
+  const [response, setResponse] = useState();
+
   const message = useMessage();
-
-  const onSuccess = () => {
-    onClose();
-    message.success('密码修改成功！');
-  };
-
-  const onFail = (error) => {
-    setHttpRequestStatus(error.status);
-  };
-
-  const {
-    requesting,
-    sendRequest,
-  } = useApi((data) => changePassword(userId, data), { onSuccess, onFail });
 
   const {
     handleChange,
     values,
     touched,
     handleSubmit,
-  } = useForm(config, sendRequest);
+  } = useForm(config, (data) => {
+    setResponse();
+
+    changePassword(userId, data)
+      .then(setResponse)
+      .then(() => {
+        onClose();
+        message.success('密码修改成功！');
+      })
+      .catch(setResponse);
+  });
 
   return (
     <Modal title="修改密码" onClose={onClose} size="sm">
-      {httpRequestStatus && (
+      {response?.status === 412 && (
         <Box mb="md">
-          <MessageBox variant={(httpRequestStatus !== 201) && 'error'}>
-            {{
-              412: '您输入的当前密码错误, 请重新输入',
-            }[httpRequestStatus]}
+          <MessageBox variant={(response?.status !== 201) && 'error'}>
+            您输入的当前密码错误, 请重新输入
           </MessageBox>
         </Box>
       )}
@@ -75,7 +69,7 @@ export default function ChangePasswordModal({ userId, onClose }) {
             );
           })}
           <Box textAlign="center" mt="lg">
-            <Button loading={requesting} size="md" variant="primary" mt="md" type="submit">确定</Button>
+            <Button loading={!response && touched} size="md" variant="primary" mt="md" type="submit">确定</Button>
           </Box>
         </form>
       </Box>

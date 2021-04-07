@@ -25,7 +25,7 @@ const updateUser = async (req, res) => {
   res.status(200).json(responseData);
 };
 export default compose(
+  withError,
   withAuth,
   withUser,
-  withError,
 )(updateUser);
