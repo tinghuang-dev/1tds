@@ -68,7 +68,7 @@ const SearchBar = () => {
           />
         </Box>
       </Flex>
-      {address && (
+      {(address || !value) && (
       <Flex
         justifyContent="flex-end"
         my={['lg', null, 'lg']}
@@ -76,7 +76,7 @@ const SearchBar = () => {
         <Button size={['md', null, 'lg']}>查找团购</Button>
       </Flex>
       )}
-      {!address && (
+      {(!address && value) && (
         <Box
           bg="grey"
           border="@1"
