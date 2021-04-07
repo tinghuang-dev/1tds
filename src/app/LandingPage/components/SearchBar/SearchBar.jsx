@@ -85,8 +85,12 @@ const SearchBar = () => {
           borderColor="grey"
         >
           {predictions?.map((prediction) => (
-            <ListHover py="md" px="md" key={prediction.place_id}>
-              <Flex onClick={() => onPredictionClick(prediction)}>
+            <ListHover px="md" key={prediction.place_id}>
+              <Flex
+                onClick={() => onPredictionClick(prediction)}
+                height="50px"
+                alignItems="center"
+              >
                 <Icon name="search" size="1x" />
                 <TruncateText>
                   <Box pl="md">
