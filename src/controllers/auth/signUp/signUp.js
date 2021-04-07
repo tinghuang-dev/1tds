@@ -6,6 +6,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
+import createAuthToken from '../../../utils/createAuthToken';
 import withError from '../../../middlewares/withError';
 
 const signup = async (req, res) => {
@@ -41,18 +42,27 @@ const signup = async (req, res) => {
     throw Boom.conflict();
   }
 
-  hash(password, 10, async (err, hashedPassword) => {
-    const user = await Users.create({ ...requestData, password: hashedPassword });
+  const hashedPassword = await hash(password, 10);
 
-    const token = await Verifications.createScopedTokenForUser(
-      user.id,
-      Verifications.SCOPE.VERIFY_EMAIL,
-    );
+  const user = await Users.create({ ...requestData, password: hashedPassword });
 
-    await mail.sendEmailVerification(email, token);
+  const verificationToken = await Verifications.createScopedTokenForUser(
+    user.id,
+    Verifications.SCOPE.VERIFY_EMAIL,
+  );
 
-    res.status(201).end();
-  });
+  await mail.sendEmailVerification(email, verificationToken);
+
+  const tokenData = {
+    id: user.id,
+    status: user.status,
+  };
+
+  const token = createAuthToken(tokenData);
+
+  res.setHeader('X-Auth-Token', token);
+
+  res.status(201).end();
 };
 
 export default compose(

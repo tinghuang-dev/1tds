@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
 import { compose } from 'ramda';
+import createAuthToken from '../../../utils/createAuthToken';
 import Users from '../../../db/models/users';
 import withError from '../../../middlewares/withError';
 
@@ -26,14 +26,12 @@ const login = async (req, res) => {
     throw Boom.notFound();
   }
 
-  const { JWT_SECRET } = process.env;
-
   const tokenData = {
     id: user.id,
     email,
   };
 
-  const token = sign(tokenData, JWT_SECRET, { expiresIn: '15m' });
+  const token = createAuthToken(tokenData);
 
   res.setHeader('X-Auth-Token', token);
 

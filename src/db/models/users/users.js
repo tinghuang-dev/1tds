@@ -1,13 +1,14 @@
 const { DataTypes, Model } = require('sequelize');
-const { sequelize } = require('./index');
+const { sequelize } = require('../index');
+const { STATUS } = require('./STATUS');
 
 class Users extends Model {
   async verifyEmail() {
-    if (this.status !== 'PENDING_VERIFICATION') {
+    if (this.status !== STATUS.PENDING_VERIFICATION) {
       return;
     }
 
-    this.status = 'ACTIVE';
+    this.status = STATUS.ACTIVE;
 
     await this.save();
   }
@@ -33,7 +34,7 @@ Users.init({
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'PENDING_VERIFICATION',
+    defaultValue: STATUS.PENDING_VERIFICATION,
   },
 }, {
   sequelize,
