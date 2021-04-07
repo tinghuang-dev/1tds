@@ -18,18 +18,18 @@ const ListHover = styled(Box)`
 
 const SearchBar = () => {
   const [value, setValue] = useState('');
-  const [addressPrediction, setAddressPrediction] = useState();
+  const [address, setAddress] = useState();
 
   const predictions = useAddressPredictions(value);
 
   const onPredictionClick = (prediction) => {
     setValue(prediction.description);
-    setAddressPrediction(prediction);
+    setAddress(prediction);
   };
 
   const handleInput = (event) => {
     setValue(event.target.value);
-    setAddressPrediction();
+    setAddress();
   };
 
   return (
@@ -67,26 +67,29 @@ const SearchBar = () => {
             )}
           />
         </Box>
-        <Flex
-          flex="1"
-          justifyContent="flex-end"
-          ml={[null, null, 'lg']}
-          my={['lg', null, 0]}
-        >
-          <Button size={['md', null, 'lg']}>查找团购</Button>
-        </Flex>
       </Flex>
-      {!addressPrediction && (
-        <Box bg="grey" mr="200px">
+      {address && (
+      <Flex
+        justifyContent="flex-end"
+        my={['lg', null, 'lg']}
+      >
+        <Button size={['md', null, 'lg']}>查找团购</Button>
+      </Flex>
+      )}
+      {!address && (
+        <Box
+          bg="grey"
+          border="@1"
+          borderTop="none"
+          borderBottom="none"
+          borderColor="grey"
+        >
           {predictions?.map((prediction) => (
             <ListHover py="md" px="md" key={prediction.place_id}>
-              <Flex>
+              <Flex onClick={() => onPredictionClick(prediction)}>
                 <Icon name="search" size="1x" />
                 <TruncateText>
-                  <Box
-                    onClick={() => onPredictionClick(prediction)}
-                    pl="md"
-                  >
+                  <Box pl="md">
                     {prediction.description}
                   </Box>
                 </TruncateText>
