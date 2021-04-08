@@ -1,22 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import config from './config';
 import useForm from '../../../../../../../../../../hooks/useForm';
 import Input from '../../../../../../../../../../components/Input';
 import Button from '../../../../../../../../../../components/Button';
 import FormItem from '../../../../../../../../../../components/FormItem';
-
-const StyledForm = styled.form`
-  margin: 36px 0 0;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-`;
-
-const SubmitButton = styled(Button)`
-  margin-left: 16px;
-`;
+import Box from '../../../../../../../../../../components/Box';
+import Flex from '../../../../../../../../../../components/Flex';
 
 const KEY = 'contact';
 
@@ -25,12 +14,13 @@ export default function Form({
   onSubmit,
 }) {
   const {
-    validate,
     handleChange,
     values,
     touched,
-    toggleTouched,
-  } = useForm(config);
+    handleSubmit,
+  } = useForm(config, (value) => {
+    onSubmit(value[KEY]);
+  });
 
   const isExistingContact = !!contacts.find((contact) => contact === values.contact);
 
@@ -38,38 +28,30 @@ export default function Form({
     || (isExistingContact && '请勿输入重复信息');
   const error = touched && !!errorMessage;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (!validate() || isExistingContact) {
-      toggleTouched();
-
-      return;
-    }
-
-    onSubmit(values[KEY]);
-  };
-
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <FormItem
-        key={KEY}
-        name={KEY}
-        layout="block"
-        label={config[KEY].label}
-        errorMessage={error && errorMessage}
-      >
-        <InputWrapper>
-          <Input
-            type={config[KEY].inputType || 'text'}
-            name={KEY}
-            onChange={handleChange(KEY)}
-            value={values[KEY]}
-            error={error}
-          />
-          <SubmitButton color="success">确认</SubmitButton>
-        </InputWrapper>
-      </FormItem>
-    </StyledForm>
+    <Box mt="lg">
+      <form onSubmit={handleSubmit}>
+        <FormItem
+          key={KEY}
+          name={KEY}
+          layout="block"
+          label={config[KEY].label}
+          errorMessage={error && errorMessage}
+        >
+          <Flex>
+            <Input
+              type={config[KEY].inputType || 'text'}
+              name={KEY}
+              onChange={handleChange(KEY)}
+              value={values[KEY]}
+              error={error}
+            />
+            <Box ml="md">
+              <Button color="success">确认</Button>
+            </Box>
+          </Flex>
+        </FormItem>
+      </form>
+    </Box>
   );
 }

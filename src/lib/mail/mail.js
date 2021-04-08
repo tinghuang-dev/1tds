@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail';
+import inviteMember from './view/inviteMember.ejs';
 import parse from './parse';
 import emailVerification from './view/emailVerification.ejs';
 import resetPassword from './view/resetPassword.ejs';
@@ -37,4 +38,17 @@ const sendResetPassword = async (to, token) => {
   });
 };
 
-export default { send, sendEmailVerification, sendResetPassword };
+const sendInviteMember = async (to, token) => {
+  const html = parse(inviteMember, { token });
+
+  return send({
+    to,
+    subject: '[一团袋鼠]邀请您参与团购',
+    text: '请点击链接激活您的账户',
+    html,
+  });
+};
+
+export default {
+  send, sendEmailVerification, sendResetPassword, sendInviteMember,
+};

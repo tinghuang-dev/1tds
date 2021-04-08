@@ -7,7 +7,7 @@ import Button from '../../../../../components/Button';
 import Heading from '../../../../../components/Heading';
 import config from './config';
 import useForm from '../../../../../hooks/useForm';
-import updateUser from '../../../../../apis/user/updateUser';
+import updateUser from '../../../../../apis/users/updateUser';
 
 const BusinessInfo = ({ response, setResponse }) => {
   const [editing, setEditing] = useState(false);

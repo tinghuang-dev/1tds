@@ -4,6 +4,8 @@ import Modal from '../../../../../../components/Modal';
 import ContactContent from './components/ContactContent';
 import LinkContent from './components/LinkContent';
 import Box from '../../../../../../components/Box';
+import inviteMembers from '../../../../../../apis/auth/inviteMembers';
+import useMessage from '../../../../../../hooks/useMessage';
 
 const VIEW_SHARE_BY = {
   LINK: 'LINK',
@@ -14,6 +16,12 @@ export default function InviteMemberModal({ onClose }) {
   const [currentView, setCurrentView] = useState(VIEW_SHARE_BY.CONTACT);
 
   const [contacts, setContacts] = useState([]);
+
+  const [response, setResponse] = useState();
+
+  const [touched, setTouched] = useState(false);
+
+  const message = useMessage();
 
   const handleContactAdd = (contact) => {
     setContacts((prevState) => {
@@ -29,6 +37,19 @@ export default function InviteMemberModal({ onClose }) {
 
     const newContactArray = contacts.filter((contact) => contact !== target);
     setContacts(newContactArray);
+  };
+
+  const handleClick = () => {
+    setResponse();
+    setTouched(true);
+
+    inviteMembers(contacts)
+      .then(setResponse)
+      .then(() => {
+        onClose();
+        message.success('邮件发送成功!');
+      })
+      .catch(setResponse);
   };
 
   return (
@@ -75,8 +96,11 @@ export default function InviteMemberModal({ onClose }) {
       )}
 
       <Box textAlign="center" mt="lg">
-        <Button onClick={onClose}>
-          完成注册
+        <Button
+          loading={!response && touched}
+          onClick={handleClick}
+        >
+          完成邀请
         </Button>
       </Box>
     </Modal>
