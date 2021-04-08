@@ -12,8 +12,8 @@ import TruncateText from '../../../../components/TruncateText';
 const ListHover = styled(Box)`
     cursor: pointer;
     :hover {
-    background-color: white;
-  }
+      background-color: white;
+    }
 `;
 
 const SearchBar = () => {
