@@ -9,6 +9,7 @@ import useToggler from '../../../../hooks/useToggler';
 import UserAuthModals from '../../../UserAuthModals';
 import ResponsiveSearchButton from './components/ResponsiveSearchButton';
 import UserProfileMenu from './components/UserProfileMenu';
+import InviteMemberButton from './components/InviteMemberButton';
 
 const MenuRight = ({ user }) => {
   const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
@@ -33,7 +34,10 @@ const MenuRight = ({ user }) => {
       </Box>
       {user ? (
         <Hide xs sm>
-          <UserProfileMenu />
+          <Flex alignItems="center">
+            <InviteMemberButton />
+            <UserProfileMenu />
+          </Flex>
         </Hide>
       ) : (
         <>
