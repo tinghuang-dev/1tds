@@ -11,20 +11,25 @@ import Flex from '../components/Flex';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <MessageProvider>
-        <Flex minHeight="100vh" flexDirection="column">
-          <Header />
-          <Box flex="1">
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            <Component {...pageProps} />
-          </Box>
-          <Footer height="180px" />
-        </Flex>
-        <div id="modal-root" />
-        <div id="message-root" />
-      </MessageProvider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <MessageProvider>
+          <Flex minHeight="100vh" flexDirection="column">
+            <Header />
+            <Box flex="1">
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
+            </Box>
+            <Footer height="180px" />
+          </Flex>
+          <div id="modal-root" />
+          <div id="message-root" />
+        </MessageProvider>
+      </ThemeProvider>
+      <script
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API}&&language=en&libraries=places`}
+      />
+    </>
   );
 }
 
