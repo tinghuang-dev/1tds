@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
         </MessageProvider>
       </ThemeProvider>
       <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmb4QkQfvFvCYiiAyfSAJXfFBBn_4ty4g&&language=en&libraries=places"
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API}&&language=en&libraries=places`}
       />
     </>
   );
