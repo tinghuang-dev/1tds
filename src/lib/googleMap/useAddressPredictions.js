@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useDebounce from '../../hooks/useDebounce';
 
 const getPlacePredictions = (value, cb) => {
   if (!value) {
@@ -14,9 +15,11 @@ const getPlacePredictions = (value, cb) => {
 export default function useAddressPredictions(value) {
   const [predictions, setPredictions] = useState([]);
 
+  const debouncedValue = useDebounce(value, 500);
+
   useEffect(() => {
-    getPlacePredictions(value, setPredictions);
-  }, [value]);
+    getPlacePredictions(debouncedValue, setPredictions);
+  }, [debouncedValue]);
 
   return predictions;
 }
