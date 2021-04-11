@@ -52,7 +52,7 @@ const Footer = () => (
           </Box>
         </Flex>
       </Box>
-      <Box py="md">
+      <Box py="md" px={['md', null, 'initial']}>
         <Flex justifyContent="start">
           <Box color="white">
             © 2021 一团袋鼠 All rights reserved

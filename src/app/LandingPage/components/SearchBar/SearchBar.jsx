@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Router from 'next/router';
 import Flex from '../../../../components/Flex';
 import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
@@ -8,8 +7,8 @@ import Hide from '../../../../components/Hide';
 import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Input';
 import useAddressPredictions from '../../../../lib/googleMap/useAddressPredictions';
+import goToMapPageByAddress from '../../../../lib/googleMap/goToMapPageByAddress';
 import TruncateText from '../../../../components/TruncateText';
-import getGeoLocationByPlaceId from '../../../../lib/googleMap/getGeoLocationByPlaceId';
 
 const ListHover = styled(Box)`
     cursor: pointer;
@@ -32,27 +31,6 @@ const SearchBar = () => {
   const handleInput = (event) => {
     setValue(event.target.value);
     setAddress();
-  };
-
-  const handleSubmit = () => {
-    if (!address) {
-      return;
-    }
-
-    const placeId = address.place_id;
-
-    getGeoLocationByPlaceId(placeId)
-      .then((result) => {
-        const latlng = {
-          lat: result[0].geometry.location.lat(),
-          lng: result[0].geometry.location.lng(),
-        };
-
-        Router.push({
-          pathname: '/map',
-          query: latlng,
-        });
-      });
   };
 
   return (
@@ -96,7 +74,7 @@ const SearchBar = () => {
         justifyContent="flex-end"
         my={['lg', null, 'lg']}
       >
-        <Button size={['md', null, 'lg']} onClick={handleSubmit}>查找团购</Button>
+        <Button size={['md', null, 'lg']} onClick={() => goToMapPageByAddress(address)}>查找团购</Button>
       </Flex>
       )}
       {(!address && value) && (

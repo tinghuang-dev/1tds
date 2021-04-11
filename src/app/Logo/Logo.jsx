@@ -12,6 +12,7 @@ const Logo = () => (
       transform="translateX(-50%)"
       width="100px"
       height="100px"
+      zIndex="1"
     >
       <Link href="/">
         <Image
