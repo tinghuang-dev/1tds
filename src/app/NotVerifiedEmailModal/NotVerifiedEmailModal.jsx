@@ -44,7 +44,13 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
       </FormItem>
 
       <Box textAlign="center" mt="lg">
-        <Button variant="secondary" loading={!response && touched} onClick={handleClick}>重新发送验证邮件</Button>
+        <Button
+          variant="secondary"
+          loading={!response && touched}
+          onClick={handleClick}
+        >
+          重新发送验证邮件
+        </Button>
       </Box>
     </Modal>
   );

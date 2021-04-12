@@ -8,6 +8,7 @@ import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 import forgetPassword from '../../apis/auth/forgetPassword';
+import getFormSubmitting from '../../utils/getFormSubmitting';
 
 export default function ForgetPasswordModal({ onClose }) {
   const [response, setResponse] = useState();
@@ -17,6 +18,7 @@ export default function ForgetPasswordModal({ onClose }) {
     values,
     touched,
     handleSubmit,
+    error,
   } = useForm(config, (data) => {
     setResponse();
 
@@ -40,7 +42,6 @@ export default function ForgetPasswordModal({ onClose }) {
             values[key],
             values,
           );
-          const error = touched && !!errorMessage;
           return (
             <FormItem
               key={key}
@@ -60,7 +61,12 @@ export default function ForgetPasswordModal({ onClose }) {
           );
         })}
         <Box textAlign="center" mt="lg">
-          <Button loading={!response && touched} type="submit">确定</Button>
+          <Button
+            loading={getFormSubmitting(response, { touched, error })}
+            type="submit"
+          >
+            确定
+          </Button>
         </Box>
       </form>
     </Modal>

@@ -11,6 +11,7 @@ import useForm from '../../hooks/useForm';
 import MessageBox from '../../components/MessageBox';
 import ForgetPasswordModal from '../ForgetPasswordModal';
 import UserAuthModals from '../UserAuthModals';
+import getFormSubmitting from '../../utils/getFormSubmitting';
 
 const MODAL = {
   FORGET_PASSWORD: 'FORGET_PASSWORD',
@@ -30,6 +31,7 @@ export default function ResetPasswordPage() {
     values,
     handleSubmit,
     touched,
+    error,
   } = useForm(config, ({ password }) => {
     setResponse();
 
@@ -69,7 +71,6 @@ export default function ResetPasswordPage() {
               values[key],
               values,
             );
-            const error = touched && !!errorMessage;
             return (
               <FormItem
                 key={key}
@@ -89,7 +90,15 @@ export default function ResetPasswordPage() {
             );
           })}
           <Box textAlign="center" mt="lg">
-            <Button size="md" variant="primary" mt="md" loading={!response && touched} type="submit">确定</Button>
+            <Button
+              size="md"
+              variant="primary"
+              mt="md"
+              loading={getFormSubmitting(response, { touched, error })}
+              type="submit"
+            >
+              确定
+            </Button>
           </Box>
         </form>
       </Box>

@@ -8,6 +8,7 @@ import Heading from '../../../../../components/Heading';
 import config from './config';
 import useForm from '../../../../../hooks/useForm';
 import updateUser from '../../../../../apis/users/updateUser';
+import getFormSubmitting from '../../../../../utils/getFormSubmitting';
 
 const BusinessInfo = ({ response, setResponse }) => {
   const [editing, setEditing] = useState(false);
@@ -19,6 +20,7 @@ const BusinessInfo = ({ response, setResponse }) => {
     values,
     touched,
     handleSubmit,
+    error,
   } = useForm(config(user), (data) => {
     setEditing();
 
@@ -47,7 +49,7 @@ const BusinessInfo = ({ response, setResponse }) => {
                 <Button
                   type="submit"
                   size="sm"
-                  loading={!editing && touched}
+                  loading={getFormSubmitting(response, { touched, error })}
                 >
                   保存
                 </Button>
@@ -67,7 +69,6 @@ const BusinessInfo = ({ response, setResponse }) => {
 
         {Object.keys(config(user)).map((key) => {
           const errorMessage = config(user)[key].getErrorMessage?.(values[key], values);
-          const error = touched && !!errorMessage;
 
           return (
             <Box px="sm">

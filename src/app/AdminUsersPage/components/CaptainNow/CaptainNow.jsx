@@ -7,6 +7,7 @@ import FormItem from '../../../../components/FormItem';
 import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
 import config from './config';
+import getFormSubmitting from '../../../../utils/getFormSubmitting';
 
 export default function CaptainNow({
   userId,
@@ -21,6 +22,7 @@ export default function CaptainNow({
     values,
     touched,
     handleSubmit,
+    error,
   } = useForm(config, (data) => {
     setResponse();
 
@@ -30,7 +32,6 @@ export default function CaptainNow({
   });
 
   const errorMessage = config[key].getErrorMessage?.(values[key], values);
-  const error = touched && !!errorMessage;
 
   return (
     <Box p="md" bg="greys.@100">
@@ -60,7 +61,7 @@ export default function CaptainNow({
             />
             <Box ml="md">
               <Button
-                loading={!response && touched}
+                loading={getFormSubmitting(response, { touched, error })}
                 type="submit"
               >
                 确认

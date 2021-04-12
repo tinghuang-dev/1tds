@@ -9,6 +9,7 @@ import MessageBox from '../../components/MessageBox';
 import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
+import getFormSubmitting from '../../utils/getFormSubmitting';
 
 export default function LoginModal({
   onClose,
@@ -22,6 +23,7 @@ export default function LoginModal({
     values,
     touched,
     handleSubmit,
+    error,
   } = useForm(config, (data) => {
     setResponse();
 
@@ -31,8 +33,8 @@ export default function LoginModal({
         onClose();
         Router.push('/user/profile');
       })
-      .catch((error) => {
-        if (error.status === 412) {
+      .catch((errors) => {
+        if (errors.status === 412) {
           onNotVerifiedEmail(values.email);
 
           return;
@@ -58,7 +60,6 @@ export default function LoginModal({
       <form onSubmit={handleSubmit}>
         {Object.keys(config).map((key) => {
           const errorMessage = config[key].getErrorMessage?.(values[key], values);
-          const error = touched && !!errorMessage;
 
           return (
             <FormItem
@@ -84,7 +85,7 @@ export default function LoginModal({
         </Button>
 
         <Box textAlign="center" mt="lg">
-          <Button loading={!response && touched} type="submit">
+          <Button loading={getFormSubmitting(response, { touched, error })} type="submit">
             登录
           </Button>
         </Box>

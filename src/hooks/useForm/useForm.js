@@ -12,6 +12,8 @@ export default function useForm(config, onsubmit) {
 
   const [touched, setTouched] = useState(false);
 
+  const [error, setError] = useState(false);
+
   const values = keys.reduce((acc, key) => ({
     ...acc,
     [key]: state[key],
@@ -39,11 +41,15 @@ export default function useForm(config, onsubmit) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setError();
+
     setTouched(true);
 
     const valid = validate();
 
     if (!valid) {
+      setError(true);
+
       return;
     }
 
@@ -55,6 +61,7 @@ export default function useForm(config, onsubmit) {
     values,
     touched,
     handleSubmit,
+    error,
   };
 
   return form;

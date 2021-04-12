@@ -9,6 +9,7 @@ import config from './formConfig';
 import useForm from '../../hooks/useForm';
 import changePassword from '../../apis/users/changePassword';
 import MessageBox from '../../components/MessageBox';
+import getFormSubmitting from '../../utils/getFormSubmitting';
 
 export default function ChangePasswordModal({ userId, onClose }) {
   const [response, setResponse] = useState();
@@ -20,6 +21,7 @@ export default function ChangePasswordModal({ userId, onClose }) {
     values,
     touched,
     handleSubmit,
+    error,
   } = useForm(config, (data) => {
     setResponse();
 
@@ -49,7 +51,6 @@ export default function ChangePasswordModal({ userId, onClose }) {
               values[key],
               values,
             );
-            const error = touched && !!errorMessage;
             return (
               <FormItem
                 key={key}
@@ -69,7 +70,15 @@ export default function ChangePasswordModal({ userId, onClose }) {
             );
           })}
           <Box textAlign="center" mt="lg">
-            <Button loading={!response && touched} size="md" variant="primary" mt="md" type="submit">确定</Button>
+            <Button
+              loading={getFormSubmitting(response, { touched, error })}
+              size="md"
+              variant="primary"
+              mt="md"
+              type="submit"
+            >
+              确定
+            </Button>
           </Box>
         </form>
       </Box>
