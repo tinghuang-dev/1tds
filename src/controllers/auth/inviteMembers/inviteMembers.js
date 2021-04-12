@@ -3,6 +3,7 @@ import { compose } from 'ramda';
 import Invitations from '../../../db/models/invitations';
 import withAuth from '../../../middlewares/withAuth';
 import mail from '../../../lib/mail';
+import withError from '../../../middlewares/withError';
 
 const inviteMember = async (req, res) => {
   const { memberEmails } = req.body;
@@ -28,5 +29,6 @@ const inviteMember = async (req, res) => {
 };
 
 export default compose(
+  withError,
   withAuth,
 )(inviteMember);

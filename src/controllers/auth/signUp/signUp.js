@@ -4,6 +4,7 @@ import { compose } from 'ramda';
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import Users from '../../../db/models/users';
+import Invitations from '../../../db/models/invitations';
 import Verifications from '../../../db/models/verifications';
 import mail from '../../../lib/mail';
 import createAuthToken from '../../../utils/createAuthToken';
@@ -52,6 +53,8 @@ const signup = async (req, res) => {
   );
 
   await mail.sendEmailVerification(email, verificationToken);
+
+  await Invitations.update({ invitedUserId: user.id }, { where: { email } });
 
   const tokenData = {
     id: user.id,

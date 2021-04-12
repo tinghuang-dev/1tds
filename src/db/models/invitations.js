@@ -1,6 +1,6 @@
 const { v4: uuid } = require('uuid');
 const { DataTypes, Model } = require('sequelize');
-const { sequelize } = require('./index');
+const { sequelize } = require('./users');
 const Users = require('./users');
 
 class Invitations extends Model {
@@ -33,5 +33,11 @@ Invitations.init({
   modelName: 'Invitations',
   freezeTableName: true,
 });
-Invitations.belongsTo(Users);
+Invitations.belongsTo(Users, {
+  foreignKey: 'UserId',
+});
+Invitations.belongsTo(Users, {
+  foreignKey: 'invitedUserId',
+});
+
 module.exports = Invitations;
