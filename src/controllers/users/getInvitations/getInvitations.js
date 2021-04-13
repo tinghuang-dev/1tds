@@ -11,7 +11,7 @@ const getInvitations = async (req, res) => {
     where: {
       UserId: user.id,
     },
-    attributes: ['email', 'invitedUserId'],
+    attributes: ['id', 'email', 'invitedUserId'],
   });
 
   res.status(200).json({ invitations });
