@@ -6,6 +6,7 @@ import resendEmail from '../../apis/auth/resendEmail';
 import Input from '../../components/Input';
 import MessageBox from '../../components/MessageBox';
 import FormItem from '../../components/FormItem';
+import HintMessage from '../../components/HintMessage';
 
 export default function NotVerifiedEmailModal({ email, onClose }) {
   const [response, setResponse] = useState();
@@ -52,6 +53,8 @@ export default function NotVerifiedEmailModal({ email, onClose }) {
           重新发送验证邮件
         </Button>
       </Box>
+      <HintMessage />
+      <Box textAlign="center" mt="lg" color="#4F4F4F">*生成的链接尽在24小时内有效</Box>
     </Modal>
   );
 }

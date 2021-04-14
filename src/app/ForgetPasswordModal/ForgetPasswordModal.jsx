@@ -8,6 +8,7 @@ import Modal from '../../components/Modal';
 import useForm from '../../hooks/useForm';
 import config from './formConfig';
 import forgetPassword from '../../apis/auth/forgetPassword';
+import HintMessage from '../../components/HintMessage';
 import getFormSubmitting from '../../utils/getFormSubmitting';
 
 export default function ForgetPasswordModal({ onClose }) {
@@ -28,7 +29,7 @@ export default function ForgetPasswordModal({ onClose }) {
   });
 
   return (
-    <Modal title="忘记密码？" onClose={onClose} size="sm">
+    <Modal size="sm" title="忘记密码?" onClose={onClose}>
       <Box mb="md">
         <MessageBox variant={(response?.status !== 201) && 'info'}>
           {{
@@ -68,6 +69,12 @@ export default function ForgetPasswordModal({ onClose }) {
             确定
           </Button>
         </Box>
+        {response?.status === 201 && (
+          <Box>
+            <HintMessage />
+            <Box textAlign="center" mt="lg" color="#4F4F4F">*生成的链接尽在24小时内有效</Box>
+          </Box>
+        )}
       </form>
     </Modal>
   );

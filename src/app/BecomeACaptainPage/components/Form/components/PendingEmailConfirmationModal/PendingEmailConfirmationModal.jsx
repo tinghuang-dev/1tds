@@ -5,6 +5,7 @@ import Input from '../../../../../../components/Input';
 import MessageBox from '../../../../../../components/MessageBox';
 import resendEmail from '../../../../../../apis/auth/resendEmail';
 import Box from '../../../../../../components/Box';
+import HintMessage from '../../../../../../components/HintMessage';
 
 export default function PendingEmailConfirmationModal({
   email,
@@ -72,6 +73,9 @@ export default function PendingEmailConfirmationModal({
           重新发送
         </Button>
       </Box>
+      <HintMessage />
+
+      <Box textAlign="center" mt="lg" color="#4F4F4F">*生成的链接尽在24小时内有效</Box>
     </Modal>
   );
 }
