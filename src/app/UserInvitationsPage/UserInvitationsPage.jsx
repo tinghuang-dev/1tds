@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import getUser from '../../apis/auth/getUser';
+import React, { useState, useEffect } from 'react';
 import Title from '../../components/Title';
 import UserPageNav from '../../components/UserPageNav';
 import Flex from '../../components/Flex';
 import Container from '../../components/Container';
 import Hide from '../../components/Hide';
 import withAuth from '../../components/withAuth';
-import PersonalInfo from './components/PersonalInfo';
-import BusinessInfo from './components/BusinessInfo';
-import Icon from '../../components/Icon';
+import getInvitations from '../../apis/users/getInvitations/getInvitations';
+import InvitedMemberInfo from './components/InvitedMemberInfo';
+import PendingMemberInfo from './components/PendingMemberInfo';
 import Box from '../../components/Box';
+import Icon from '../../components/Icon';
 
-const UserProfilePage = () => {
+const UserInvitationsPage = ({ auth }) => {
   const [response, setResponse] = useState();
+
+  const userId = auth.id;
 
   useEffect(() => {
     const getUserDetails = () => {
-      getUser()
+      getInvitations(userId)
         .then(setResponse);
     };
 
     getUserDetails();
-  }, []);
+  }, [userId]);
 
   return (
     <>
-      <Title>用户信息｜用户中心</Title>
+      <Title>邀请信息｜用户邀请</Title>
       <Container>
         <Flex mt={['lg', null, '0']}>
           <Hide xs sm>
@@ -33,10 +35,12 @@ const UserProfilePage = () => {
           </Hide>
           <Box flex="1" p="1x">
             {response ? (
-              <>
-                <PersonalInfo userInfo={response.data} />
-                <BusinessInfo userInfo={response.data} setUserInfo={setResponse} />
-              </>
+              <Box>
+                <Box pb="lg">
+                  <InvitedMemberInfo invitations={response.data.invitations} />
+                </Box>
+                <PendingMemberInfo invitations={response.data.invitations} />
+              </Box>
             ) : (
               <Icon variant="naked" name="loading" />
             )}
@@ -47,4 +51,4 @@ const UserProfilePage = () => {
   );
 };
 
-export default withAuth(UserProfilePage);
+export default withAuth(UserInvitationsPage);

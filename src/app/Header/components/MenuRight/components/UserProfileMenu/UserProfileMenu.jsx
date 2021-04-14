@@ -40,7 +40,7 @@ const UserProfileMenu = () => {
           </Box>
           <Box px="md" pb="sm" mt="md" borderBottom="@1" borderColor="border">
             <Link
-              {...getActiveLinkProps('/')} /* eslint-disable-line react/jsx-props-no-spreading */
+              {...getActiveLinkProps('/user/invitations')} /* eslint-disable-line react/jsx-props-no-spreading */
             >
               团员管理
             </Link>

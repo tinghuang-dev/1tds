@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import Box from '../../../../../components/Box';
-import Flex from '../../../../../components/Flex';
-import FormItem from '../../../../../components/FormItem';
-import Input from '../../../../../components/Input';
-import Button from '../../../../../components/Button';
-import Heading from '../../../../../components/Heading';
+import Box from '../../../../components/Box';
+import Flex from '../../../../components/Flex';
+import FormItem from '../../../../components/FormItem';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
+import Heading from '../../../../components/Heading';
 import config from './config';
-import useForm from '../../../../../hooks/useForm';
-import updateUser from '../../../../../apis/users/updateUser';
-import getFormSubmitting from '../../../../../utils/getFormSubmitting';
+import useForm from '../../../../hooks/useForm';
+import updateUser from '../../../../apis/users/updateUser';
+import getFormSubmitting from '../../../../utils/getFormSubmitting';
 
-const BusinessInfo = ({ response, setResponse }) => {
+const BusinessInfo = ({ userInfo, setUserInfo }) => {
   const [editing, setEditing] = useState(false);
-
-  const user = response.data;
 
   const {
     handleChange,
@@ -21,11 +19,11 @@ const BusinessInfo = ({ response, setResponse }) => {
     touched,
     handleSubmit,
     error,
-  } = useForm(config(user), (data) => {
+  } = useForm(config(userInfo), (data) => {
     setEditing();
 
-    updateUser(user.id, data)
-      .then(setResponse);
+    updateUser(userInfo.id, data)
+      .then(setUserInfo);
     setEditing(false);
   });
 
@@ -49,7 +47,7 @@ const BusinessInfo = ({ response, setResponse }) => {
                 <Button
                   type="submit"
                   size="sm"
-                  loading={getFormSubmitting(response, { touched, error })}
+                  loading={getFormSubmitting(userInfo, { touched, error })}
                 >
                   保存
                 </Button>
@@ -67,23 +65,23 @@ const BusinessInfo = ({ response, setResponse }) => {
           </Flex>
         </Box>
 
-        {Object.keys(config(user)).map((key) => {
-          const errorMessage = config(user)[key].getErrorMessage?.(values[key], values);
+        {Object.keys(config(userInfo)).map((key) => {
+          const errorMessage = config(userInfo)[key].getErrorMessage?.(values[key], values);
 
           return (
             <Box px="sm">
               <FormItem
                 key={key}
                 name={key}
-                label={config(user)[key].label}
+                label={config(userInfo)[key].label}
                 errorMessage={(error && editing) && errorMessage}
               >
                 <Input
-                  type={config(user)[key].inputType || 'text'}
+                  type={config(userInfo)[key].inputType || 'text'}
                   name={key}
                   onChange={handleChange(key)}
                   readOnly={!editing}
-                  value={editing ? values[key] : user[key]}
+                  value={editing ? values[key] : userInfo[key]}
                   error={error}
                 />
               </FormItem>

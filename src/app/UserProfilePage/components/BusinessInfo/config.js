@@ -1,5 +1,5 @@
 import validator from 'validator';
-import getMessage from '../../../../../utils/getMessage';
+import getMessage from '../../../../utils/getMessage';
 
 const config = (initialValue) => ({
   mobile: {

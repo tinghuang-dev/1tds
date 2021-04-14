@@ -4,27 +4,26 @@ import getAuthToken from '../../utils/getAuthToken';
 
 const withAuth = (Component) => {
   const HOComponent = (props) => {
-    const [authenticated, setAuthenticated] = useState(false);
+    const [auth, setAuth] = useState();
 
     useEffect(() => {
       const authToken = getAuthToken();
 
+      setAuth(authToken);
+
       if (!authToken) {
         Router.push('/login');
-
-        return;
       }
-
-      setAuthenticated(true);
     }, []);
 
-    if (!authenticated) {
+    if (!auth) {
       return null;
     }
 
     return (
       <Component
         {...props} // eslint-disable-line react/jsx-props-no-spreading
+        auth={auth}
       />
     );
   };

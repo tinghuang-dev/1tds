@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import Button from '../../../../../components/Button/Button';
-import FormItem from '../../../../../components/FormItem';
-import Input from '../../../../../components/Input';
-import Box from '../../../../../components/Box';
-import Flex from '../../../../../components/Flex';
-import Heading from '../../../../../components/Heading';
-import ChangePasswordModal from '../../../../ChangePasswordModal';
+import Button from '../../../../components/Button/Button';
+import FormItem from '../../../../components/FormItem';
+import Input from '../../../../components/Input';
+import Box from '../../../../components/Box';
+import Flex from '../../../../components/Flex';
+import Heading from '../../../../components/Heading';
+import ChangePasswordModal from '../../../ChangePasswordModal';
 
-export default function PersonalInfo({ response }) {
+export default function PersonalInfo({ userInfo }) {
   const [changePassword, setChangePassword] = useState(false);
-
-  const user = response.data;
 
   return (
     <>
@@ -25,12 +23,12 @@ export default function PersonalInfo({ response }) {
         </Box>
         <Box px="sm">
           <FormItem label="邮箱">
-            <Input variants="md" readOnly value={user.email} />
+            <Input variants="md" readOnly value={userInfo.email} />
           </FormItem>
         </Box>
       </Box>
       {changePassword && (
-        <ChangePasswordModal userId={user.id} onClose={() => setChangePassword(false)} />
+        <ChangePasswordModal userId={userInfo.id} onClose={() => setChangePassword(false)} />
       )}
     </>
   );
