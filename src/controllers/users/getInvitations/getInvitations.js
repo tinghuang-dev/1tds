@@ -17,7 +17,7 @@ const getInvitations = async (req, res) => {
   res.status(200).json({ invitations });
 };
 export default compose(
+  withError,
   withAuth,
   withUser,
-  withError,
 )(getInvitations);

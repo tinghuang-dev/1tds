@@ -19,6 +19,6 @@ const resendInvitation = async (req, res) => {
 
 export default compose(
   withError,
-  withUser,
   withAuth,
+  withUser,
 )(resendInvitation);

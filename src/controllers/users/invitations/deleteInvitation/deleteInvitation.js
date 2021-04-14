@@ -14,6 +14,6 @@ const deleteInvitation = async (req, res) => {
 
 export default compose(
   withError,
-  withUser,
   withAuth,
+  withUser,
 )(deleteInvitation);

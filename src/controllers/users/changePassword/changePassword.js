@@ -27,7 +27,7 @@ const changePassword = async (req, res) => {
   res.status(201).end();
 };
 export default compose(
+  withError,
   withAuth,
   withUser,
-  withError,
 )(changePassword);

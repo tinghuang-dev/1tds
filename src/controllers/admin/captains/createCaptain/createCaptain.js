@@ -25,7 +25,7 @@ const createCaptain = async (req, res) => {
   res.status(200).json(record);
 };
 export default compose(
-  withUser,
   withError,
   withAuth,
+  withUser,
 )(createCaptain);
