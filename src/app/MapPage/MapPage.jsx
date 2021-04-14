@@ -12,7 +12,7 @@ const MELBOURNE_GEO_LOCATION = {
     lat: -37.81,
     lng: 144.96,
   },
-  zoom: 10,
+  zoom: 15,
 };
 
 const MapPage = () => {
@@ -33,7 +33,7 @@ const MapPage = () => {
       <Container>
         <Flex>
           <CaptainList captains={captains} />
-          <Flex flex="1">
+          <Flex flex="1" minHeight="550px">
             <GoogleMapReact
               defaultCenter={MELBOURNE_GEO_LOCATION.center}
               defaultZoom={MELBOURNE_GEO_LOCATION.zoom}

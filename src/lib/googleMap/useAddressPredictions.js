@@ -15,7 +15,7 @@ const getPlacePredictions = (value, cb) => {
 export default function useAddressPredictions(value) {
   const [predictions, setPredictions] = useState([]);
 
-  const debouncedValue = useDebounce(value, 500);
+  const debouncedValue = useDebounce(value, 300);
 
   useEffect(() => {
     getPlacePredictions(debouncedValue, setPredictions);

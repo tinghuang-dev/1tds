@@ -10,6 +10,7 @@ export default function Icon({
   const color = {
     naked: '',
     primary: '#EB9050',
+    grey: '#9496A1',
     link: '#6097E6',
     success: '#97A73F',
     error: '#E83D32',

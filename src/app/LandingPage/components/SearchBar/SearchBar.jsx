@@ -9,11 +9,12 @@ import Input from '../../../../components/Input';
 import useAddressPredictions from '../../../../lib/googleMap/useAddressPredictions';
 import goToMapPageByAddress from '../../../../lib/googleMap/goToMapPageByAddress';
 import TruncateText from '../../../../components/TruncateText';
+import Text from '../../../../components/Text';
 
 const ListHover = styled(Box)`
     cursor: pointer;
     :hover {
-      background-color: white;
+      background-color: #f0f0f0;
     }
 `;
 
@@ -59,10 +60,10 @@ const SearchBar = () => {
             suffix={(
               <>
                 <Hide xs sm>
-                  <Icon name="search" size="2x" />
+                  <Icon name="closeCircle" size="2x" onClick={() => setValue('')} />
                 </Hide>
                 <Hide md lg>
-                  <Icon name="search" size="1x" />
+                  <Icon name="closeCircle" size="1x" onClick={() => setValue('')} />
                 </Hide>
               </>
             )}
@@ -74,16 +75,22 @@ const SearchBar = () => {
         justifyContent="flex-end"
         my={['lg', null, 'lg']}
       >
-        <Button size={['md', null, 'lg']} onClick={() => goToMapPageByAddress(address)}>查找团购</Button>
+        <Button
+          size={['md', null, 'lg']}
+          onClick={() => goToMapPageByAddress(address)}
+        >
+          查找团购
+        </Button>
       </Flex>
       )}
       {(!address && value) && (
         <Box
-          bg="grey"
+          bg="white"
           border="@1"
           borderTop="none"
-          borderBottom="none"
           borderColor="grey"
+          borderRadius="default"
+          mb="lg"
         >
           {predictions?.map((prediction) => (
             <ListHover px="md" key={prediction.place_id}>
@@ -92,10 +99,19 @@ const SearchBar = () => {
                 height="50px"
                 alignItems="center"
               >
-                <Icon name="search" size="1x" />
+                <>
+                  <Hide xs sm>
+                    <Icon name="mapMarkerAlt" size="2x" variant="grey" />
+                  </Hide>
+                  <Hide md lg>
+                    <Icon name="mapMarkerAlt" size="1x" variant="grey" />
+                  </Hide>
+                </>
                 <TruncateText>
                   <Box pl="md">
-                    {prediction.description}
+                    <Text fontSize="lg" fontFamily="arial">
+                      {prediction.description}
+                    </Text>
                   </Box>
                 </TruncateText>
               </Flex>

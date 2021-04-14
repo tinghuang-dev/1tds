@@ -26,6 +26,7 @@ const MessageContainer = styled(Box).attrs({
   bg: 'white',
   p: 'md',
   borderRadius: 'default',
+  zIndex: 'popup',
 })`
   box-shadow: 0 0 8px 0 grey;
   animation: ${slideInOut} 4s;
