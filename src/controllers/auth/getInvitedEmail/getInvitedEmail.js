@@ -10,9 +10,9 @@ const getInvitedEmail = async (req, res) => {
     throw Boom.badRequest();
   }
 
-  const invitation = await Invitations.findOne({ where: token });
+  const invitation = await Invitations.findOne({ where: { token } });
 
-  const { email } = invitation.email;
+  const { email } = invitation;
 
   if (!email) {
     throw Boom.notFound();

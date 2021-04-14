@@ -52,7 +52,6 @@ export default function useForm(config, onsubmit) {
 
       return;
     }
-
     onsubmit(values);
   };
 
