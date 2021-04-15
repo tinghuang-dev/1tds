@@ -12,13 +12,16 @@ const getInvitedEmail = async (req, res) => {
 
   const invitation = await Invitations.findOne({ where: { token } });
 
-  const { email } = invitation;
+  const responseData = {
+    email: invitation.email,
+    invitedUserId: invitation.invitedUserId,
+  };
 
-  if (!email) {
+  if (!responseData.email) {
     throw Boom.notFound();
   }
 
-  res.status(200).json({ email });
+  res.status(200).json(responseData);
 };
 
 export default compose(

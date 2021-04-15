@@ -4,7 +4,9 @@ import Box from '../../components/Box';
 import ModalPage from '../../components/ModalPage';
 import getInvitedEmail from '../../apis/auth/getInvitedEmail';
 import Icon from '../../components/Icon';
+import Flex from '../../components/Flex';
 import Form from './components/MemberActiveForm';
+import MemberActivatedPage from './components/MemberActivatedPage';
 
 function MemberActivePage() {
   const { query: { token } } = useRouter();
@@ -19,18 +21,28 @@ function MemberActivePage() {
   }, [token]);
 
   return (
-    <ModalPage title="成为团员">
-      <Box mt="md">
-        请填写账户信息
-      </Box>
-      <Box py="lg">
-        {response ? (
-          <Form email={response.data.email} />
-        ) : (
-          <Icon name="loading" />
-        )}
-      </Box>
-    </ModalPage>
+    <>
+      {response ? (
+        <>
+          {response.data.invitedUserId === null ? (
+            <ModalPage title="成为团员">
+              <Box mt="md">
+                请填写账户信息
+              </Box>
+              <Box py="lg">
+                <Form email={response.data.email} />
+              </Box>
+            </ModalPage>
+          ) : (
+            <MemberActivatedPage />
+          )}
+        </>
+      ) : (
+        <Flex justifyContent="center" py="3x">
+          <Icon spin variant="naked" name="loading" size="3x" />
+        </Flex>
+      )}
+    </>
   );
 }
 
