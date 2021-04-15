@@ -15,10 +15,20 @@ const inviteMember = async (req, res) => {
   }
 
   const sendInvitations = memberEmails.map(async (email) => {
-    const token = await Invitations.createInvitationForUser(
-      user.id,
-      email,
-    );
+    const invitedUser = await Invitations.findOne({ where: { email } });
+
+    if (!invitedUser) {
+      const invitationToken = await Invitations.createInvitationForUser(
+        user.id,
+        email,
+      );
+
+      await mail.sendInviteMember(email, invitationToken);
+
+      return;
+    }
+
+    const { token } = invitedUser;
 
     await mail.sendInviteMember(email, token);
   });

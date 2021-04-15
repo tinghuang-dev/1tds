@@ -7,7 +7,7 @@ import ForgetPasswordModal from '../../../ForgetPasswordModal';
 import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
 import InviteMemberModal from './components/InviteMemberModal';
-import PendingEmailConfirmationModal from './components/PendingEmailConfirmationModal';
+import PendingEmailConfirmationModal from '../../../PendingEmailConfirmationModal';
 import config from './config';
 import MessageBox from '../../../../components/MessageBox';
 import Box from '../../../../components/Box';
