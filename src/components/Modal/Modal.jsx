@@ -6,6 +6,7 @@ import Button from '../Button';
 import ClickOutside from '../ClickOutside';
 import Flex from '../Flex';
 import Heading from '../Heading';
+import Hide from '../Hide';
 import Icon from '../Icon';
 import Overlay from '../Overlay';
 
@@ -35,14 +36,25 @@ export default function Modal({
           <Box
             width={['100vw', null, width]}
             height={['100vh', null, 'auto']}
-            p="lg"
+            px="lg"
+            pb="lg"
+            pt={['1x', null, 'lg']}
             bg="white"
             borderRadius={[null, null, 'default']}
             position="relative"
           >
-            <Box position="absolute" top="md" right="md">
+            <Box
+              position="absolute"
+              top={['lg', null, 'md']}
+              right={['lg', null, 'md']}
+            >
               <Button type="button" variant="naked" onClick={onClose}>
-                <Icon name="close" size="lg" />
+                <Hide xs sm>
+                  <Icon name="close" size="lg" />
+                </Hide>
+                <Hide md lg>
+                  <Icon name="return" size="lg" />
+                </Hide>
               </Button>
             </Box>
             <div>

@@ -11,7 +11,7 @@ import Box from '../../components/Box';
 
 export default function BecomeACaptainPage() {
   return (
-    <>
+    <div id="become-a-captain">
       <Title>成为团长</Title>
       <Box bg={['white', null, 'lightblue']} height={['850px', null, '800px']}>
         <Container>
@@ -50,6 +50,6 @@ export default function BecomeACaptainPage() {
       <Benefits />
       <BusinessProcess />
       <CaptainLinkBlock />
-    </>
+    </div>
   );
 }

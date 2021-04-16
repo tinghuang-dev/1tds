@@ -45,7 +45,9 @@ const Benefits = () => (
         px={['lg', null, '2x']}
         bg={['secondary', null, 'white']}
       >
-        <Heading>平台优势</Heading>
+        <Box mt="lg" mb="1x">
+          <Heading>平台优势</Heading>
+        </Box>
         <Hide xs sm>
           <Flex flexWrap="wrap" my="lg">
             {data.map(({

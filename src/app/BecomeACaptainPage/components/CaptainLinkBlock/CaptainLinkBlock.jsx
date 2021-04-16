@@ -19,12 +19,14 @@ const CaptainLinkBlock = () => (
         color="darkPrimary"
         mb="1x"
         lineHeight="normal"
+        mx={['lg', null, 'initial']}
+        width={['initial', null, '600px']}
       >
         <Heading size={['md', null, 'lg']}>
           颠覆传统电商带来社区拼团新体验，顾客就在家门口，居家就能做生意！
         </Heading>
       </Box>
-      <Link href="/become-a-captain">
+      <Link href="#become-a-captain">
         <a>
           <Button variant="success" size={['md', null, 'lg']}>成为团长</Button>
         </a>
