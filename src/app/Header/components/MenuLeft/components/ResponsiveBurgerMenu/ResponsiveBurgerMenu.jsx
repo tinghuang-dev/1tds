@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '../../../../../../components/Box';
 import Button from '../../../../../../components/Button';
 import DropdownMenu from '../../../../../../components/DropdownMenu';
@@ -7,8 +7,10 @@ import Link from '../../../../../../components/Link';
 import useGetActiveLinkProps from '../../../../../../hooks/useGetActiveLinkProps';
 import useToggler from '../../../../../../hooks/useToggler';
 import logout from '../../../../../../utils/logout';
+import InviteMemberModal from '../../../../../BecomeACaptainPage/components/Form/components/InviteMemberModal';
 
 const ResponsiveBurgerMenu = ({ user }) => {
+  const [showInviteMemberModal, setShowInviteMemberModal] = useState(false);
   const [showDropdownMenu, toggleDropdownMenu] = useToggler();
   const handleClick = (event) => {
     event.stopPropagation();
@@ -63,10 +65,15 @@ const ResponsiveBurgerMenu = ({ user }) => {
               </Box>
               <Box px="md" pb="sm" mt="sm" borderBottom="@1" borderColor="border">
                 <Link
-                  {...getActiveLinkProps('/')} /* eslint-disable-line react/jsx-props-no-spreading */
+                  {...getActiveLinkProps('/user/invitations')} /* eslint-disable-line react/jsx-props-no-spreading */
                 >
                   团员管理
                 </Link>
+              </Box>
+              <Box px="md" py="sm" borderBottom="@1" borderColor="border">
+                <Button size="sm" variant="naked" onClick={() => setShowInviteMemberModal(true)}>
+                  邀请团员
+                </Button>
               </Box>
               <Box px="md" mt="sm">
                 <Button variant="naked" size="sm" onClick={logout}>
@@ -76,6 +83,9 @@ const ResponsiveBurgerMenu = ({ user }) => {
             </>
           )}
         </DropdownMenu>
+      )}
+      {showInviteMemberModal && (
+        <InviteMemberModal onClose={() => setShowInviteMemberModal(false)} />
       )}
     </Box>
   );

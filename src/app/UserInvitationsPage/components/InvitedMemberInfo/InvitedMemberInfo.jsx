@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '../../../../components/Box';
 import Heading from '../../../../components/Heading';
 import Flex from '../../../../components/Flex';
+import Text from '../../../../components/Text';
 
 const InvitedMemberInfo = ({ invitations }) => {
   const invitedMembers = invitations.filter((x) => x.invitedUserId !== null);
@@ -16,8 +17,18 @@ const InvitedMemberInfo = ({ invitations }) => {
       <Box px="sm" mt="md">
         {invitedMembers.map((member) => (
           <Box py="xs">
-            <Flex pl="md" py="xs" bg="grey" flex="1">
-              {member.email}
+            <Flex
+              pl={['sm', null, 'md']}
+              py="sm"
+              bg="grey"
+              flex="1"
+              justifyContent="space-between"
+              borderRadius="default"
+            >
+              <Text fontSize={['sm', null, 'md']}>
+                {member.email}
+              </Text>
+
             </Flex>
           </Box>
         ))}

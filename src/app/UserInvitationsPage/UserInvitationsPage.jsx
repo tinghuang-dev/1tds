@@ -13,13 +13,18 @@ import Icon from '../../components/Icon';
 
 const UserInvitationsPage = ({ auth }) => {
   const [response, setResponse] = useState();
+  const [invitations, setInvitations] = useState();
 
   const userId = auth.id;
 
   useEffect(() => {
     const getUserDetails = () => {
       getInvitations(userId)
-        .then(setResponse);
+        .then((res) => {
+          setResponse(res);
+          return res;
+        })
+        .then((res) => setInvitations(res.data.invitations));
     };
 
     getUserDetails();
@@ -33,13 +38,21 @@ const UserInvitationsPage = ({ auth }) => {
           <Hide xs sm>
             <UserPageNav />
           </Hide>
-          <Box flex="1" p="1x">
+          <Box flex="1" py="1x" px={['md', null, '1x']}>
             {response ? (
               <Box>
                 <Box pb="lg">
                   <InvitedMemberInfo invitations={response.data.invitations} />
                 </Box>
-                <PendingMemberInfo invitations={response.data.invitations} />
+                <PendingMemberInfo
+                  invitations={invitations}
+                  userId={userId}
+                  onInvitationDelete={(id) => (
+                    setInvitations((prevInvitations) => (
+                      prevInvitations.filter((i) => i.id !== id)
+                    ))
+                  )}
+                />
               </Box>
             ) : (
               <Icon variant="naked" name="loading" />

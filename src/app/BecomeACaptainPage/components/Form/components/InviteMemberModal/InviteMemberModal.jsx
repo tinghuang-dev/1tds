@@ -47,7 +47,7 @@ export default function InviteMemberModal({ onClose }) {
       .then(setResponse)
       .then(() => {
         onClose();
-        message.success('邮件发送成功!');
+        message.success('邀请邮件发送成功!');
       })
       .catch(setResponse);
   };
