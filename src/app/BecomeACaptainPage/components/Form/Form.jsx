@@ -12,6 +12,7 @@ import config from './config';
 import MessageBox from '../../../../components/MessageBox';
 import Box from '../../../../components/Box';
 import getFormSubmitting from '../../../../utils/getFormSubmitting';
+import AddressInput from '../../../../components/AddressInput/AddressInput';
 
 const MODAL = {
   INVITE_MEMBER: 'INVITE_MEMBER',
@@ -21,7 +22,6 @@ const MODAL = {
 
 export default function Form() {
   const [modal, setModal] = useState();
-
   const [response, setResponse] = useState();
 
   const {
@@ -32,7 +32,6 @@ export default function Form() {
     error,
   } = useForm(config, (data) => {
     setResponse();
-
     signUp(data)
       .then(setResponse)
       .then(() => setModal(MODAL.INVITE_MEMBER))
@@ -54,22 +53,33 @@ export default function Form() {
           {Object.keys(config).map((key) => {
             const errorMessage = config[key].getErrorMessage?.(values[key], values);
 
+            const { label, inputType } = config[key];
+
             return (
               <FormItem
                 key={key}
                 name={key}
                 layout={['block', null, 'flex']}
-                label={config[key].label}
-                errorMessage={error && errorMessage}
+                label={label}
+                errorMessage={touched && errorMessage}
               >
-                <Input
-                  size={['sm', null, 'md']}
-                  type={config[key].inputType || 'text'}
-                  name={key}
-                  onChange={handleChange(key)}
-                  value={values[key]}
-                  error={error}
-                />
+                {key === 'address' ? (
+                  <AddressInput
+                    layout={['block', null, 'flex']}
+                    size="md"
+                    formOnchange={(value) => handleChange('address', value)}
+                    formOnclick={(prediction) => handleChange('address', prediction.description)}
+                  />
+                ) : (
+                  <Input
+                    size={['sm', null, 'md']}
+                    type={inputType || 'text'}
+                    name={key}
+                    onChange={(event) => handleChange(key, event.target.value)}
+                    value={values[key]}
+                    error={error}
+                  />
+                )}
               </FormItem>
             );
           })}

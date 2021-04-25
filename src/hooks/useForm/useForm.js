@@ -29,12 +29,10 @@ export default function useForm(config, onsubmit) {
     return !errorMessage;
   };
 
-  const handleChange = (key) => (event) => {
-    event.preventDefault();
-
+  const handleChange = (key, value) => {
     setState((prevState) => ({
       ...prevState,
-      [key]: event.target.value,
+      [key]: value,
     }));
   };
 

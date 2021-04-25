@@ -42,7 +42,7 @@ export default function Form({
             <Input
               type={config[KEY].inputType || 'text'}
               name={KEY}
-              onChange={handleChange(KEY)}
+              onChange={(event) => handleChange(KEY, event.target.value)}
               value={values[KEY]}
               error={error}
             />

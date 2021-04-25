@@ -14,7 +14,7 @@ const LandingPage = () => {
     <>
       <Title />
       <Container>
-        <Box px={['md', null, '300px']} pt={['1x', null, '2x']}>
+        <Box px={['md', null, '3x']} pt={['1x', null, '2x']}>
           <Slogan />
           <SearchBar />
         </Box>

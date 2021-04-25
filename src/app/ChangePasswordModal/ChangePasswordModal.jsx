@@ -62,7 +62,7 @@ export default function ChangePasswordModal({ userId, onClose }) {
                 <Input
                   type={config[key].inputType || 'text'}
                   name={key}
-                  onChange={handleChange(key)}
+                  onChange={(event) => handleChange(key, event.target.value)}
                   value={values[key]}
                   error={error}
                 />

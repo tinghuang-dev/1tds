@@ -79,7 +79,7 @@ const BusinessInfo = ({ userInfo, setUserInfo }) => {
                 <Input
                   type={config(userInfo)[key].inputType || 'text'}
                   name={key}
-                  onChange={handleChange(key)}
+                  onChange={(event) => handleChange(key, event.target.value)}
                   readOnly={!editing}
                   value={editing ? values[key] : userInfo[key]}
                   error={error}

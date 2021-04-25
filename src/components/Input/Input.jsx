@@ -127,6 +127,7 @@ const Input = React.forwardRef(({
   prefix,
   suffix,
   readOnly,
+  onClick,
   ...props
 }, ref) => (
   <InputContainer
@@ -144,7 +145,7 @@ const Input = React.forwardRef(({
         size={size}
       />
     </Item>
-    {suffix && (<Item size={size}>{suffix}</Item>)}
+    {suffix && (<Item size={size} onClick={onClick}>{suffix}</Item>)}
   </InputContainer>
 ));
 

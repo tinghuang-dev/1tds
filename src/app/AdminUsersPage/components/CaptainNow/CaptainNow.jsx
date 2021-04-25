@@ -55,7 +55,7 @@ export default function CaptainNow({
           <Flex>
             <Input
               id={key}
-              onChange={handleChange(key)}
+              onChange={(event) => handleChange(key, event.target.value)}
               value={values[key]}
               error={error}
             />

@@ -9,6 +9,7 @@ import PendingEmailConfirmationModal from '../../../PendingEmailConfirmationModa
 import config from '../../formConfig';
 import useForm from '../../../../hooks/useForm';
 import signUp from '../../../../apis/auth/signUp';
+import AddressInput from '../../../../components/AddressInput/AddressInput';
 
 const MODAL = {
   PENDING_EMAIL_CONFIRMATION: 'PENDING_EMAIL_CONFIRMATION',
@@ -52,14 +53,23 @@ function Form(email) {
               label={configuration[key].label}
               errorMessage={error && errorMessage}
             >
-              <Input
-                type={configuration[key].inputType || 'text'}
-                name={key}
-                onChange={handleChange(key)}
-                value={values[key]}
-                error={error}
-                readOnly={key === 'email'}
-              />
+              {key === 'address' ? (
+                <AddressInput
+                  layout={['block', null, 'flex']}
+                  size="md"
+                  formOnchange={(value) => handleChange('address', value)}
+                  formOnclick={(prediction) => handleChange('address', prediction.description)}
+                />
+              ) : (
+                <Input
+                  type={configuration[key].inputType || 'text'}
+                  name={key}
+                  onChange={(event) => handleChange(key, event.target.value)}
+                  value={values[key]}
+                  error={error}
+                  readOnly={key === 'email'}
+                />
+              )}
             </FormItem>
           );
         })}
