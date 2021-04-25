@@ -25,7 +25,7 @@ const CaptainList = ({
       />
     )) : (
       <Flex
-        height="500px"
+        height="100%"
         alignItems="center"
         justifyContent="center"
         borderBottom="@1"

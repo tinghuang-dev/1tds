@@ -2,7 +2,7 @@ import {
   faBars,
   faMapMarkerAlt, faRedo, faSearch, faSpinner, faTimes, faTimesCircle, faUserCircle,
   faAngleLeft, faAngleRight, faShareAlt, faShareAltSquare, faCaretRight, faCheckCircle,
-  faArrowLeft,
+  faArrowLeft, faStore, faStoreAlt, faMapPin,
 } from '@fortawesome/free-solid-svg-icons';
 
 const getIconByName = (name) => ({
@@ -21,6 +21,9 @@ const getIconByName = (name) => ({
   caretRight: faCaretRight,
   checkCircle: faCheckCircle,
   return: faArrowLeft,
+  storeMark: faStore,
+  storeMarkAlt: faStoreAlt,
+  mapPin: faMapPin,
 }[name]);
 
 export default getIconByName;

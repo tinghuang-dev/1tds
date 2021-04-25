@@ -6,6 +6,7 @@ import Title from '../../components/Title';
 import CaptainList from './CaptainList';
 import useCaptains from './hooks/useCaptains';
 import Flex from '../../components/Flex';
+import Icon from '../../components/Icon';
 
 const MELBOURNE_GEO_LOCATION = {
   center: {
@@ -30,18 +31,44 @@ const MapPage = () => {
   return (
     <>
       <Title>主页</Title>
-      <Container>
-        <Flex>
-          <CaptainList captains={captains} />
-          <Flex flex="1" minHeight="550px">
-            <GoogleMapReact
-              defaultCenter={MELBOURNE_GEO_LOCATION.center}
-              defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
-              center={currentLocation}
-            />
+      {(lat && lng) ? (
+        <Container>
+          <Flex height="100vh" minHeight="550px">
+            <CaptainList captains={captains} />
+            <Flex flex="1">
+              <GoogleMapReact
+                defaultCenter={MELBOURNE_GEO_LOCATION.center}
+                defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
+                center={currentLocation}
+              >
+                <Icon
+                  name="mapMarkerAlt"
+                  size="2x"
+                  lat={lat}
+                  lng={lng}
+                  color="red"
+                />
+                <Icon
+                  name="storeMark"
+                  size="2x"
+                  lat={-37.808}
+                  lng={144.965}
+                  color="red"
+                />
+                <Icon
+                  name="mapPin"
+                  size="2x"
+                  lat={-37.809}
+                  lng={144.965}
+                  color="red"
+                />
+              </GoogleMapReact>
+            </Flex>
           </Flex>
-        </Flex>
-      </Container>
+        </Container>
+      ) : (
+        <Icon variant="naked" name="loading" />
+      )}
     </>
   );
 };
