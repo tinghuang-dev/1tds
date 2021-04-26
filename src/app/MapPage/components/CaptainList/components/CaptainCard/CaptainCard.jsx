@@ -1,12 +1,12 @@
 import { differenceInDays } from 'date-fns';
 import React from 'react';
-import Box from '../../../../../components/Box';
-import Flex from '../../../../../components/Flex';
-import Heading from '../../../../../components/Heading';
-import Icon from '../../../../../components/Icon';
-import Link from '../../../../../components/Link';
-import Skeleton from '../../../../../components/Skeleton';
-import TruncateText from '../../../../../components/TruncateText';
+import Box from '../../../../../../components/Box';
+import Flex from '../../../../../../components/Flex';
+import Heading from '../../../../../../components/Heading';
+import Icon from '../../../../../../components/Icon';
+import Link from '../../../../../../components/Link';
+import Skeleton from '../../../../../../components/Skeleton';
+import TruncateText from '../../../../../../components/TruncateText';
 import Tag from '../Tag';
 
 const sells = '222';

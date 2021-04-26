@@ -135,27 +135,27 @@ const AddressInput = ({
           top="101%"
           zIndex="popup"
         >
-            {predictions?.map((prediction) => (
-              <ListHover key={prediction.place_id}>
-                <SizePredictionList
-                  size={size}
-                  onClick={() => onPredictionClick(prediction)}
-                >
-                  {predictionPrefix && (<Item size={size}>{predictionPrefix}</Item>)}
-                  <TruncateText>
-                    <SizePredictionText size={size}>
-                      {prediction.description}
-                    </SizePredictionText>
-                  </TruncateText>
-                </SizePredictionList>
-              </ListHover>
-            ))}
+          {predictions?.map((prediction) => (
+            <ListHover key={prediction.place_id}>
+              <SizePredictionList
+                size={size}
+                onClick={() => onPredictionClick(prediction)}
+              >
+                {predictionPrefix && (<Item size={size}>{predictionPrefix}</Item>)}
+                <TruncateText>
+                  <SizePredictionText size={size}>
+                    {prediction.description}
+                  </SizePredictionText>
+                </TruncateText>
+              </SizePredictionList>
+            </ListHover>
+          ))}
         </Box>
         )}
       </Flex>
       {searchButton && (
-        <Flex mt={['lg', null, 0]} justifyContent="flex-end">
-          <ButtonContainer size={size}>
+        <Flex justifyContent="flex-end">
+          <ButtonContainer size={size} mt={['4px', null, 0]}>
             <Button
               size={size}
               onClick={() => goToMapPageByAddress(address)}

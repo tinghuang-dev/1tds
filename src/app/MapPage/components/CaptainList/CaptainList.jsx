@@ -1,7 +1,6 @@
 import React from 'react';
-import Flex from '../../../components/Flex';
-import Icon from '../../../components/Icon';
-import SearchBar from './components/SearchBar';
+import Flex from '../../../../components/Flex';
+import Icon from '../../../../components/Icon';
 import CaptainCard from './components/CaptainCard';
 
 const CaptainList = ({
@@ -9,12 +8,7 @@ const CaptainList = ({
 }) => (
   <Flex
     flexDirection="column"
-    width={400}
-    borderRight="@1"
-    borderLeft="@1"
-    borderColor="border"
   >
-    <SearchBar />
     {captains ? captains.map((c) => (
       <CaptainCard
         key={c.id}
@@ -28,8 +22,6 @@ const CaptainList = ({
         height="100%"
         alignItems="center"
         justifyContent="center"
-        borderBottom="@1"
-        borderColor="border"
       >
         <Icon variant="naked" name="loading" spin />
       </Flex>

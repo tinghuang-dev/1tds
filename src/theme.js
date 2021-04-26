@@ -64,6 +64,7 @@ export default {
   },
   zIndices: {
     popup: '9999',
+    '@100': '100',
   },
   lineHeights: {
     tight: 1,
