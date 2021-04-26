@@ -101,13 +101,17 @@ const AddressInput = ({
   const handleInput = (event) => {
     setValue(event.target.value);
     setAddress();
-    formOnchange(event.target.value);
+    if (formOnchange) {
+      formOnchange(event.target.value);
+    }
   };
 
   const onPredictionClick = (prediction) => {
     setValue(prediction.description);
     setAddress(prediction);
-    formOnclick(prediction);
+    if (formOnclick) {
+      formOnclick(prediction);
+    }
   };
 
   return (

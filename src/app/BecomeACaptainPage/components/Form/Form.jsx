@@ -66,7 +66,7 @@ export default function Form() {
                 {key === 'address' ? (
                   <AddressInput
                     layout={['block', null, 'flex']}
-                    size="md"
+                    size={['sm', null, 'md']}
                     formOnchange={(value) => handleChange('address', value)}
                     formOnclick={(prediction) => handleChange('address', prediction.description)}
                   />
