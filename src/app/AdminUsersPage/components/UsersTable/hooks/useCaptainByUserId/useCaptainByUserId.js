@@ -16,7 +16,7 @@ const useCaptainByUserId = (users) => {
         filter: {
           type: MODAL.captain,
           fields: {
-            userId: { in: userIds },
+            userid: { in: userIds },
           },
         },
       })
