@@ -9,6 +9,7 @@ import Title from '../../components/Title';
 import withAuth from '../../components/withAuth';
 import AdminPage from '../AdminPage';
 import ACTION from './ACTION';
+import ActiveUser from './components/ActiveUser';
 import CaptainNow from './components/CaptainNow';
 import UserModal from './components/UserModal';
 import UsersTable from './components/UsersTable';
@@ -72,7 +73,16 @@ function AdminUsersPage() {
                 }}
               />
             ),
-          }[ACTION.CAPTAIN_NOW]}
+            [ACTION.ACTIVE_USER]: (
+              <ActiveUser
+                userId={action.user.id}
+                onDone={() => {
+                  setAction();
+                  requestListUsers();
+                }}
+              />
+            ),
+          }[action.type]}
         </UserModal>
       )}
     </>
