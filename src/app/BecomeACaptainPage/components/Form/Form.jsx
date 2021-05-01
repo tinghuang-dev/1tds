@@ -77,7 +77,7 @@ export default function Form() {
                     name={key}
                     onChange={(event) => handleChange(key, event.target.value)}
                     value={values[key]}
-                    error={error}
+                    error={touched && errorMessage}
                   />
                 )}
               </FormItem>
