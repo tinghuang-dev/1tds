@@ -5,7 +5,9 @@ import cms, { MODAL } from '../../../../lib/cms';
 import Users from '../../../../db/models/users';
 
 const createCaptain = async (req, res) => {
-  const { name } = req.body;
+  const { name } = req.body.data;
+
+  const { latlng } = req.body;
 
   const { userId } = req.query;
 
@@ -29,6 +31,7 @@ const createCaptain = async (req, res) => {
     itemType: itemType.id,
     name,
     userid: user.id.toString(),
+    location: latlng,
     description: '',
     products: [],
   });

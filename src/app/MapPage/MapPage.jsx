@@ -12,7 +12,6 @@ import StoreDetailModal from './components/StoreDetailModal';
 import Box from '../../components/Box';
 import Icon from '../../components/Icon';
 import Hide from '../../components/Hide';
-import MapMarkers from './components/MapMarkers';
 
 const MELBOURNE_GEO_LOCATION = {
   center: {
@@ -67,28 +66,57 @@ const MapPage = () => {
               />
             </Box>
           ) : (
-            <Box flex="1">
-              <Hide md lg>
+            <Hide md lg>
+              <Box flex="1" width="100vw" height="80vh">
                 <GoogleMapReact
                   defaultCenter={MELBOURNE_GEO_LOCATION.center}
                   defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
                   center={currentLocation}
                 >
-                  <MapMarkers lat={lat} lng={lng} />
+                  <Icon
+                    name="mapPin"
+                    size="2x"
+                    lat={lat}
+                    lng={lng}
+                    color="red"
+                  />
+                  {captains?.map((l) => (
+                    <Icon
+                      name="storeMark"
+                      size="2x"
+                      lat={l.location.latitude}
+                      lng={l.location.longitude}
+                      color="red"
+                    />
+                  ))}
                 </GoogleMapReact>
-              </Hide>
-            </Box>
-
+              </Box>
+            </Hide>
           )}
-          {(lat && lng) ? (
-            <Box flex={[0, null, '1']}>
+          {((lat && lng) && captains) ? (
+            <Box flex="1">
               <Hide xs sm>
                 <GoogleMapReact
                   defaultCenter={MELBOURNE_GEO_LOCATION.center}
                   defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
                   center={currentLocation}
                 >
-                  <MapMarkers lat={lat} lng={lng} />
+                  <Icon
+                    name="mapPin"
+                    size="2x"
+                    lat={lat}
+                    lng={lng}
+                    color="red"
+                  />
+                  {captains?.map((l) => (
+                    <Icon
+                      name="storeMark"
+                      size="2x"
+                      lat={l.location.latitude}
+                      lng={l.location.longitude}
+                      color="red"
+                    />
+                  ))}
                 </GoogleMapReact>
               </Hide>
             </Box>

@@ -67,6 +67,7 @@ function AdminUsersPage() {
             [ACTION.CAPTAIN_NOW]: (
               <CaptainNow
                 userId={action.user.id}
+                userAddress={action.user.address}
                 onDone={() => {
                   setAction();
                   requestListUsers();

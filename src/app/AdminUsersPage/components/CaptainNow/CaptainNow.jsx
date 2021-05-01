@@ -8,12 +8,19 @@ import Input from '../../../../components/Input';
 import useForm from '../../../../hooks/useForm';
 import config from './config';
 import getFormSubmitting from '../../../../utils/getFormSubmitting';
+import useAddressPredictions from '../../../../lib/googleMap/useAddressPredictions';
+import getGeoLocationByPlaceId from '../../../../lib/googleMap/getGeoLocationByPlaceId';
 
 export default function CaptainNow({
   userId,
   onDone,
+  userAddress,
 }) {
   const [response, setResponse] = useState();
+
+  const addressPredictions = useAddressPredictions(userAddress);
+
+  const placeId = addressPredictions[0]?.place_id;
 
   const key = 'name';
 
@@ -26,9 +33,17 @@ export default function CaptainNow({
   } = useForm(config, (data) => {
     setResponse();
 
-    createCaptains(userId, data)
-      .then(setResponse)
-      .then(onDone);
+    getGeoLocationByPlaceId(placeId)
+      .then((result) => {
+        const latlng = {
+          latitude: result[0].geometry.location.lat(),
+          longitude: result[0].geometry.location.lng(),
+        };
+
+        createCaptains(userId, latlng, data)
+          .then(setResponse)
+          .then(onDone);
+      });
   });
 
   const errorMessage = config[key].getErrorMessage?.(values[key], values);
