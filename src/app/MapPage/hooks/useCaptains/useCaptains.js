@@ -23,10 +23,18 @@ const useCaptains = () => {
       return;
     }
 
-    const captainIdByProductId = captains.reduce((acc, cur) => ({
-      ...acc,
-      [cur.products[0]]: cur.id,
-    }), {});
+    const captainIdByProductId = captains.reduce((acc, cur) => {
+      const curProducts = cur.products.reduce((accObj, curProduct) => ({
+        ...accObj,
+        [curProduct]: cur.id,
+      }), {});
+
+      return {
+        ...acc,
+        ...curProducts,
+      };
+    }, {});
+
     const productIds = Object.keys(captainIdByProductId);
 
     cms.readOnly
@@ -34,10 +42,24 @@ const useCaptains = () => {
       .all({
         'filter[ids]': productIds.join(),
       })
-      .then((products) => products.reduce((acc, cur) => ({
-        ...acc,
-        [captainIdByProductId[cur.id]]: cur,
-      }), {}))
+      .then((products) => products.reduce((acc, cur) => {
+        const curCaptainId = captainIdByProductId[cur.id];
+
+        if (!acc[curCaptainId]) {
+          return {
+            ...acc,
+            [curCaptainId]: [cur],
+          };
+        }
+
+        const productsByCaptainId = [...acc[curCaptainId]];
+
+        productsByCaptainId.push(cur);
+        return {
+          ...acc,
+          [curCaptainId]: productsByCaptainId,
+        };
+      }, {}))
       .then((productByCaptainId) => {
         setEnrichedCaptains((cs) => cs.map((c) => ({
           ...c,

@@ -92,6 +92,8 @@ const AddressInput = ({
   layout,
   formOnclick,
   formOnchange,
+  readOnly,
+  initialValue,
 }) => {
   const [value, setValue] = useState('');
   const [address, setAddress] = useState();
@@ -119,13 +121,14 @@ const AddressInput = ({
       <Flex position="relative" flex="1">
         <Box width="100%" bg="grey" borderRadius="default">
           <Input
-            value={value}
+            value={initialValue || value}
             onChange={handleInput}
             size={size}
             variant={variant}
             prefix={prefix}
             suffix={suffix}
             onClick={() => setValue('')}
+            readOnly={readOnly}
           />
         </Box>
         {(!address && value) && (

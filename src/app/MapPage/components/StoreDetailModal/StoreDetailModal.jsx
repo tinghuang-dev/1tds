@@ -7,7 +7,6 @@ import Heading from '../../../../components/Heading';
 import Hide from '../../../../components/Hide';
 import Icon from '../../../../components/Icon';
 import Products from './components/Products/Products';
-import productsData from './components/Products/productsData';
 
 const InvisibleScrollBar = styled(Box)`
   ::-webkit-scrollbar {
@@ -15,29 +14,23 @@ const InvisibleScrollBar = styled(Box)`
 }
 `;
 
-const StoreDetailModal = ({ setShowStoreDetail }) => {
-  const keys = Object.keys(productsData);
-
-  const initialState = keys.reduce((acc, key) => ({
+const StoreDetailModal = ({ setShowStoreDetail, products }) => {
+  const initialState = products.product?.reduce((acc, p) => ({
     ...acc,
-    [key]: 0,
+    [p.id]: 0,
   }), {});
 
   const [numberOfProducts, setNumberOfProducts] = useState(initialState);
 
-  const totalProducts = Object.values(numberOfProducts).reduce((total, num) => total + num);
+  let totalProducts = 0;
 
-  const payment = (
-    productsData.新鲜小龙虾.price * numberOfProducts.新鲜小龙虾
-  ) + (
-    productsData.香辣螃蟹.price * numberOfProducts.香辣螃蟹
-  ) + (
-    productsData.塔州新鲜鲍鱼.price * numberOfProducts.塔州新鲜鲍鱼
-  );
+  if (products.product) {
+    totalProducts = Object.values(numberOfProducts).reduce((total, num) => total + num);
+  }
 
   return (
     <InvisibleScrollBar
-      height="60vh"
+      height="75vh"
       width="320px"
       overflowY="auto"
       position="relative"
@@ -45,7 +38,8 @@ const StoreDetailModal = ({ setShowStoreDetail }) => {
       borderRadius="default"
       border="@1"
       borderColor="grey"
-      p="lg"
+      px="lg"
+      py="40px"
     >
       <Box
         position="absolute"
@@ -61,9 +55,9 @@ const StoreDetailModal = ({ setShowStoreDetail }) => {
           </Hide>
         </Button>
       </Box>
-      <Flex justifyContent="center">
+      <Flex justifyContent="center" color="darkPrimary">
         <Heading size="md">
-          海鲜大王
+          {products.name}
         </Heading>
       </Flex>
       <Flex justifyContent="center" py="sm">
@@ -90,6 +84,7 @@ const StoreDetailModal = ({ setShowStoreDetail }) => {
       <Products
         numberOfProducts={numberOfProducts}
         setNumberOfProducts={setNumberOfProducts}
+        product={products.product}
       />
       <Flex justifyContent="space-between">
         <Box>
@@ -99,7 +94,7 @@ const StoreDetailModal = ({ setShowStoreDetail }) => {
         </Box>
         <Box color="primary">
           $
-          {payment}
+          {0}
         </Box>
       </Flex>
       <Flex mt="lg" justifyContent="center">
@@ -107,11 +102,7 @@ const StoreDetailModal = ({ setShowStoreDetail }) => {
           <Button
             size="sm"
             variant="secondary"
-            onClick={() => setNumberOfProducts({
-              新鲜小龙虾: 0,
-              香辣螃蟹: 0,
-              塔州新鲜鲍鱼: 0,
-            })}
+            onClick={() => setNumberOfProducts(initialState)}
           >
             清空
           </Button>

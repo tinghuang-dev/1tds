@@ -1,24 +1,35 @@
 import React from 'react';
+import styled from 'styled-components';
 import Flex from '../../../../components/Flex';
 import Icon from '../../../../components/Icon';
 import CaptainCard from './components/CaptainCard';
-import Button from '../../../../components/Button';
+
+const InvisibleScrollBar = styled(Flex)`
+  ::-webkit-scrollbar {
+    display: none;
+}
+`;
 
 const CaptainList = ({
   captains,
   setShowStoreDetail,
+  setProducts,
 }) => (
-  <Flex
+  <InvisibleScrollBar
     flexDirection="column"
     height="80vh"
+    overflowY="auto"
   >
     {captains ? captains.map((c) => (
       <CaptainCard
         key={c.id}
         name={c.name}
         address={c.address}
-        description={c.leadingProduct?.shortDescription}
-        lastUpdatedAt={c.leadingProduct?.updatedAt}
+        captainDescription={c.description}
+        lastUpdatedAt={c.updatedAt}
+        product={c.leadingProduct}
+        setShowStoreDetail={setShowStoreDetail}
+        setProducts={setProducts}
       />
     )) : (
       <Flex
@@ -27,12 +38,9 @@ const CaptainList = ({
         justifyContent="center"
       >
         <Icon variant="naked" name="loading" spin />
-        <Button onClick={() => setShowStoreDetail(true)}>
-          查看
-        </Button>
       </Flex>
     )}
-  </Flex>
+  </InvisibleScrollBar>
 );
 
 export default CaptainList;

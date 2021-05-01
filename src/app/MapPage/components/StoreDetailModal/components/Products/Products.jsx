@@ -1,38 +1,43 @@
 import React from 'react';
+import Image from 'next/image';
 import Box from '../../../../../../components/Box';
 import Button from '../../../../../../components/Button';
 import Flex from '../../../../../../components/Flex';
 import Icon from '../../../../../../components/Icon';
 import TruncateText from '../../../../../../components/TruncateText';
-import productsData from './productsData';
 
 const Products = ({
   numberOfProducts,
   setNumberOfProducts,
+  product,
 }) => {
-  const handleMinus = (key) => {
+  const handleMinus = (id) => {
     setNumberOfProducts((preNumber) => ({
       ...preNumber,
-      [key]: preNumber[key] - 1,
+      [id]: preNumber[id] - 1,
     }));
   };
 
-  const handlePlus = (key) => {
+  const handlePlus = (id) => {
     setNumberOfProducts((preNumber) => ({
       ...preNumber,
-      [key]: preNumber[key] + 1,
+      [id]: preNumber[id] + 1,
     }));
   };
 
   return (
     <Box mt="md" mx="sm">
-      {Object.keys(productsData).map((key) => {
+      {product ? product.map((p) => {
         const {
-          picture, price, description, people,
-        } = productsData[key];
+          price, shortDescription, name, id,
+        } = p;
+
+        const totalPrice = numberOfProducts[id] * price;
+
+        console.log(totalPrice);
 
         return (
-          <Box key={key}>
+          <Box key={id}>
             <Flex justifyContent="center">
               <Box
                 mr="lg"
@@ -41,31 +46,35 @@ const Products = ({
                 bg="grey"
                 borderRadius="default"
               >
-                {picture}
+                <Image
+                  alt={name}
+                  src={`/images/products/${id}.jpg`}
+                  width={100}
+                  height={100}
+                />
               </Box>
               <Box height="100px" width="100px" bg="grey" borderRadius="default" />
             </Flex>
             <Box mt="sm">
-              {key}
+              {name}
             </Box>
             <Flex justifyContent="space-between" mt="sm">
               <Box color="primary">
                 $
                 {' '}
                 {price}
-                /份
               </Box>
               <Flex alignItems="center">
-                <Icon name="minus" color="black" onClick={() => handleMinus(key)} />
+                <Icon name="minus" color="black" onClick={() => handleMinus(id)} />
                 <Box mx="sm">
-                  {numberOfProducts[key]}
+                  {numberOfProducts[id]}
                 </Box>
-                <Icon name="plus" color="black" onClick={() => handlePlus(key)} />
+                <Icon name="plus" color="black" onClick={() => handlePlus(id)} />
               </Flex>
             </Flex>
-            <Box mt="sm">
+            <Box mt="sm" color="greys.@500">
               <TruncateText>
-                {description}
+                {shortDescription}
               </TruncateText>
             </Box>
             <Flex justifyContent="space-between" mt="sm" mb="lg">
@@ -77,14 +86,22 @@ const Products = ({
               <Flex color="greys.@300">
                 已有
                 <Box mx="sm" color="primary">
-                  {people}
+                  {0}
                 </Box>
                 人选择
               </Flex>
             </Flex>
           </Box>
         );
-      })}
+      }) : (
+        <Flex
+          height="40vh"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Icon variant="naked" name="loading" spin />
+        </Flex>
+      ) }
     </Box>
   );
 };

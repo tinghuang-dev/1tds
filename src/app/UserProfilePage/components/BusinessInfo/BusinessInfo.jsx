@@ -9,6 +9,7 @@ import config from './config';
 import useForm from '../../../../hooks/useForm';
 import updateUser from '../../../../apis/users/updateUser';
 import getFormSubmitting from '../../../../utils/getFormSubmitting';
+import AddressInput from '../../../../components/AddressInput';
 
 const BusinessInfo = ({ userInfo, setUserInfo }) => {
   const [editing, setEditing] = useState(false);
@@ -76,14 +77,25 @@ const BusinessInfo = ({ userInfo, setUserInfo }) => {
                 label={config(userInfo)[key].label}
                 errorMessage={(error && editing) && errorMessage}
               >
-                <Input
-                  type={config(userInfo)[key].inputType || 'text'}
-                  name={key}
-                  onChange={(event) => handleChange(key, event.target.value)}
-                  readOnly={!editing}
-                  value={editing ? values[key] : userInfo[key]}
-                  error={error}
-                />
+                {key === 'address' ? (
+                  <AddressInput
+                    readOnly={!editing}
+                    initialValue={editing ? values[key] : userInfo[key]}
+                    layout="flex"
+                    size={['sm', null, 'md']}
+                    formOnchange={(value) => handleChange('address', value)}
+                    formOnclick={(prediction) => handleChange('address', prediction.description)}
+                  />
+                ) : (
+                  <Input
+                    type={config(userInfo)[key].inputType || 'text'}
+                    name={key}
+                    onChange={(event) => handleChange(key, event.target.value)}
+                    readOnly={!editing}
+                    value={editing ? values[key] : userInfo[key]}
+                    error={error}
+                  />
+                )}
               </FormItem>
             </Box>
           );

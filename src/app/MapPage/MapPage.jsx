@@ -12,6 +12,7 @@ import StoreDetailModal from './components/StoreDetailModal';
 import Box from '../../components/Box';
 import Icon from '../../components/Icon';
 import Hide from '../../components/Hide';
+import MapMarkers from './components/MapMarkers';
 
 const MELBOURNE_GEO_LOCATION = {
   center: {
@@ -23,6 +24,7 @@ const MELBOURNE_GEO_LOCATION = {
 
 const MapPage = () => {
   const [showStoreDetail, setShowStoreDetail] = useState(false);
+  const [products, setProducts] = useState();
 
   const captains = useCaptains();
   const { query } = useRouter();
@@ -58,7 +60,11 @@ const MapPage = () => {
               borderColor="border"
               mt={['100px', null, '1x']}
             >
-              <CaptainList captains={captains} setShowStoreDetail={setShowStoreDetail} />
+              <CaptainList
+                captains={captains}
+                setShowStoreDetail={setShowStoreDetail}
+                setProducts={setProducts}
+              />
             </Box>
           ) : (
             <Box flex="1">
@@ -68,27 +74,7 @@ const MapPage = () => {
                   defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
                   center={currentLocation}
                 >
-                  <Icon
-                    name="storeMark"
-                    size="2x"
-                    lat={-37.808}
-                    lng={144.965}
-                    color="red"
-                  />
-                  <Icon
-                    name="mapPin"
-                    size="2x"
-                    lat={-37.809}
-                    lng={144.965}
-                    color="red"
-                  />
-                  <Icon
-                    name="mapMarkerAlt"
-                    size="2x"
-                    lat={lat}
-                    lng={lng}
-                    color="red"
-                  />
+                  <MapMarkers lat={lat} lng={lng} />
                 </GoogleMapReact>
               </Hide>
             </Box>
@@ -102,20 +88,7 @@ const MapPage = () => {
                   defaultZoom={MELBOURNE_GEO_LOCATION.zoom}
                   center={currentLocation}
                 >
-                  <Icon
-                    name="storeMark"
-                    size="2x"
-                    lat={-37.808}
-                    lng={144.965}
-                    color="red"
-                  />
-                  <Icon
-                    name="mapPin"
-                    size="2x"
-                    lat={lat}
-                    lng={lng}
-                    color="red"
-                  />
+                  <MapMarkers lat={lat} lng={lng} />
                 </GoogleMapReact>
               </Hide>
             </Box>
@@ -124,7 +97,7 @@ const MapPage = () => {
           )}
           {showStoreDetail && (
             <Box position="absolute" top="65px" left="405px">
-              <StoreDetailModal setShowStoreDetail={setShowStoreDetail} />
+              <StoreDetailModal setShowStoreDetail={setShowStoreDetail} products={products} />
             </Box>
           )}
         </Flex>
