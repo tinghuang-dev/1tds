@@ -40,7 +40,7 @@ export default function LoginModal({
           return;
         }
 
-        setResponse(error);
+        setResponse(errors);
       });
   });
 
