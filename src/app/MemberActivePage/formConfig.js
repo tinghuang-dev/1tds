@@ -1,5 +1,4 @@
 import validator from 'validator';
-import alertEmpty from '../../utils/alertEmpty';
 import getMessage from '../../utils/getMessage';
 
 const config = (initialValue) => ({
@@ -13,7 +12,7 @@ const config = (initialValue) => ({
     getErrorMessage: (mobile) => getMessage([
       {
         error: !mobile,
-        message: alertEmpty(config.mobile?.label),
+        message: '请填写手机',
       },
       {
         error: !validator.isMobilePhone(mobile, 'en-AU'),
@@ -25,7 +24,7 @@ const config = (initialValue) => ({
     label: '地址',
     getErrorMessage: (address) => getMessage([{
       error: !address,
-      message: alertEmpty(config.address?.label),
+      message: '请填写地址',
     }]),
   },
   password: {
@@ -34,7 +33,7 @@ const config = (initialValue) => ({
     getErrorMessage: (password) => getMessage([
       {
         error: !password,
-        message: alertEmpty(config.password?.label),
+        message: '请填写密码',
       },
       {
         error: !validator.isStrongPassword(password, { minUppercase: 0, minSymbols: 0 }),
@@ -48,7 +47,7 @@ const config = (initialValue) => ({
     getErrorMessage: (confirmPassword, formValues) => getMessage([
       {
         error: !confirmPassword,
-        message: alertEmpty(config.confirmPassword?.label),
+        message: '请填写确认密码',
       },
       {
         error: confirmPassword !== formValues.password,
