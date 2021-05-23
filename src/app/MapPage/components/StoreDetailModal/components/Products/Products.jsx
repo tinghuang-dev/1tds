@@ -10,6 +10,7 @@ const Products = ({
   numberOfProducts,
   setNumberOfProducts,
   product,
+  setTotalPrice,
 }) => {
   const handleMinus = (id) => {
     setNumberOfProducts((preNumber) => ({
@@ -25,6 +26,10 @@ const Products = ({
     }));
   };
 
+  const prices = [0];
+
+  let totalPrice = 0;
+
   return (
     <Box mt="md" mx="sm">
       {product ? product.map((p) => {
@@ -32,9 +37,11 @@ const Products = ({
           price, shortDescription, name, id,
         } = p;
 
-        const totalPrice = numberOfProducts[id] * price;
+        prices.push(numberOfProducts[id] * price);
 
-        console.log(totalPrice);
+        totalPrice = prices?.reduce((accumulator, currentPrice) => accumulator + currentPrice);
+
+        setTotalPrice(totalPrice);
 
         return (
           <Box key={id}>

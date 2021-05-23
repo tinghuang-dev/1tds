@@ -21,6 +21,7 @@ const StoreDetailModal = ({ setShowStoreDetail, products }) => {
   }), {});
 
   const [numberOfProducts, setNumberOfProducts] = useState(initialState);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   let totalProducts = 0;
 
@@ -85,6 +86,7 @@ const StoreDetailModal = ({ setShowStoreDetail, products }) => {
         numberOfProducts={numberOfProducts}
         setNumberOfProducts={setNumberOfProducts}
         product={products.product}
+        setTotalPrice={setTotalPrice}
       />
       <Flex justifyContent="space-between">
         <Box>
@@ -94,7 +96,7 @@ const StoreDetailModal = ({ setShowStoreDetail, products }) => {
         </Box>
         <Box color="primary">
           $
-          {0}
+          {totalPrice}
         </Box>
       </Flex>
       <Flex mt="lg" justifyContent="center">
