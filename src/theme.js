@@ -28,7 +28,6 @@ const fontSizes = {
 };
 
 const colors = {
-  white: '#FFFFFF',
   primary: '#EB9050',
   darkPrimary: '#c97a40',
   secondary: '#FCEAC6',
@@ -38,6 +37,7 @@ const colors = {
   error: '#E83D32',
   border: '#dadada',
   link: '#6097E6',
+  white: '#FFFFFF',
   grey: '#f0f0f0',
   semitransparent: 'rgba(0, 0, 0, 0.5)',
   greys: {

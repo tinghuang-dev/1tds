@@ -12,7 +12,7 @@ import UserProfileMenu from './components/UserProfileMenu';
 import InviteMemberButton from './components/InviteMemberButton';
 
 const MenuRight = ({ user }) => {
-  const [showUserAuthModals, toggleShowUserAuthModals] = useToggler(false);
+  const [showUserAuthModals, toggleShowUserAuthModals] = useToggler();
 
   return (
     <Flex

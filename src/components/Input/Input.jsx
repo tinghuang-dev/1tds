@@ -40,7 +40,7 @@ const VariantContainer = styled(SizeContainer)(
     prop: 'variant',
     variants: {
       default: {
-        borderColor: '#c97a40',
+        borderColor: 'darkPrimary',
         bg: 'white',
       },
       naked: '',

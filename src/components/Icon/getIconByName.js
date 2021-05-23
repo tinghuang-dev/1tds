@@ -6,7 +6,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const getIconByName = (name) => ({
-  mapMarkerAlt: faMapMarkerAlt,
   search: faSearch,
   close: faTimes,
   closeCircle: faTimesCircle,
@@ -27,6 +26,7 @@ const getIconByName = (name) => ({
   storeMark: faStore,
   storeMarkAlt: faStoreAlt,
   mapPin: faMapPin,
+  mapMarkerAlt: faMapMarkerAlt,
 }[name]);
 
 export default getIconByName;
