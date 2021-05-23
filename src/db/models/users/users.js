@@ -3,7 +3,7 @@ const { sequelize } = require('../index');
 const { STATUS } = require('./STATUS');
 
 class Users extends Model {
-  static async verifyEmail() {
+  async verifyEmail() {
     if (this.status !== STATUS.PENDING_VERIFICATION) {
       return;
     }
